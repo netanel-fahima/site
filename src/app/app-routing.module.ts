@@ -10,7 +10,7 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
-      { path: 'home', loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule) },
+      { path: 'home', loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule)  },
       { path: 'product', loadChildren: () => import('./features/product/product.module').then(m => m.ProductModule) },
       /*{ path: 'model', loadChildren: () => import('./model/model.module').then(m => m.ModelModule) },
       { path: 'model/info', loadChildren: () => import('./model/info-model.module').then(m => m.InfoModelModule) },
