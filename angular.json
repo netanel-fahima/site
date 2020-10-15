@@ -24,9 +24,51 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/assets/css/vendor/bootstrap.min.css",
+              "src/assets/css/vendor/font-awesome-pro.min.css",
+              "src/assets/css/vendor/themify-icons.css",
+              "src/assets/css/vendor/customFonts.css",
+              "src/assets/css/plugins/select2.min.css",
+              "src/assets/css/plugins/perfect-scrollbar.css",
+              "src/assets/css/plugins/swiper.min.css",
+              "src/assets/css/plugins/nice-select.css",
+              "src/assets/css/plugins/ion.rangeSlider.min.css",
+              "src/assets/css/plugins/photoswipe.css",
+              "src/assets/css/plugins/photoswipe-default-skin.css",
+              "src/assets/css/plugins/magnific-popup.css",
+              "src/assets/css/plugins/slick.css",
+              "src/assets/css/style.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/vendor/modernizr-3.6.0.min.js",
+              "node_modules/jquery/dist/jquery.js",
+              "src/assets/js/vendor/jquery-migrate-3.1.0.min.js",
+              "src/assets/js/vendor/bootstrap.bundle.min.js",
+              "src/assets/js/plugins/select2.min.js",
+              "src/assets/js/plugins/jquery.nice-select.min.js",
+              "src/assets/js/plugins/perfect-scrollbar.min.js",
+              "src/assets/js/plugins/swiper.min.js",
+              "src/assets/js/plugins/slick.min.js",
+              "src/assets/js/plugins/mo.min.js",
+              "src/assets/js/plugins/jquery.instagramFeed.min.js",
+              "src/assets/js/plugins/jquery.ajaxchimp.min.js",
+              "src/assets/js/plugins/jquery.countdown.min.js",
+              "src/assets/js/plugins/imagesloaded.pkgd.min.js",
+              "src/assets/js/plugins/isotope.pkgd.min.js",
+              "src/assets/js/plugins/jquery.matchHeight-min.js",
+              "src/assets/js/plugins/ion.rangeSlider.min.js",
+              "src/assets/js/plugins/photoswipe.min.js",
+              "src/assets/js/plugins/photoswipe-ui-default.min.js",
+              "src/assets/js/plugins/jquery.zoom.min.js",
+              "src/assets/js/plugins/ResizeSensor.js",
+              "src/assets/js/plugins/jquery.sticky-sidebar.min.js",
+              "src/assets/js/plugins/product360.js",
+              "src/assets/js/plugins/jquery.magnific-popup.min.js",
+              "src/assets/js/plugins/jquery.scrollUp.min.js",
+              "src/assets/js/plugins/scrollax.min.js",
+              "src/assets/js/main.js",
+              "src/assets/js/vendor/export.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -119,6 +161,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "learts"
+    }
+  },
+  "defaultProject": "learts",
+  "cli": {
+    "analytics": "cb618edf-041f-4aca-a346-c6f0aa2542f2"
+  }
 }

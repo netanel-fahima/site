@@ -1,0 +1,26 @@
+<div class="page-wrapper">
+  <div class="page-inner">
+    <div class="page-content-wrapper">
+
+      <smart-page-header></smart-page-header>
+      <app-page-header-sticky></app-page-header-sticky>
+      <app-page-header-mobile></app-page-header-mobile>
+      <app-page-header-sticky-mobile></app-page-header-sticky-mobile>
+      <app-offcanvas-search></app-offcanvas-search>
+      <app-offcanvas-wishlist></app-offcanvas-wishlist>
+      <app-offcanvas-cart></app-offcanvas-cart>
+      <app-offcanvas-mobile-menu></app-offcanvas-mobile-menu>
+
+      <div class="offcanvas-overlay"></div>
+
+      <main id="js-page-content" role="main" class="page-content">
+        <router-outlet></router-outlet>
+      </main>
+
+      <smart-page-footer class="d-flex w-100 order-4 "></smart-page-footer>
+    </div>
+
+
+    <!-- this overlay is activated only when mobile menu is triggered -->
+  </div>
+</div>
