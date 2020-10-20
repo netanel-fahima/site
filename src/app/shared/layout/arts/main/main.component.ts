@@ -1,4 +1,4 @@
-import {Component, ChangeDetectionStrategy, AfterContentChecked} from '@angular/core';
+import {Component, ChangeDetectionStrategy, AfterContentChecked, OnInit, AfterViewChecked} from '@angular/core';
 import {Init} from "../../../../../assets/js/init";
 
 
@@ -7,13 +7,16 @@ import {Init} from "../../../../../assets/js/init";
   templateUrl: './main.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainComponent implements   AfterContentChecked{
-  ngAfterContentChecked(): void {
-    Init.first();
-  }
+export class MainComponent implements   OnInit , AfterViewChecked {
 
 
   constructor() { }
 
+  ngOnInit(): void {
+  }
+
+  ngAfterViewChecked(): void {
+
+  }
 
 }

@@ -106,6 +106,7 @@ body {
   overflow-x: hidden;
   color: #696969;
   background-color: #FFFFFF;
+  text-align: right;
 }
 
 h1,
@@ -2949,13 +2950,17 @@ textarea:focus {
 }
 
 textarea {
-  height: 200px;
+  height: 100px;
   resize: none;
 }
 
 /* Checkbox */
 .form-check input[type="checkbox"] {
   margin-top: 2px;
+}
+
+[placeholder]{
+  text-align: right;
 }
 
 /* Fieldset */
@@ -4284,7 +4289,9 @@ body.offcanvas-open .sticky-header {
   line-height: 1.5;
   position: absolute;
   top: 0;
+  /*
   right: 0;
+  */
   padding: 0 3px;
   color: #7E7E7E;
 }
@@ -12293,7 +12300,7 @@ body.offcanvas-open .sticky-header {
 }
 
 .product-summery-center .product-variations table tbody tr td.label {
-  text-align: right;
+  text-align: left;
 }
 
 .product-summery-center .product-variations table tbody tr td.value {
@@ -12322,7 +12329,7 @@ body.offcanvas-open .sticky-header {
 }
 
 .product-summery-center .product-meta table tbody tr td.label {
-  text-align: right;
+  text-align: left;
 }
 
 .product-summery-center .product-meta table tbody tr td.value {
@@ -12528,7 +12535,7 @@ body.offcanvas-open .sticky-header {
 
 .group-product-list table tbody tr td.price .pro-price {
   display: block;
-  text-align: right;
+  text-align: left;
 }
 
 .group-product-list table tbody tr td.price .pro-price span {
@@ -12595,7 +12602,7 @@ body.offcanvas-open .sticky-header {
   font-size: 24px;
   font-weight: 400;
   line-height: 1;
-  margin-right: 15px;
+  margin-left: 15px;
   color: #ABABAB;
 }
 
@@ -15618,7 +15625,7 @@ body.offcanvas-open .sticky-header {
 
 .cart-totals table tbody tr td {
   padding: 15px 10px;
-  text-align: right;
+  text-align: left;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px), only screen and (max-width: 767px) {
@@ -15712,7 +15719,7 @@ body.offcanvas-open .sticky-header {
 
 .order-review .table thead tr th.total {
   font-size: 18px;
-  text-align: right;
+  text-align: left;
 }
 
 .order-review .table tbody tr td {
@@ -15729,7 +15736,7 @@ body.offcanvas-open .sticky-header {
 .order-review .table tbody tr td.total {
   font-size: 14px;
   font-weight: 700;
-  text-align: right;
+  text-align: left;
 }
 
 .order-review .table tfoot tr th {
@@ -15740,7 +15747,7 @@ body.offcanvas-open .sticky-header {
 
 .order-review .table tfoot tr td {
   font-weight: 700;
-  text-align: right;
+  text-align: left;
   border: none;
 }
 
@@ -16568,4 +16575,17 @@ body.offcanvas-open .sticky-header {
     font-size: 12px;
     letter-spacing: 0;
   }
+}
+
+.form-check-input {
+ margin-left: 0!important;
+}
+
+input[type="email"]{
+  text-align: left;
+}
+
+
+input{
+  text-align: right;
 }

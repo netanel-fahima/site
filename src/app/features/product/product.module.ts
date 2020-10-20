@@ -5,12 +5,14 @@ import {ProductComponent} from "./product.component";
 import { ProductDialogComponent } from './product-dialog/product-dialog.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import {LayoutModule} from "../../shared/layout/arts/layout.module";
+import { ProductPipe } from './pipe/product.pipe';
 
 
 @NgModule({
-  declarations: [ProductDialogComponent, ProductDetailsComponent],
+  declarations: [ProductDialogComponent, ProductDetailsComponent, ProductPipe],
   exports: [
-    ProductDialogComponent
+    ProductDialogComponent,
+    ProductPipe
   ],
   imports: [
     CommonModule,

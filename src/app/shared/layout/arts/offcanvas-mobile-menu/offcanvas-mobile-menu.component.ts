@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {DataService} from "../../../../core/data.service";
 
 @Component({
   selector: 'app-offcanvas-mobile-menu',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OffcanvasMobileMenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(public data : DataService ) { }
 
   ngOnInit(): void {
   }

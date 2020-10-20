@@ -1,21 +1,33 @@
-import {AfterContentChecked, Component, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Init} from "../../../../../assets/js/init";
+import {RestService} from "../../../../core/rest/rest.service";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-section-fluid',
   templateUrl: './section-fluid.component.html',
   styleUrls: ['./section-fluid.component.css']
 })
-export class SectionFluidComponent implements OnInit, AfterContentChecked {
+export class SectionFluidComponent implements OnInit, AfterViewChecked {
 
-  constructor() { }
+  public categories: Observable<any[]> ;
 
-  ngOnInit(): void {
+  private rest: RestService = new RestService("category", this.http);
+
+  constructor(private http: HttpClient) {
   }
 
-  ngAfterContentChecked(): void {
-    console.log("load banner");
-    Init.banner();
+  ngOnInit(): void {
+    this.categories = this.rest.list();
+  }
+
+
+  ngAfterViewChecked(): void {
+    console.log("categories" + this.categories);
+    this.categories.subscribe(data =>{
+      Init.banner();
+    });
   }
 
 }

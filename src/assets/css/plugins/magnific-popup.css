@@ -150,7 +150,7 @@ button::-moz-focus-inner {
 .mfp-iframe-holder .mfp-close {
   color: #FFF;
   right: -6px;
-  text-align: right;
+  text-align: left;
   padding-right: 6px;
   width: 100%; }
 

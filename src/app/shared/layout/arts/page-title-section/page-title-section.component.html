@@ -5,15 +5,17 @@
       <div class="col">
 
         <div class="page-title">
-          <h1 class="title">Shop</h1>
-          <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item"><a href="shop.html">Products</a></li>
-            <li class="breadcrumb-item active">Cleaning Dustpan & Brush</li>
+          <h1 class="title">{{getTitle()}}</h1>
+          <ul class="breadcrumb" *ngIf="vm$ | async as vm">
+            <ng-container *ngIf="vm.state && vm.state.data && vm.state.data.breadcrumbs">
+              <li class="breadcrumb-item" *ngFor="let crumb of vm.state.data.breadcrumbs; let i = index" [class.active]="vm.state.data.breadcrumbs.length === (i + 1)">
+                {{crumb}}
+              </li>
+            </ng-container>
           </ul>
         </div>
-
       </div>
+
     </div>
   </div>
 </div>

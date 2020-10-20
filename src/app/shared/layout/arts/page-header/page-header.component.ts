@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {DataService} from "../../../../core/data.service";
 
 
 @Component({
@@ -9,7 +10,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 export class PageHeaderComponent {
 
 
-  constructor() { }
+  constructor(public data : DataService) { }
 
 
 }

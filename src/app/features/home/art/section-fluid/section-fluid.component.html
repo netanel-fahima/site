@@ -3,71 +3,14 @@
   <div class="container">
     <div class="category-banner1-carousel">
 
-
-      <div class="col">
+      <div class="col" *ngFor="let c of categories | async">
         <div class="category-banner1">
           <div class="inner">
-            <a href="shop.html" class="image"><img src="assets/images/banner/category/banner-s1-1.jpg" alt=""></a>
+            <a href="product?category={{c.title}}" class="image"><img src="assets/images/slider/home1/slide-2-2.png" alt="{{c.title}}"></a>
             <div class="content">
               <h3 class="title">
-                <a href="shop.html">Gift ideas</a>
-                <span class="number">16</span>
-              </h3>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="category-banner1">
-          <div class="inner">
-            <a href="shop.html" class="image"><img src="assets/images/banner/category/banner-s1-2.jpg" alt=""></a>
-            <div class="content">
-              <h3 class="title">
-                <a href="shop.html">Home Decor</a>
-                <span class="number">16</span>
-              </h3>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="category-banner1">
-          <div class="inner">
-            <a href="shop.html" class="image"><img src="assets/images/banner/category/banner-s1-3.jpg" alt=""></a>
-            <div class="content">
-              <h3 class="title">
-                <a href="shop.html">Kids & Babies</a>
-                <span class="number">6</span>
-              </h3>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="category-banner1">
-          <div class="inner">
-            <a href="shop.html" class="image"><img src="assets/images/banner/category/banner-s1-4.jpg" alt=""></a>
-            <div class="content">
-              <h3 class="title">
-                <a href="shop.html">Kitchen</a>
-                <span class="number">15</span>
-              </h3>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="category-banner1">
-          <div class="inner">
-            <a href="shop.html" class="image"><img src="assets/images/banner/category/banner-s1-5.jpg" alt=""></a>
-            <div class="content">
-              <h3 class="title">
-                <a href="shop.html">Kniting & Sewing</a>
-                <span class="number">4</span>
+                <a href="shop.html">{{c.title }}</a>
+                <!--<span class="number">16</span>-->
               </h3>
             </div>
           </div>

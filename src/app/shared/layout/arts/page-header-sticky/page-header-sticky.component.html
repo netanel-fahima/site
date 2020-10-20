@@ -48,7 +48,7 @@
                 </li>
               </ul>
             </li>
-            <li class="has-children"><a href="#"><span class="menu-text">Shop</span></a>
+            <li class="has-children"><a routerLink="product"><span class="menu-text">Shop</span></a>
               <ul class="sub-menu mega-menu">
                 <li>
                   <a href="#" class="mega-menu-title"><span class="menu-text">SHOP PAGES</span></a>
@@ -200,10 +200,10 @@
             <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
           </div>
           <div class="header-wishlist">
-            <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span class="wishlist-count">3</span><i class="fal fa-heart"></i></a>
+            <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span class="wishlist-count">{{data.wishList.length}}</span><i class="fal fa-heart"></i></a>
           </div>
           <div class="header-cart">
-            <a href="#offcanvas-cart" class="offcanvas-toggle"><span class="cart-count">3</span><i class="fal fa-shopping-cart"></i></a>
+            <a href="#offcanvas-cart" class="offcanvas-toggle"><span class="cart-count">{{data.cart.length}}</span><i class="fal fa-shopping-cart"></i></a>
           </div>
           <div class="mobile-menu-toggle d-xl-none">
             <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">

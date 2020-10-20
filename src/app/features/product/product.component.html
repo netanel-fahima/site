@@ -7,21 +7,10 @@
     <div class="container">
       <div class="row learts-mb-n20">
 
-        <!-- Isotop Filter Start -->
-        <div class="col-md col-12 align-self-center learts-mb-20">
-          <div class="isotope-filter shop-product-filter" data-target="#shop-products">
-            <button class="active" data-filter="*">all</button>
-            <button data-filter=".featured">Hot Products</button>
-            <button data-filter=".new">New Products</button>
-            <button data-filter=".sales">Sales Products</button>
-          </div>
-        </div>
-        <!-- Isotop Filter End -->
-
-        <div class="col-md-auto col-12 learts-mb-20">
+        <div class="col-md col-12 learts-mb-20">
           <ul class="shop-toolbar-controls">
 
-            <li>
+<!--            <li>
               <div class="product-sorting">
                 <select class="nice-select">
                   <option value="menu_order" selected="selected">Default sorting</option>
@@ -32,7 +21,7 @@
                   <option value="price-desc">Sort by price: high to low</option>
                 </select>
               </div>
-            </li>
+            </li>-->
             <li>
               <div class="product-column-toggle d-none d-xl-flex">
                 <button class="toggle active hintT-top" data-hint="5 Column" data-column="5"><i class="ti-layout-grid4-alt"></i></button>
@@ -40,12 +29,22 @@
                 <button class="toggle hintT-top" data-hint="3 Column" data-column="3"><i class="ti-layout-grid2-alt"></i></button>
               </div>
             </li>
-            <li>
+       <!--     <li>
               <a class="product-filter-toggle" href="#product-filter">Filters</a>
-            </li>
+            </li>-->
 
           </ul>
         </div>
+        <!-- Isotop Filter Start -->
+        <div class="col-md-auto col-12 align-self-center learts-mb-20">
+          <div class="isotope-filter shop-product-filter" data-target="#shop-products">
+            <button data-filter=".featured">חדשים</button>
+            <button data-filter=".new">זולים</button>
+            <button data-filter=".sales">הכי נמכרים</button>
+            <button class="active" data-filter="*">הכל</button>
+          </div>
+        </div>
+        <!-- Isotop Filter End -->
 
       </div>
     </div>
@@ -53,11 +52,12 @@
   <!-- Shop Toolbar End -->
 
   <!-- Product Filter Start -->
+<!--
   <div id="product-filter" class="product-filter bg-light">
     <div class="container">
       <div class="row row-cols-lg-5 row-cols-md-3 row-cols-sm-2 row-cols-1 learts-mb-n30">
 
-        <!-- Sort by Start -->
+        &lt;!&ndash; Sort by Start &ndash;&gt;
         <div class="col learts-mb-30">
           <h3 class="widget-title product-filter-widget-title">Sort by</h3>
           <ul class="widget-list product-filter-widget customScroll">
@@ -68,9 +68,9 @@
             <li><a href="#">Price: high to low</a></li>
           </ul>
         </div>
-        <!-- Sort by End -->
+        &lt;!&ndash; Sort by End &ndash;&gt;
 
-        <!-- Price filter Start -->
+        &lt;!&ndash; Price filter Start &ndash;&gt;
         <div class="col learts-mb-30">
           <h3 class="widget-title product-filter-widget-title">Price filter</h3>
           <ul class="widget-list product-filter-widget customScroll">
@@ -82,9 +82,9 @@
             <li> <a href="#"><span class="amount"><span class="cur-symbol">£</span>320.00</span> +</a></li>
           </ul>
         </div>
-        <!-- Price filter End -->
+        &lt;!&ndash; Price filter End &ndash;&gt;
 
-        <!-- Categories Start -->
+        &lt;!&ndash; Categories Start &ndash;&gt;
         <div class="col learts-mb-30">
           <h3 class="widget-title product-filter-widget-title">Categories</h3>
           <ul class="widget-list product-filter-widget customScroll">
@@ -97,9 +97,9 @@
             <li><a href="#">Toys</a> <span class="count">6</span></li>
           </ul>
         </div>
-        <!-- Categories End -->
+        &lt;!&ndash; Categories End &ndash;&gt;
 
-        <!-- Filters by colors Start -->
+        &lt;!&ndash; Filters by colors Start &ndash;&gt;
         <div class="col learts-mb-30">
           <h3 class="widget-title product-filter-widget-title">Filters by colors</h3>
           <ul class="widget-colors product-filter-widget customScroll">
@@ -111,9 +111,9 @@
             <li><a href="#" class="hintT-top" data-hint="Tortilla"><span data-bg-color="#997950">Tortilla</span></a></li>
           </ul>
         </div>
-        <!-- Filters by colors End -->
+        &lt;!&ndash; Filters by colors End &ndash;&gt;
 
-        <!-- Brands Start -->
+        &lt;!&ndash; Brands Start &ndash;&gt;
         <div class="col learts-mb-30">
           <h3 class="widget-title product-filter-widget-title">Brands</h3>
           <ul class="widget-list product-filter-widget customScroll">
@@ -127,11 +127,12 @@
             <li><a href="#">Juliette</a> <span class="count">(11)</span></li>
           </ul>
         </div>
-        <!-- Brands End -->
+        &lt;!&ndash; Brands End &ndash;&gt;
 
       </div>
     </div>
   </div>
+-->
   <!-- Product Filter End -->
 
   <div class="section learts-mt-70">
@@ -141,29 +142,26 @@
 
         <div class="grid-sizer col-1"></div>
 
-        <div class="grid-item col featured">
+        <div  class="grid-item col featured" *ngFor="let p of products | async">
           <div class="product">
             <div class="product-thumb">
-              <a href="product-details.html" class="image">
-                <img src="assets/images/product/s328/product-17.jpg" alt="Product Image">
-                <img class="image-hover " src="assets/images/product/s328/product-17-hover.jpg" alt="Product Image">
+              <a href="product-details?id={{p.id}}" class="image">
+                <img src="{{getImage(p.id)}}" alt="Product Image">
+                <img class="image-hover " src="{{getImage(p.id)}}" alt="Product Image">
               </a>
-              <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="Add to wishlist"><i class="far fa-heart"></i></a>
+              <a (click)="data.wishList.push(p)" href="wishlist" class="add-to-wishlist hintT-left" data-hint="הוסיפי למועדפים"><i class="far fa-heart"></i></a>
             </div>
             <div class="product-info">
-              <h6 class="title"><a href="product-details.html">3D Attractive Pot</a></h6>
-              <span class="price">
-                                    $90.00
-                                </span>
+              <h6 class="title"><a routerLink="product-details?id={{p.id}}">{{p.title}}</a></h6>
+              <span class="price">{{p.price | currency}}</span>
               <div class="product-buttons">
-                <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
-                <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
+                <a href="#quickViewModal" (click)="openDialog(p)" data-toggle="modal" class="product-button hintT-top" data-hint="תצוגה"><i class="fal fa-search"></i></a>
+                <a   (click)="addToCart(p)" class="product-button hintT-top" data-hint="הוסף לעגלה"><i class="fal fa-shopping-cart"></i></a>
               </div>
             </div>
           </div>
         </div>
-
+<!--
         <div class="grid-item col new">
           <div class="product">
             <div class="product-thumb">
@@ -524,12 +522,12 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
 
       </div>
       <!-- Products End -->
       <div class="text-center learts-mt-70">
-        <a href="#" class="btn btn-dark btn-outline-hover-dark"><i class="ti-plus"></i> More</a>
+        <a  href="" class="btn btn-dark btn-outline-hover-dark"><i class="ti-plus"></i> עוד</a>
       </div>
     </div>
   </div>
@@ -537,4 +535,4 @@
 </div>
 <!-- Shop Products Section End -->
 
-<app-product-dialog></app-product-dialog>
+<app-product-dialog #dialog></app-product-dialog>

@@ -4,6 +4,7 @@
 
       <!-- Header Language & Currency Start -->
       <div class="col">
+<!--
         <ul class="header-lan-curr">
           <li><a href="#">English</a>
             <ul class="curr-lan-sub-menu">
@@ -18,6 +19,7 @@
             </ul>
           </li>
         </ul>
+-->
       </div>
       <!-- Header Language & Currency End -->
 
@@ -33,16 +35,16 @@
       <div class="col">
         <div class="header-tools justify-content-end">
           <div class="header-login">
-            <a href="my-account.html"><i class="fal fa-user"></i></a>
+            <a routerLink="login"><i class="fal fa-user"></i></a>
           </div>
           <div class="header-search">
             <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
           </div>
           <div class="header-wishlist">
-            <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span class="wishlist-count">3</span><i class="fal fa-heart"></i></a>
+            <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span class="wishlist-count">{{data.wishList.length}}</span><i class="fal fa-heart"></i></a>
           </div>
           <div class="header-cart">
-            <a href="#offcanvas-cart" class="offcanvas-toggle"><span class="cart-count">3</span><i class="fal fa-shopping-cart"></i></a>
+            <a href="#offcanvas-cart" class="offcanvas-toggle"><span class="cart-count">{{data.cart.length}}</span><i class="fal fa-shopping-cart"></i></a>
           </div>
         </div>
       </div>
@@ -89,7 +91,7 @@
               </li>
             </ul>
           </li>
-          <li class="has-children"><a href="#"><span class="menu-text">Shop</span></a>
+          <li class="has-children"><a routerLink="product"><span class="menu-text">Shop</span></a>
             <ul class="sub-menu mega-menu">
               <li>
                 <a href="#" class="mega-menu-title"><span class="menu-text">SHOP PAGES</span></a>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Init} from "../../../../assets/js/init";
 
 @Component({
   selector: 'app-art',
@@ -10,6 +11,7 @@ export class ArtComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    Init.first();
   }
 
 }

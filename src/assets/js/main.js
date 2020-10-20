@@ -155,7 +155,7 @@
         } else {
             $this.addClass('active').siblings('.header-category-list').slideDown();
         }
-    })
+    });
 
     /*--
         Shop Toolbar

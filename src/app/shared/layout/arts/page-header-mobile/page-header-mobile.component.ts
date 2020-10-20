@@ -1,5 +1,6 @@
 import {AfterContentChecked, Component, OnInit} from '@angular/core';
 import {Init} from "../../../../../assets/js/init";
+import {DataService} from "../../../../core/data.service";
 
 @Component({
   selector: 'app-page-header-mobile',
@@ -12,7 +13,7 @@ export class PageHeaderMobileComponent implements OnInit , AfterContentChecked{
     Init.offcanvasToggle();
   }
 
-  constructor() { }
+  constructor(public data : DataService) { }
 
   ngOnInit(): void {
   }
