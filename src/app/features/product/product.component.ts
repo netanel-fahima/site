@@ -1,8 +1,6 @@
 import {AfterViewChecked, Component, OnInit, ViewChild} from '@angular/core';
 import {Init} from "../../../assets/js/init";
 import {DataService} from "../../core/data.service";
-import {Observable} from "rxjs";
-import {RestService} from "../../core/rest/rest.service";
 import {HttpClient} from "@angular/common/http";
 import {ProductDialogComponent} from "./product-dialog/product-dialog.component";
 
@@ -15,20 +13,16 @@ export class ProductComponent implements OnInit, AfterViewChecked {
 
   @ViewChild('dialog',{static:true}) dialog:ProductDialogComponent;
 
-  private rest: RestService = new RestService("product", this.http);
-  public products: Observable<any[]>;
-
-  constructor(private data: DataService, private http: HttpClient) {
+  constructor(public data: DataService, private http: HttpClient) {
+    this.data.loadNecessary();
   }
-
 
   ngOnInit(): void {
-    this.products = this.rest.list();
+
   }
 
-
   ngAfterViewChecked(): void {
-    this.products.subscribe(value => {
+    this.data.productAsync.subscribe((value) => {
       Init.first();
       Init.filterToggle();
       Init.isotopeFilter();
@@ -36,6 +30,7 @@ export class ProductComponent implements OnInit, AfterViewChecked {
       Init.columnToggle();
       Init.isotopeGrid();
       Init.addWishList();
+      Init.quickViewModal();
     })
   }
 
@@ -43,14 +38,12 @@ export class ProductComponent implements OnInit, AfterViewChecked {
     return "assets/images/product/s328/product-17.jpg"
   }
 
-
   addToCart(p: any) {
     this.data.addToCart(p);
     Init.offcanvasOpen();
   }
 
-  openDialog(p: any) {
-    this.dialog.product = p;
-    Init.quickViewModal();
+  openDialog(product: any) {
+    this.dialog.product = product;
   }
 }

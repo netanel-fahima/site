@@ -1,12 +1,7 @@
-import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {catchError, tap} from "rxjs/operators";
 
-@Injectable({
-  providedIn: 'root',
-  useExisting: false
-})
 
 export class RestService {
 
@@ -57,6 +52,13 @@ export class RestService {
   }
 
 
+  post(data: any,cmd?:string): Observable<any> {
+    return this.http.post<any>(`${this.url}${cmd}`  , data, this.httpOptions).pipe(
+      tap((newHero: any) => this.log(`${newHero}`)),
+      catchError(this.handleError<any>('addHero'))
+    );
+  }
+
   /** POST: add a new item to the server */
   listBy(item: any): Observable<any[]> {
     return this.http.post<any[]>(this.url + '/list', item, this.httpOptions).pipe(
@@ -66,7 +68,7 @@ export class RestService {
   }
 
   /** DELETE: delete the item from the server */
-  delete(item: any[] | number): Observable<any[]> {
+  delete(item: any | number): Observable<any[]> {
     const id = typeof item === 'number' ? item : item['id'];
     const url = `${this.url}/delete/${id}`;
 
@@ -84,6 +86,12 @@ export class RestService {
     );
   }
 
+  insert(item: any): Observable<any> {
+    return this.http.post(this.url + '/insert', item, this.httpOptions).pipe(
+      tap(_ => this.log(`updated item id=${item['id']}`)),
+      catchError(this.handleError<any>('updateHero'))
+    );
+  }
 
   /**
    * Handle Http operation that failed.
@@ -99,6 +107,7 @@ export class RestService {
 
       // TODO: better job of transforming error for user consumption
       this.log(`${operation} failed: ${error.message}`);
+      alert(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);

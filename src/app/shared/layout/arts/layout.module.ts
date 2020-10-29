@@ -16,6 +16,7 @@ import { OffcanvasCartComponent } from './offcanvas-cart/offcanvas-cart.componen
 import { OffcanvasMobileMenuComponent } from './offcanvas-mobile-menu/offcanvas-mobile-menu.component';
 import { SectionPaddingComponent } from '../../../features/home/art/section-padding/section-padding.component';
 import { PageTitleSectionComponent } from './page-title-section/page-title-section.component';
+import {DataService} from "../../../core/data.service";
 
 @NgModule({
   declarations:
@@ -37,7 +38,7 @@ import { PageTitleSectionComponent } from './page-title-section/page-title-secti
   imports: [
     CommonModule,
     RouterModule
-  ],
+  ],/*providers: [DataService],*/
   exports: [MainComponent, SectionPaddingComponent, PageFooterComponent, PageTitleSectionComponent],
   entryComponents: []
 })

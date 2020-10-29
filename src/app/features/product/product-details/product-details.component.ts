@@ -1,21 +1,21 @@
-import {AfterViewChecked, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Init} from "../../../../assets/js/init";
 import {DataService} from "../../../core/data.service";
-import {PageTitleSectionComponent} from "../../../shared/layout/arts/page-title-section/page-title-section.component";
-import {Store} from "@ngrx/store";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
+
   styleUrls: ['./product-details.component.css']
 })
 
 
+export class ProductDetailsComponent implements OnInit {
 
-export class ProductDetailsComponent implements OnInit , AfterViewChecked {
 
-
-  constructor(public data: DataService,private store: Store<any>) {}
+  constructor(public data: DataService, private route: ActivatedRoute) {
+  }
 
   product: any = {
     categories: ["מטפית"],
@@ -31,14 +31,31 @@ export class ProductDetailsComponent implements OnInit , AfterViewChecked {
 
   ngOnInit(): void {
 
+    this.data.getProduct(this.route.snapshot.queryParams).subscribe(product => {
+      this.product = product[0];
+      Init.first();
+      Init.qtyBtn();
+      Init.galleryPopup();
+      Init.productZoom();
+      Init.productGallerySlider();
+    })
+
   }
 
-  ngAfterViewChecked(): void {
-    Init.first();
-    Init.qtyBtn();
-    Init.galleryPopup();
-    Init.productZoom();
-    Init.productGallerySlider();
+  groupBy(options: any[], name: string) {
+    let op = [];
+    options.forEach(value => {
+
+      let o = op.find(value1 => {
+        return value1.type === (value[name])
+      });
+      if (!o)
+        op.push({type: value[name], items: [value]})
+      else
+        o.items.push(value)
+    });
+
+    return op;
   }
 
 }

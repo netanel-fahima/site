@@ -136,6 +136,7 @@ static select2(){
     $offCanvasNavSubMenu.parent().prepend('<span class="menu-expand"></span>');
 
     /*Category Sub Menu Toggle*/
+    $offCanvasNav.off();
     $offCanvasNav.on('click', 'li a, .menu-expand', function (e) {
       var $this = $(this);
       if ($this.attr('href') === '#' || $this.hasClass('menu-expand')) {
@@ -188,13 +189,13 @@ static select2(){
 
   static offcanvasOpen() {
     console.log("offcanvasOpen");
-    var $offCanvasToggle = $('.header-cart').find(".offcanvas-toggle");
+    var $offCanvasToggle = $('.offcanvas-toggle[href=#offcanvas-cart]');
     $offCanvasToggle.click();
   }
 
   static banner() {
     console.log("banner");
-    $('.category-banner1-carousel').slick({
+    $('.category-banner1-carousel').not('.slick-initialized').slick({
       infinite: true,
       slidesToShow: 3,
       slidesToScroll: 1,
@@ -331,7 +332,8 @@ static select2(){
     /*--
       Product Quantity
   -----------------------------------*/
-    $('.qty-btn').on('click', function () {
+
+    $('.qty-btn').off().on('click', function () {
       var $this = $(this);
       var oldValue = $this.siblings('input').val();
       if ($this.hasClass('plus')) {
@@ -350,7 +352,7 @@ static select2(){
   }
 
   static productGallerySlider() {
-    $('.product-gallery-slider').slick({
+    $('.product-gallery-slider').not('.slick-initialized').slick({
       dots: true,
       infinite: true,
       slidesToShow: 1,
@@ -360,7 +362,7 @@ static select2(){
       nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>'
     });
 
-    $('.product-thumb-slider').slick({
+    $('.product-thumb-slider').not('.slick-initialized').slick({
       infinite: true,
       slidesToShow: 4,
       slidesToScroll: 1,
@@ -370,7 +372,7 @@ static select2(){
       nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>'
     });
 
-    $('.product-thumb-slider-vertical').slick({
+    $('.product-thumb-slider-vertical').not('.slick-initialized').slick({
       infinite: true,
       slidesToShow: 3,
       slidesToScroll: 1,
@@ -419,7 +421,7 @@ static select2(){
 
   quickViewModal() {
     $('#quickViewModal').on('shown.bs.modal', function (e) {
-      $('.product-gallery-slider-quickview').slick({
+      $('.product-gallery-slider-quickview').not('.slick-initialized').slick({
         dots: true,
         infinite: true,
         slidesToShow: 1,
@@ -434,7 +436,9 @@ static select2(){
   static quickViewModal() {
     let _self = this;
     $('#quickViewModal').on('shown.bs.modal', function (e) {
-      $('.product-gallery-slider-quickview').slick({
+      var $e = $('.product-gallery-slider-quickview');
+
+      $e.not('.slick-initialized').slick({
         dots: true,
         infinite: true,
         slidesToShow: 1,
@@ -443,6 +447,13 @@ static select2(){
         nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>'
       });
     });
+
+    $('#quickViewModal').on('hidden.bs.modal', function (e) {
+      $('.qty-btn').unbind().off();
+    });
+
   }
+
+
 
 }

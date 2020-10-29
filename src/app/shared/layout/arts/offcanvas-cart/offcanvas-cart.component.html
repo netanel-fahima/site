@@ -7,19 +7,21 @@
     </div>
     <div class="body customScroll">
       <ul class="minicart-product-list">
-        <li *ngFor="let c of data.cart ">
-          <a routerLink="product-details" class="image"><img src="assets/images/product/cart-product-1.jpg" alt="Cart product Image"></a>
+        <li *ngFor="let c of cart ">
+
+          <a routerLink="product-details" class="image"><img src="assets/images/product/cart-product-1.jpg"
+                                                             alt="Cart product Image"></a>
           <div class="content">
-            <a routerLink="product-details" class="title">{{c.title}}</a>
-            <span class="quantity-price">1 x <span class="amount">${{c.price}}</span></span>
-            <a class="remove" (click)="data.removeCart(c)" >×</a>
+            <a routerLink="product-details" class="title">{{c.product.title}}</a>
+            <span class="quantity-price">{{c.quantity}} x <span class="amount">${{c.product.price}}</span></span>
+            <a class="remove" (click)="removeCart(c)">×</a>
           </div>
         </li>
       </ul>
     </div>
     <div class="foot">
       <div class="sub-total">
-        <span class="amount">{{data.totalCart() | currency}}</span>
+        <span class="amount">{{(data.totalCart())   |currency}}</span>
         <strong> : מחיר</strong>
       </div>
       <div class="buttons">
@@ -27,7 +29,7 @@
         <a routerLink="shopping-cart" class="btn btn-dark btn-hover-primary">צפי בעגלה</a>
         <a href="checkout" class="btn btn-outline-dark">להזמנה</a>
       </div>
-      <p class="minicart-message">משלוח חינם  מעל 200 ש"ח</p>
+      <p class="minicart-message">משלוח חינם מעל 200 ש"ח</p>
     </div>
   </div>
 </div>

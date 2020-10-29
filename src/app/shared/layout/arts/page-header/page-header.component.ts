@@ -5,6 +5,7 @@ import {DataService} from "../../../../core/data.service";
 @Component({
   selector: 'smart-page-header',
   templateUrl: './page-header.component.html',
+
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PageHeaderComponent {
@@ -13,4 +14,7 @@ export class PageHeaderComponent {
   constructor(public data : DataService) { }
 
 
+  getUserName() {
+    return this.data.getUserName()
+  }
 }

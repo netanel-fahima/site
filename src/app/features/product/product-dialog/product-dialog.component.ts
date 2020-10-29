@@ -9,7 +9,7 @@ import {DataService} from "../../../core/data.service";
 })
 export class ProductDialogComponent implements OnInit, AfterViewChecked {
 
-  @Input() product: {};
+  @Input() product: any;
 
 
   constructor(public data: DataService) {
@@ -21,7 +21,7 @@ export class ProductDialogComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked(): void {
     Init.productZoom();
-    console.log("ProductDialogComponent")
+    console.log("ProductDialogComponent");
     Init.qtyBtn();
   }
 

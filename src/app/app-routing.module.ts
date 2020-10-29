@@ -11,7 +11,6 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule)},
-      {path: 'product', loadChildren: () => import('./features/product/product.module').then(m => m.ProductModule)},
       {path: '', loadChildren: () => import('./features/features.module').then(m => m.FeaturesModule)},
       /* { path: 'settings', loadChildren: () => import('./features/settings/settings.module').then(m => m.SettingsModule) },
       { path: 'info', loadChildren: () => import('./features/info/info.module').then(m => m.InfoModule) },

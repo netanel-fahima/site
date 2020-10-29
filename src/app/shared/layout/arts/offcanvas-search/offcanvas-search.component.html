@@ -7,7 +7,7 @@
           <div class="col-lg-4 col-12 mb-3">
             <select class="search-select select2-basic">
               <option value="0">כל הקטגוריות</option>
-              <option  *ngFor="let c of data.categories" value="{{c.title |lowercase }}">{{c.title}}</option>
+              <option  *ngFor="let c of data.categories|async" value="{{c.title |lowercase }}">{{c.title}}</option>
             </select>
           </div>
           <div class="col-lg-8 col-12 mb-3"><input type="text" placeholder=" .... חפשי מוצר "></div>

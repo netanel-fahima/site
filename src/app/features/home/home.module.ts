@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {RouterModule} from "@angular/router";
 import {ArtComponent} from "./art/art.component";
 import { SectionFluidComponent } from './art/section-fluid/section-fluid.component';
+import {DataService} from "../../core/data.service";
 
 
 
@@ -20,6 +21,6 @@ import { SectionFluidComponent } from './art/section-fluid/section-fluid.compone
         data: {breadcrumbs: ['Application Intel', 'Introduction']}
       }
     ])
-  ]
+  ]/*,providers: [DataService]*/
 })
 export class HomeModule { }

@@ -7,7 +7,7 @@ import {DataService} from "../../../../core/data.service";
   templateUrl: './page-header-sticky.component.html',
   styleUrls: ['./page-header-sticky.component.css']
 })
-export class PageHeaderStickyComponent implements OnInit, AfterContentChecked  {
+export class PageHeaderStickyComponent implements OnInit, AfterViewChecked  {
 
   constructor(public data : DataService) { }
 
@@ -25,11 +25,12 @@ export class PageHeaderStickyComponent implements OnInit, AfterContentChecked  {
   }
 
   ngAfterViewChecked(): void {
+    console.log("load slider");
+    Init.slider();
+
   }
 
   ngAfterContentChecked(): void {
-    console.log("load slider");
-    Init.slider();
   }
 
 }

@@ -142,14 +142,14 @@
 
         <div class="grid-sizer col-1"></div>
 
-        <div  class="grid-item col featured" *ngFor="let p of products | async">
+        <div  class="grid-item col featured" *ngFor="let p of data.productAsync | async">
           <div class="product">
             <div class="product-thumb">
               <a href="product-details?id={{p.id}}" class="image">
                 <img src="{{getImage(p.id)}}" alt="Product Image">
                 <img class="image-hover " src="{{getImage(p.id)}}" alt="Product Image">
               </a>
-              <a (click)="data.wishList.push(p)" href="wishlist" class="add-to-wishlist hintT-left" data-hint="הוסיפי למועדפים"><i class="far fa-heart"></i></a>
+              <a (click)="data.addToWithList(p)" href="wishlist" class="add-to-wishlist hintT-left" data-hint="הוסיפי למועדפים"><i class="far fa-heart"></i></a>
             </div>
             <div class="product-info">
               <h6 class="title"><a routerLink="product-details?id={{p.id}}">{{p.title}}</a></h6>
@@ -181,7 +181,7 @@
                                 </span>
               <div class="product-buttons">
                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
+                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cartEvent"></i></a>
                 <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
               </div>
             </div>
@@ -207,7 +207,7 @@
                                 </span>
               <div class="product-buttons">
                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
+                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cartEvent"></i></a>
                 <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
               </div>
             </div>
@@ -230,7 +230,7 @@
                                 </span>
               <div class="product-buttons">
                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
+                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cartEvent"></i></a>
                 <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
               </div>
             </div>
@@ -257,7 +257,7 @@
                                 </span>
               <div class="product-buttons">
                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
+                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cartEvent"></i></a>
                 <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
               </div>
             </div>
@@ -284,7 +284,7 @@
                                 </span>
               <div class="product-buttons">
                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
+                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cartEvent"></i></a>
                 <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
               </div>
             </div>
@@ -306,7 +306,7 @@
                                 </span>
               <div class="product-buttons">
                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
+                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cartEvent"></i></a>
                 <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
               </div>
             </div>
@@ -329,7 +329,7 @@
                                 </span>
               <div class="product-buttons">
                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
+                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cartEvent"></i></a>
                 <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
               </div>
             </div>
@@ -352,7 +352,7 @@
                                 </span>
               <div class="product-buttons">
                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
+                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cartEvent"></i></a>
                 <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
               </div>
             </div>
@@ -384,7 +384,7 @@
                                 </span>
               <div class="product-buttons">
                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
+                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cartEvent"></i></a>
                 <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
               </div>
             </div>
@@ -407,7 +407,7 @@
                                 </span>
               <div class="product-buttons">
                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
+                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cartEvent"></i></a>
                 <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
               </div>
             </div>
@@ -433,7 +433,7 @@
                                 </span>
               <div class="product-buttons">
                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
+                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cartEvent"></i></a>
                 <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
               </div>
             </div>
@@ -471,7 +471,7 @@
                                 </span>
               <div class="product-buttons">
                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
+                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cartEvent"></i></a>
                 <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
               </div>
             </div>
@@ -494,7 +494,7 @@
                                 </span>
               <div class="product-buttons">
                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
+                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cartEvent"></i></a>
                 <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
               </div>
             </div>
@@ -517,7 +517,7 @@
                                 </span>
               <div class="product-buttons">
                 <a href="#quickViewModal" data-toggle="modal" class="product-button hintT-top" data-hint="Quick View"><i class="fal fa-search"></i></a>
-                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cart"></i></a>
+                <a href="#" class="product-button hintT-top" data-hint="Add to Cart"><i class="fal fa-shopping-cartEvent"></i></a>
                 <a href="#" class="product-button hintT-top" data-hint="Compare"><i class="fal fa-random"></i></a>
               </div>
             </div>

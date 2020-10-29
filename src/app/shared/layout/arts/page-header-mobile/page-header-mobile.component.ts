@@ -1,4 +1,4 @@
-import {AfterContentChecked, Component, OnInit} from '@angular/core';
+import {AfterContentChecked, AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Init} from "../../../../../assets/js/init";
 import {DataService} from "../../../../core/data.service";
 
@@ -7,9 +7,9 @@ import {DataService} from "../../../../core/data.service";
   templateUrl: './page-header-mobile.component.html',
   styleUrls: ['./page-header-mobile.component.css']
 })
-export class PageHeaderMobileComponent implements OnInit , AfterContentChecked{
+export class PageHeaderMobileComponent implements OnInit , AfterViewChecked{
 
-  ngAfterContentChecked(): void {
+  ngAfterViewChecked(): void {
     Init.offcanvasToggle();
   }
 

@@ -6,13 +6,13 @@
       <span class="title">מועדפים</span>
     </div>
     <div class="body customScroll">
-      <ul class="minicart-product-list">
-        <li *ngFor="let c of wishList() ">
+      <ul   class="minicart-product-list">
+        <li *ngFor="let c of data.wishList | async">
           <a routerLink="product-details" class="image"><img src="assets/images/product/cart-product-1.jpg" alt="Cart product Image"></a>
           <div class="content">
             <a routerLink="product-details" class="title">{{c.title}}</a>
             <span class="quantity-price">1 x <span class="amount">${{c.price}}</span></span>
-            <a href="#" class="remove">×</a>
+            <a class="remove" (click)="data.removeWishList(c)">×</a>
           </div>
         </li>
       </ul>

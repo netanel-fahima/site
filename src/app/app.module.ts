@@ -9,7 +9,6 @@ import {LayoutModule} from "./shared/layout/arts/layout.module";
 import {HomeModule} from "./features/home/home.module";
 import {ProductComponent} from './features/product/product.component';
 import {ProductTitleComponent} from './features/product/product-title/product-title.component';
-import {ProductModule} from "./features/product/product.module";
 import {CartComponent} from './features/cart/cart.component';
 import {CheckoutComponent} from './features/checkout/checkout.component';
 import {LoginComponent} from './features/login/login.component';
@@ -18,6 +17,10 @@ import {AccountComponent} from './features/account/account.component';
 import {ContactUsComponent} from './features/contact-us/contact-us.component';
 import {CoreModule} from "./core/core.module";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
+import {DataService} from "./core/data.service";
+import {RestService} from "./core/rest/rest.service";
+import {FeaturesModule} from "./features/features.module";
 
 @NgModule({
   declarations: [
@@ -37,13 +40,14 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     BrowserModule,
     AppRoutingModule,
     CoreModule,
-    LayoutModule,
-    HomeModule,
-    ProductModule,
     HttpClientModule,
+    FormsModule,
+    HomeModule,
+    FeaturesModule,
+    LayoutModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers:[]
 })
 export class AppModule {
 }

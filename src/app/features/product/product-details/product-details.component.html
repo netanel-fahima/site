@@ -1,10 +1,9 @@
-<app-page-title-section #title ></app-page-title-section>
+<app-page-title-section #title></app-page-title-section>
 
 <!-- Single Products Section Start -->
 <div class="section section-padding border-bottom">
   <div class="container">
     <div class="row learts-mb-n40">
-
 
 
       <!-- Product Images Start -->
@@ -53,11 +52,11 @@
           <div class="product-variations">
             <table>
               <tbody>
-              <tr *ngFor="let option of product.options">
+              <tr *ngFor="let option of groupBy(product.options,'name')">
                 <td class="label"><span>{{option.type}}</span></td>
                 <td class="value">
                   <div class="product-sizes">
-                    <a href="#" *ngFor="let item of option.items"> {{item}} </a>
+                    <a href="#" *ngFor="let item of option.items"> {{item.option}} </a>
                   </div>
                 </td>
               </tr>
@@ -77,7 +76,8 @@
           <div class="product-buttons">
             <a href="#" class="btn btn-icon btn-outline-body btn-hover-dark hintT-top" data-hint="Add to Wishlist"><i
               class="fal fa-heart"></i></a>
-            <a href="#" class="btn btn-dark btn-outline-hover-dark"><i class="fal fa-shopping-cart"></i> הוסיפי לעגלה</a>
+            <a href="#" class="btn btn-dark btn-outline-hover-dark"><i class="fal fa-shopping-cart"></i> הוסיפי
+              לעגלה</a>
           </div>
           <div class="product-meta">
             <table>
@@ -90,7 +90,7 @@
                 <td class="label"><span>קטגוריה</span></td>
                 <td class="value">
                   <ul class="product-category">
-                    <li *ngFor="let category of product.categories" ><a href="#">{{category}}</a></li>
+                    <li *ngFor="let category of product.categories"><a href="#">{{category.title}}</a></li>
                   </ul>
                 </td>
               </tr>
@@ -98,7 +98,7 @@
                 <td class="label"><span>תגית</span></td>
                 <td class="value">
                   <ul class="product-tags">
-                    <li *ngFor="let tag of product.tags" ><a href="#">{{tag}}</a></li>
+                    <li *ngFor="let tag of product.tags"><a href="#">{{tag}}</a></li>
                   </ul>
                 </td>
               </tr>
@@ -187,89 +187,91 @@
         </div>
 
       </div>
+    </div>
+
   </div>
+  <!-- Single Products Section End -->
 
-</div>
-<!-- Single Products Section End -->
+  <div class="section section-padding border-bottom">
+    <div class="container">
 
-<div class="section section-padding border-bottom">
-  <div class="container">
-
-    <ul class="nav product-info-tab-list">
-      <li><a class="active" data-toggle="tab" href="#tab-description">תאור מוצר</a></li>
-      <li><a data-toggle="tab" href="#tab-additional_information">מפרט</a></li>
-      <li><a data-toggle="tab" href="#tab-reviews"> תגובות {{product.reviews.length}}   </a></li>
-    </ul>
-    <div class="tab-content product-infor-tab-content">
-      <div class="tab-pane fade show active" id="tab-description">
-        <div class="row">
-          <div class="col-lg-10 col-12 mx-auto">
-            <p>{{product.description}}</p>
+      <ul class="nav product-info-tab-list">
+        <li><a class="active" data-toggle="tab" href="#tab-description">תאור מוצר</a></li>
+        <li><a data-toggle="tab" href="#tab-additional_information">מפרט</a></li>
+        <li><a data-toggle="tab" href="#tab-reviews"> תגובות {{product.reviews.length}}   </a></li>
+      </ul>
+      <div class="tab-content product-infor-tab-content">
+        <div class="tab-pane fade show active" id="tab-description">
+          <div class="row">
+            <div class="col-lg-10 col-12 mx-auto">
+              <p>{{product.description}}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="tab-pane fade" id="tab-additional_information">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 col-12 mx-auto">
-            <div class="table-responsive">
-              <table class="table table-bordered">
-                <tbody>
-                <tr *ngFor="let option of product.options">
-                  <td>{{option.items.join(", ")}}</td>
-                  <td>{{option.type}}</td>
-                </tr>
-                </tbody>
-              </table>
+        <div class="tab-pane fade" id="tab-additional_information">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 col-12 mx-auto">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <tbody>
+                  <tr *ngFor="let option of groupBy(product.options,'name')">
+                    <td>{{option.items}}</td>
+                    <td>{{option.type}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="tab-reviews">
+          <div class="product-review-wrapper">
+            <span class="title"> תגובות {{product.reviews.length}}</span>
+            <ul class="product-review-list">
+              <li *ngFor="let option of product.reviews">
+                <div class="product-review">
+                  <div class="thumb"><img src="assets/images/review/review-1.jpeg" alt=""></div>
+                  <div class="content">
+                    <div class="ratings">
+                                            <span class="star-rating">
+                                                <span class="rating-active" style="width: 100%;">ratings</span>
+                                            </span>
+                    </div>
+                    <div class="meta">
+                      <h5 class="title">Edna Watson</h5>
+                      <span class="date">November 27, 2020</span>
+                    </div>
+                    <p>Thanks for always keeping your WordPress themes up to date. Your level of support and dedication
+                      is
+                      second to none.</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <span class="title">הוסף תגובה</span>
+            <div class="review-form">
+              <p class="note">האמייל שלך לא יוצג *</p>
+              <form action="#">
+                <div class="row learts-mb-n30">
+                  <div class="col-md-6 col-12 learts-mb-30"><input type="text" placeholder="שם *"></div>
+                  <div class="col-md-6 col-12 learts-mb-30"><input type="email" placeholder="אמייל *"></div>
+                  <div class="col-12 learts-mb-10">
+                    <div class="form-rating">
+                      <span class="title">הדרוג שלך</span>
+                      <span class="rating"><span class="star"></span></span>
+                    </div>
+                  </div>
+                  <div class="col-12 learts-mb-30"><textarea placeholder="התגובה שלך *"></textarea></div>
+                  <div class="col-12 text-center learts-mb-30">
+                    <button class="btn btn-dark btn-outline-hover-dark">שליחה</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
-      <div class="tab-pane fade" id="tab-reviews">
-        <div class="product-review-wrapper">
-          <span class="title"> תגובות {{product.reviews.length}}</span>
-          <ul class="product-review-list">
-            <li *ngFor="let option of product.reviews">
-              <div class="product-review">
-                <div class="thumb"><img src="assets/images/review/review-1.jpeg" alt=""></div>
-                <div class="content">
-                  <div class="ratings">
-                                            <span class="star-rating">
-                                                <span class="rating-active" style="width: 100%;">ratings</span>
-                                            </span>
-                  </div>
-                  <div class="meta">
-                    <h5 class="title">Edna Watson</h5>
-                    <span class="date">November 27, 2020</span>
-                  </div>
-                  <p>Thanks for always keeping your WordPress themes up to date. Your level of support and dedication is
-                    second to none.</p>
-                </div>
-              </div>
-            </li>
-          </ul>
-          <span class="title">הוסף תגובה</span>
-          <div class="review-form">
-            <p class="note">האמייל שלך לא יוצג *</p>
-            <form action="#">
-              <div class="row learts-mb-n30">
-                <div class="col-md-6 col-12 learts-mb-30"><input type="text" placeholder="שם *"></div>
-                <div class="col-md-6 col-12 learts-mb-30"><input type="email" placeholder="אמייל *"></div>
-                <div class="col-12 learts-mb-10">
-                  <div class="form-rating">
-                    <span class="title">הדרוג שלך</span>
-                    <span class="rating"><span class="star"></span></span>
-                  </div>
-                </div>
-                <div class="col-12 learts-mb-30"><textarea placeholder="התגובה שלך *"></textarea></div>
-                <div class="col-12 text-center learts-mb-30">
-                  <button class="btn btn-dark btn-outline-hover-dark">שליחה</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
 
+    </div>
   </div>
 </div>

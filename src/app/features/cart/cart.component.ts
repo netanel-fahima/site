@@ -7,15 +7,12 @@ import {DataService} from "../../core/data.service";
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements OnInit  , AfterViewChecked{
+export class CartComponent implements OnInit, AfterViewChecked {
 
-  constructor(public data : DataService) { }
-
-  ngOnInit(): void {
+  constructor(public data: DataService) {
   }
 
-  carts() {
-    return this.data.cart;
+  ngOnInit(): void {
   }
 
   ngAfterViewChecked(): void {
@@ -23,7 +20,18 @@ export class CartComponent implements OnInit  , AfterViewChecked{
     Init.qtyBtn();
   }
 
-  total() {
-    return this.data.totalCart();
+  alert(quantity: any) {
+    alert(quantity)
   }
+
+  updateCart() {
+    this.data.updateCartItems()
+  }
+
+  removeCart(p) {
+    this.data.cartItem = this.data.cartItem.filter(c => c.product.id !== p.product.id);
+    console.log("remove cart ", p);
+    this.data.removeCart(p)
+  }
+
 }

@@ -1,5 +1,7 @@
-import {Component, ChangeDetectionStrategy, AfterContentChecked, OnInit, AfterViewChecked} from '@angular/core';
-import {Init} from "../../../../../assets/js/init";
+import {AfterContentInit, ChangeDetectionStrategy, Component, NgZone, OnInit, ViewChild} from '@angular/core';
+import {DataService} from "../../../../core/data.service";
+import {ProductDialogComponent} from "../../../../features/product/product-dialog/product-dialog.component";
+import {OffcanvasCartComponent} from "../offcanvas-cart/offcanvas-cart.component";
 
 
 @Component({
@@ -7,16 +9,29 @@ import {Init} from "../../../../../assets/js/init";
   templateUrl: './main.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainComponent implements   OnInit , AfterViewChecked {
+export class MainComponent implements OnInit, AfterContentInit {
+
+  @ViewChild('app_offcanvas_cart',{static:true}) cartComponent:OffcanvasCartComponent;
 
 
-  constructor() { }
+  constructor(private data: DataService, private zone: NgZone) {
+    this.data.loadNecessary();
+  }
 
   ngOnInit(): void {
+
+
   }
 
   ngAfterViewChecked(): void {
 
+  }
+
+  ngAfterViewInit(): void {
+
+  }
+
+  ngAfterContentInit(): void {
   }
 
 }

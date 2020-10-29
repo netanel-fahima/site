@@ -1,8 +1,8 @@
-<div class="section section-padding">
+<div class="section section-padding" >
   <div class="container">
     <div class="row no-gutters">
-      <div class="col-lg-6">
-        <div class="user-login-register">
+      <div class="col-lg-6" *ngIf="!logedIn()">
+        <div class="user-login-register" >
           <div class="login-register-title">
             <h2 class="title">הרשמה</h2>
             <p class="desc">! אם אין לך משתמש הרשמי עכשיו</p>
@@ -11,26 +11,26 @@
             <form action="#">
               <div class="row learts-mb-n50">
                 <div class="col-12 learts-mb-20">
-                  <label for="registerName">שם<abbr class="required">*</abbr></label>
-                  <input type="username" id="registerName">
+                  <label for="registerName" >שם<abbr class="required">*</abbr></label>
+                  <input type="username" id="registerName" [(ngModel)]="registerName" name="registerName">
                 </div>
                 <div class="col-12 learts-mb-20">
                   <label for="registerEmail">אמייל<abbr class="required">*</abbr></label>
-                  <input type="email" id="registerEmail">
+                  <input type="email" id="registerEmail" [(ngModel)]="email" name="email">
                 </div>
                 <div class="col-12 learts-mb-50">
                   <p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy</p>
                 </div>
                 <div class="col-12 text-center learts-mb-50">
-                  <button class="btn btn-dark btn-outline-hover-dark">הרשמי</button>
+                  <button (click)="register(registerName,email)" class="btn btn-dark btn-outline-hover-dark">הרשמי</button>
                 </div>
               </div>
             </form>
           </div>
         </div>
       </div>
-      <div class="col-lg-6">
-        <div class="user-login-register bg-light">
+      <div class="col-lg-6" *ngIf="!logedIn()">
+        <form class="user-login-register bg-light">
           <div class="login-register-title">
             <h2 class="title">כניסה</h2>
             <p class="desc">!טוב לחזור אלינו</p>
@@ -39,18 +39,18 @@
             <form action="#">
               <div class="row learts-mb-n50">
                 <div class="col-12 learts-mb-50">
-                  <input type="email" placeholder="אמייל">
+                  <input type="email" placeholder="אמייל"   name="email" required="מייל לא תקין" [(ngModel)]="email" >
                 </div>
            <!--     <div class="col-12 learts-mb-50">
                   <input type="password" placeholder="סיסמה"></div>-->
                 <div class="col-12 text-center learts-mb-50">
-                  <button class="btn btn-dark btn-outline-hover-dark">כניסה</button>
+                  <button class="btn btn-dark btn-outline-hover-dark"    (click)="signIn(email)">כניסה</button>
                 </div>
                 <div class="col-12 learts-mb-50">
                   <div class="row learts-mb-n20">
                     <div class="col-12 learts-mb-20">
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <input type="checkbox" class="form-check-input" checked id="rememberMe">
                         <label class="form-check-label" for="rememberMe">זכור אותי</label>
                       </div>
                     </div>
@@ -62,7 +62,22 @@
               </div>
             </form>
           </div>
-        </div>
+        </form>
+      </div>
+      <div class="col-lg-12" *ngIf="logedIn()">
+        <form class="user-login-register bg-light">
+          <div class="login-register-title">
+            <h2 class="title">רשומה כבר</h2>
+            <p class="desc">{{getUserLogin()}}</p>
+          </div>
+          <div class="login-register-form">
+            <form action="#">
+              <div class="row learts-mb-n50">
+                <div class="col-auto learts-mb-20"><a  class="btn btn-outline-primary" (click)="data.signOut()" >להתנתקות</a></div>
+              </div>
+            </form>
+          </div>
+        </form>
       </div>
     </div>
 

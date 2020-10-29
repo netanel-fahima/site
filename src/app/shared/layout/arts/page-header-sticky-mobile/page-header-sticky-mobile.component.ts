@@ -9,7 +9,6 @@ import {DataService} from "../../../../core/data.service";
 })
 export class PageHeaderStickyMobileComponent implements OnInit, AfterContentChecked {
   ngAfterContentChecked(): void {
-    Init.moblieMenu()
   }
 
   constructor(public data: DataService) {}

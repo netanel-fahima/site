@@ -15553,7 +15553,6 @@ body.offcanvas-open .sticky-header {
     margin: auto;
   }
   .cart-wishlist-table tbody tr td.remove {
-    position: absolute;
     z-index: 9;
     top: 0;
     right: 0;

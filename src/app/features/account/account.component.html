@@ -1,16 +1,15 @@
-<div class="section section-padding">
+<div *ngIf=" data.getUser().profile !== 'GUEST' " class="section section-padding" dir="rtl">
   <div class="container">
     <div class="row learts-mb-n30">
 
       <!-- My Account Tab List Start -->
       <div class="col-lg-4 col-12 learts-mb-30">
         <div class="myaccount-tab-list nav">
-          <a href="#dashboad" class="active" data-toggle="tab">Dashboard <i class="far fa-home"></i></a>
-          <a href="#orders" data-toggle="tab">Orders <i class="far fa-file-alt"></i></a>
-          <a href="#download" data-toggle="tab">Download <i class="far fa-arrow-to-bottom"></i></a>
-          <a href="#address" data-toggle="tab">address <i class="far fa-map-marker-alt"></i></a>
-          <a href="#account-info" data-toggle="tab">Account Details <i class="far fa-user"></i></a>
-          <a href="login-register.html">Logout <i class="far fa-sign-out-alt"></i></a>
+          <a href="#dashboad" class="active" data-toggle="tab"> <i class="far fa-home"></i></a>
+          <a href="#orders" data-toggle="tab" (click)="load()">הזמנות <i class="far fa-file-alt"></i></a>
+          <a href="#address" data-toggle="tab">כתובת <i class="far fa-map-marker-alt"></i></a>
+          <a href="#account-info" data-toggle="tab">פרטי חשבון <i class="far fa-user"></i></a>
+          <a (click)="data.signOut()" href="">יציאה<i class="far fa-sign-out-alt"></i></a>
         </div>
       </div>
       <!-- My Account Tab List End -->
@@ -22,7 +21,7 @@
           <!-- Single Tab Content Start -->
           <div class="tab-pane fade show active" id="dashboad">
             <div class="myaccount-content dashboad">
-              <p>Hello <strong>didiv91396</strong> (not <strong>didiv91396</strong>? <a href="login-register.html">Log out</a>)</p>
+              <p>שלום <strong>{{data.user.firstName}}</strong> </p>
               <p>From your account dashboard you can view your <span>recent orders</span>, manage your <span>shipping and billing addresses</span>, and <span>edit your password and account details</span>.</p>
             </div>
           </div>
@@ -35,35 +34,22 @@
                 <table class="table">
                   <thead>
                   <tr>
-                    <th>Order</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Total</th>
-                    <th>Action</th>
+                    <th>מספר הזמנה</th>
+                    <th>תאריך הזמנה</th>
+                    <th>סטטוס</th>
+                    <th>מחיר כולל</th>
+                    <th>מוצרים שנרכשו</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Aug 22, 2018</td>
-                    <td>Pending</td>
-                    <td>$3000</td>
-                    <td><a href="shopping-cart.html">View</a></td>
+                  <tr *ngFor="let o of orders| async">
+                    <td>{{o.id}}</td>
+                    <td>{{o.createdAt}}</td>
+                    <td>{{data.getStatus(o.status)}}</td>
+                    <td>{{o.total}}</td>
+                    <td><a [routerLink]="'/shopping-cart?orderId='+o.id">View</a></td>
                   </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>July 22, 2018</td>
-                    <td>Approved</td>
-                    <td>$200</td>
-                    <td><a href="shopping-cart.html">View</a></td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>June 12, 2017</td>
-                    <td>On Hold</td>
-                    <td>$990</td>
-                    <td><a href="shopping-cart.html">View</a></td>
-                  </tr>
+
                   </tbody>
                 </table>
               </div>
@@ -140,46 +126,41 @@
                   <div class="row learts-mb-n30">
                     <div class="col-md-6 col-12 learts-mb-30">
                       <div class="single-input-item">
-                        <label for="first-name">First Name <abbr class="required">*</abbr></label>
+                        <label for="first-name">שם פרטי<abbr class="required">*</abbr></label>
                         <input type="text" id="first-name">
                       </div>
                     </div>
                     <div class="col-md-6 col-12 learts-mb-30">
                       <div class="single-input-item">
-                        <label for="last-name">Last Name <abbr class="required">*</abbr></label>
+                        <label for="last-name">שם משפחה <abbr class="required">*</abbr></label>
                         <input type="text" id="last-name">
                       </div>
                     </div>
                     <div class="col-12 learts-mb-30">
-                      <label for="display-name">Display Name <abbr class="required">*</abbr></label>
+                      <label for="display-name">שם משתמש <abbr class="required">*</abbr></label>
                       <input type="text" id="display-name" value="didiv91396">
-                      <p>This will be how your name will be displayed in the account section and in reviews</p>
                     </div>
                     <div class="col-12 learts-mb-30">
-                      <label for="email">Email Addres <abbr class="required">*</abbr></label>
+                      <label for="email">אמייל <abbr class="required">*</abbr></label>
                       <input type="email" id="email" value="didiv91396@ismailgul.net">
                     </div>
                     <div class="col-12 learts-mb-30 learts-mt-30">
                       <fieldset>
-                        <legend>Password change</legend>
+                        <legend>שנה סיסמה</legend>
                         <div class="row learts-mb-n30">
                           <div class="col-12 learts-mb-30">
-                            <label for="current-pwd">Current password (leave blank to leave unchanged)</label>
-                            <input type="password" id="current-pwd">
-                          </div>
-                          <div class="col-12 learts-mb-30">
-                            <label for="new-pwd">New password (leave blank to leave unchanged)</label>
+                            <label for="new-pwd">סיסמה חדשה</label>
                             <input type="password" id="new-pwd">
                           </div>
                           <div class="col-12 learts-mb-30">
-                            <label for="confirm-pwd">Confirm new password</label>
+                            <label for="confirm-pwd">חזרה על סיסמה</label>
                             <input type="password" id="confirm-pwd">
                           </div>
                         </div>
                       </fieldset>
                     </div>
                     <div class="col-12 learts-mb-30">
-                      <button class="btn btn-dark btn-outline-hover-dark">Save Changes</button>
+                      <button class="btn btn-dark btn-outline-hover-dark">שמירת שינויים</button>
                     </div>
                   </div>
                 </form>
