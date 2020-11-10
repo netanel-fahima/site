@@ -1,7 +1,7 @@
 <app-page-title-section #title></app-page-title-section>
 
 <!-- Single Products Section Start -->
-<div class="section section-padding border-bottom">
+<div class="section section-padding border-bottom" >
   <div class="container">
     <div class="row learts-mb-n40">
 
@@ -22,7 +22,7 @@
             </div>
           </div>
           <div class="product-thumb-slider">
-            <div class="item" *ngFor="let image of data.productImages">
+            <div class="item" *ngFor="let image of data.productImagesZoom">
               <img src="{{image}}" alt="">
             </div>
           </div>
@@ -39,7 +39,7 @@
           </div>
           <div class="product-ratings">
                             <span class="star-rating">
-                                <span class="rating-active" style="width: 100%;">ratings</span>
+                                <span class="rating-active" style="width: 100%;">דירוג</span>
                             </span>
             <a href="#reviews" class="review-link">(<span class="count">{{product.reviews.length}}</span> customer
               reviews)</a>
@@ -74,10 +74,8 @@
             </table>
           </div>
           <div class="product-buttons">
-            <a href="#" class="btn btn-icon btn-outline-body btn-hover-dark hintT-top" data-hint="Add to Wishlist"><i
-              class="fal fa-heart"></i></a>
-            <a href="#" class="btn btn-dark btn-outline-hover-dark"><i class="fal fa-shopping-cart"></i> הוסיפי
-              לעגלה</a>
+            <a (click)="addToWish(product)" routerLink="s" class="btn btn-icon btn-outline-body btn-hover-dark hintT-top" data-hint="Add to Wishlist"><i class="fal fa-heart"></i></a>
+            <a (click)="addToCart(product)" routerLink="shopping-cart" class="btn btn-dark btn-outline-hover-dark"><i class="fal fa-shopping-cart"></i> הוסיפי לעגלה</a>
           </div>
           <div class="product-meta">
             <table>

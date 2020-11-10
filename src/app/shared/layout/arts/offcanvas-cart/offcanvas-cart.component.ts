@@ -15,7 +15,7 @@ export class OffcanvasCartComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.data.loadCartItem();
+
   }
 
 

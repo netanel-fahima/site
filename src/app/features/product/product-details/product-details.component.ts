@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core';
 import {Init} from "../../../../assets/js/init";
 import {DataService} from "../../../core/data.service";
 import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-product-details',
@@ -10,14 +11,17 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./product-details.component.css']
 })
 
+export class ProductDetailsComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
-export class ProductDetailsComponent implements OnInit {
+  ngAfterViewChecked(): void {}
 
+  private ps: Observable<any>;
 
-  constructor(public data: DataService, private route: ActivatedRoute) {
-  }
+  constructor(public data: DataService, private route: ActivatedRoute) {}
 
-  product: any = {
+  product: any = {}
+
+    /*{
     categories: ["מטפית"],
     description: "מוצר צמוייןח שלדמסש שלדמחסשדס שלחמדלסשד שלחדמסשמ",
     id: 1,
@@ -27,11 +31,11 @@ export class ProductDetailsComponent implements OnInit {
     sku: "02051",
     tags: ["צדיקות"],
     title: "מטפחת ריו",
-  };
+  }*/;
 
   ngOnInit(): void {
-
-    this.data.getProduct(this.route.snapshot.queryParams).subscribe(product => {
+    this.ps = this.data.getProduct(this.route.snapshot.queryParams);
+    this.ps.subscribe(product => {
       this.product = product[0];
       Init.first();
       Init.qtyBtn();
@@ -39,6 +43,7 @@ export class ProductDetailsComponent implements OnInit {
       Init.productZoom();
       Init.productGallerySlider();
     })
+
 
   }
 
@@ -58,4 +63,18 @@ export class ProductDetailsComponent implements OnInit {
     return op;
   }
 
+  addToCart(p: any) {
+    this.data.addToCart(p);
+    Init.offcanvasOpen();
+  }
+
+  addToWish(p: any) {
+    this.data.addToWithList(p);
+    Init.offcanvasOpenWishlist();
+  }
+
+  ngAfterViewInit(): void {
+
+
+  }
 }

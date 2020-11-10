@@ -6,7 +6,7 @@
       <div class="col" *ngFor="let c of data.categories | async">
         <div class="category-banner1">
           <div class="inner">
-            <a href="product?category={{c.title}}" class="image"><img src="assets/images/slider/home1/slide-2-2.png" alt="{{c.title}}"></a>
+            <a  (click)="router.navigateByUrl('product?category='+c.id).then()" class="image"><img src="assets/images/slider/home1/slide-2-2.png" alt="{{c.title}}"></a>
             <div class="content">
               <h3 class="title">
                 <a href="shop.html">{{c.title }}</a>

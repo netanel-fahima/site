@@ -37,7 +37,8 @@
               "src/assets/css/plugins/photoswipe-default-skin.css",
               "src/assets/css/plugins/magnific-popup.css",
               "src/assets/css/plugins/slick.css",
-              "src/assets/css/style.css"
+              "src/assets/css/style.css",
+              "src/assets/css/custom.css"
             ],
             "scripts": [
               "src/assets/js/vendor/modernizr-3.6.0.min.js",

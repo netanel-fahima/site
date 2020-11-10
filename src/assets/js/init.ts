@@ -193,6 +193,15 @@ static select2(){
     $offCanvasToggle.click();
   }
 
+
+  static offcanvasOpenWishlist() {
+    console.log("offcanvasOpen");
+    var $offCanvasToggle = $('.offcanvas-toggle[href=#offcanvas-wishlist]');
+    $offCanvasToggle.click();
+  }
+
+
+
   static banner() {
     console.log("banner");
     $('.category-banner1-carousel').not('.slick-initialized').slick({
@@ -252,7 +261,7 @@ static select2(){
   static filterToggle() {
     console.log("filterToggle");
     // Filter Toggle
-    $('.product-filter-toggle').on('click', function (e) {
+    $('.product-filter-toggle').off().on('click', function (e) {
       e.preventDefault();
       var $this = $(this),
         $target = $this.attr('href');
@@ -266,9 +275,9 @@ static select2(){
   static columnToggle() {
     console.log("columnToggle");
     // Column Toggle
-    $('.product-column-toggle').on('click', '.toggle', function (e) {
+    $('.product-column-toggle').off().on('click', '.toggle', function (e) {
       e.preventDefault();
-      var $this = $(this),
+      let $this = $(this),
         $column = $this.data('column'),
         $prevColumn = $this.siblings('.active').data('column');
       $this.toggleClass('active').siblings().removeClass('active');
@@ -307,7 +316,7 @@ static select2(){
         easing: 'quint.out'
       }
     });
-    $('.add-to-wishlist').on('click', function (e) {
+    $('.add-to-wishlist').off().on('click', function (e) {
       var $this = $(this),
         offset = $this.offset(),
         width = $this.width(),
@@ -403,7 +412,7 @@ static select2(){
         // @ts-ignore
         new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options).init();
       };
-    $productPopupGalleryBtn.on('click', $openPhotoSwipe);
+    $productPopupGalleryBtn.off().on('click', $openPhotoSwipe);
   }
 
   static productZoom() {
@@ -420,7 +429,7 @@ static select2(){
   }
 
   quickViewModal() {
-    $('#quickViewModal').on('shown.bs.modal', function (e) {
+    $('#quickViewModal').off().on('shown.bs.modal', function (e) {
       $('.product-gallery-slider-quickview').not('.slick-initialized').slick({
         dots: true,
         infinite: true,

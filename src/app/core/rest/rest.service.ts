@@ -52,7 +52,7 @@ export class RestService {
   }
 
 
-  post(data: any,cmd?:string): Observable<any> {
+  post({data, cmd = ""}: { data: any, cmd?: string } ): Observable<any> {
     return this.http.post<any>(`${this.url}${cmd}`  , data, this.httpOptions).pipe(
       tap((newHero: any) => this.log(`${newHero}`)),
       catchError(this.handleError<any>('addHero'))

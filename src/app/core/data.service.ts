@@ -1,9 +1,8 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {RestService} from "./rest/rest.service";
 import {BehaviorSubject, EMPTY, forkJoin, Observable, Subject} from "rxjs";
 import {Params} from "@angular/router";
-import {map, publishReplay, refCount, take} from "rxjs/operators";
 
 
 @Injectable({
@@ -29,15 +28,16 @@ export class DataService {
   public user: any = {};
   public categories: Observable<any[]>;
   public product: any[] = [];
-  public productAsync: Observable<any[]>;
+  public productAsync: Observable<any[]> = new Observable<any[]>();
 
   public cart: any = {};
 
 
   public cartItem: any[] = [];
-  public cartEvent: EventEmitter<any> = new EventEmitter<any>();
+
+  public cartList: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(this.cartItem);
+
   public menuSubject: Subject<any> = new BehaviorSubject<any>(this.cartItem);
-  public menuActive = this.menuSubject.asObservable();
 
   private _wishList = [];
   public wishList: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(this._wishList);
@@ -46,9 +46,8 @@ export class DataService {
   public orderItem: any[] = [];
   public transaction: any = {};
 
-
-  private categoryRest: RestService = new RestService("category", this.http);
-  private productRest: RestService = new RestService("product", this.http);
+  public categoryRest: RestService = new RestService("category", this.http);
+  public productRest: RestService = new RestService("product", this.http);
 
   public cartItemRest: RestService = new RestService("cart_item", this.http);
   private cartRest: RestService = new RestService("cart", this.http);
@@ -57,24 +56,15 @@ export class DataService {
   private orderItemRest: RestService = new RestService("order_item", this.http);
 
   constructor(private http: HttpClient) {
-    /*    this.menuActive.subscribe(new Subscriber(value => {
-          setInterval(() => {
-            this.menuSubject.next(this.cartItem);
-          },1000)
-        }))*/
   }
 
   public loadNecessary() {
 
-    this.user = JSON.parse(localStorage.getItem("signed"));
+    this.user = this.getUser();
 
-    this.categories = this.categoryRest.list().pipe(
-      publishReplay(1),
-      refCount(),
-      take(10),
-    );
+    this.categories = this.categoryRest.list()
 
-    this.productAsync = this.productRest.list().pipe(publishReplay(1), refCount());
+    this.productAsync = this.productRest.list();
 
     forkJoin(
       {
@@ -82,26 +72,45 @@ export class DataService {
         cartList: this.user ? this.cartRest.listBy({userId: this.user.id}) : EMPTY,
       }
     ).subscribe(value => {
+      console.debug("load products ");
       this.product = value.productAsync;
-      this.cart = Array.isArray(value.cartList) ? value.cartList[value.cartList.length - 1] : null;
-      if (!this.cart) {
+      this.cart = Array.isArray(value.cartList) && value.cartList.length > 0 ? value.cartList[value.cartList.length - 1] : null;
+      if (this.cart == null) {
         this.cartRest.insert(this.createCart()).subscribe(c => {
           this.cart = {id: c.insertId};
         })
+      } else {
+        this.loadCartItem();
       }
+
     });
 
   }
 
   public loadCartItem() {
-    this.cartItemRest.listBy({cartId: this.cart.id}).subscribe(value => {
+    let id = !!this.cart.id ? this.cart.id : null;
+
+    if (!!!id)
+      console.error("cart id not found {}", id);
+
+    this.cartItemRest.listBy({cartId: id}).subscribe(value => {
       // product to cart
       value.forEach(item => {
         item.product = this.product.find(value => {
           return value.id === item.productId
         });
-        if (!!item.product)
+
+        let asCart = this.cartItem.find(val => val.product.id === item.product.id);
+
+        if (!!item.product && !!!asCart) {
+
+          console.log("load item to cart {}", item);
+
           this.cartItem.push(item);
+
+          this.cartList.next(this.cartItem);
+        }
+
       });
     });
   }
@@ -124,7 +133,7 @@ export class DataService {
 
   public createCart() {
     return {
-      userId: this.getUserName().id,
+      userId: this.getUser().id,
       sessionId: new Date().getTime(),
       token: 1,
       status: 0,
@@ -145,6 +154,7 @@ export class DataService {
         item["product"] = p;
         item["id"] = value.insertId;
         this.cartItem.push(item);
+        this.cartList.next(this.cartItem)
       });
     }
 
@@ -168,13 +178,16 @@ export class DataService {
       delete: this.cartItemRest.delete(p),
     }).subscribe(value => {
       this.cartItem = this.cartItem.filter(c => c.product.id !== p.product.id);
+      this.cartList.next(this.cartItem);
     });
   }
 
   public updateCartItems() {
     this.cartItem.forEach(value => {
-      this.cartItemRest.update(value).subscribe()
-    })
+      let val = Object.assign({}, value);
+      delete val.product;
+      this.cartItemRest.update(val).subscribe()
+    });
   }
 
 
@@ -188,21 +201,21 @@ export class DataService {
     this.wishList.next(this._wishList);
   }
 
-  public getUserName() {
-    let signed = localStorage.getItem("signed");
-    if (signed)
-      return JSON.parse(signed).firstName;
-    return "";
-  }
 
   public getUser() {
-    let signed = localStorage.getItem("signed");
-    if (signed)
-      return JSON.parse(signed);
-    return {id: Math.random(), profile: "GUEST"};
+    try {
+      let signed = localStorage.getItem("signed");
+      if (!!signed)
+        return JSON.parse(signed);
+      return {id: Math.random(), profile: "GUEST"};
+    } catch (e) {
+      alert(e);
+    }
+
   }
 
   signOut() {
+    this.cartItem.splice(0, 100);
     localStorage.removeItem("signed");
   }
 
@@ -215,8 +228,9 @@ export class DataService {
   }
 
   getProduct(params: Params): Observable<any> {
-    return this.productRest.post(params, "/details")
+    return this.productRest.post({data: params, cmd: "/details"})
   }
+
 }
 
 export interface Product {

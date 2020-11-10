@@ -12,10 +12,11 @@ import {ProductComponent} from "./product/product.component";
 import {ProductDialogComponent} from "./product/product-dialog/product-dialog.component";
 import {ProductPipe} from "./product/pipe/product.pipe";
 import {LayoutModule} from "../shared/layout/arts/layout.module";
+import { CheckoutDetailsComponent } from './checkout/checkout-details/checkout-details.component';
 
 
 @NgModule({
-  declarations: [ProductDialogComponent, ProductDetailsComponent, ProductPipe],
+  declarations: [ProductDialogComponent, ProductDetailsComponent, ProductPipe, CheckoutDetailsComponent],
   exports: [
     ProductDialogComponent,
     ProductPipe
@@ -27,7 +28,7 @@ import {LayoutModule} from "../shared/layout/arts/layout.module";
       {path: 'account', pathMatch: 'full', component: AccountComponent},
       {path: 'lost-password', pathMatch: 'full', component: LostPasswordComponent},
       {path: 'shopping-cart', pathMatch: 'full', component: CartComponent},
-      {path: 'checkout', pathMatch: 'full', component: CheckoutComponent},
+      /*{path: 'checkout', pathMatch: 'full', component: CheckoutComponent},*/
       {
         path: 'product', component: ProductComponent, pathMatch: 'full',
         data: {breadcrumbs: ['Application Intel', 'Introduction']}

@@ -26,7 +26,7 @@
               <span class="qty-btn minus" (click)="c.quantity = c.quantity > 0 ? c.quantity  - 1 : 0 "><i class="ti-minus"></i></span>
             </div>
           </td>
-          <td class="subtotal"><span>{{c.price | currency}}</span></td>
+          <td class="subtotal"><span>{{c.product.price * c.quantity| currency}}</span></td>
           <td class="remove"><a (click)="removeCart(c)" class="btn">×</a></td>
         </tr>
 

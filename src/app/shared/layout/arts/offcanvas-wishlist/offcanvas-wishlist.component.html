@@ -11,7 +11,7 @@
           <a routerLink="product-details" class="image"><img src="assets/images/product/cart-product-1.jpg" alt="Cart product Image"></a>
           <div class="content">
             <a routerLink="product-details" class="title">{{c.title}}</a>
-            <span class="quantity-price">1 x <span class="amount">${{c.price}}</span></span>
+            <span class="quantity-price"><span class="amount">{{c.price | currency}}</span></span>
             <a class="remove" (click)="data.removeWishList(c)">×</a>
           </div>
         </li>

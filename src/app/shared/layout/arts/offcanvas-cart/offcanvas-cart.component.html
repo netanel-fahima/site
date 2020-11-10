@@ -12,7 +12,7 @@
           <a routerLink="product-details" class="image"><img src="assets/images/product/cart-product-1.jpg"
                                                              alt="Cart product Image"></a>
           <div class="content">
-            <a routerLink="product-details" class="title">{{c.product.title}}</a>
+            <a routerLink="product-details" [queryParams]="{id:c.product.id}" class="title">{{c.product.title}}</a>
             <span class="quantity-price">{{c.quantity}} x <span class="amount">${{c.product.price}}</span></span>
             <a class="remove" (click)="removeCart(c)">×</a>
           </div>

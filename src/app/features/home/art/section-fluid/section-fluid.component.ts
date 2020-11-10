@@ -4,6 +4,7 @@ import {RestService} from "../../../../core/rest/rest.service";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {DataService} from "../../../../core/data.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-section-fluid',
@@ -13,7 +14,7 @@ import {DataService} from "../../../../core/data.service";
 
 export class SectionFluidComponent implements OnInit, AfterViewChecked {
 
-  constructor(public data: DataService) {}
+  constructor(public data: DataService , private router :Router) {}
 
   ngOnInit(): void {
 

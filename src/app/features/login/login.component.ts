@@ -30,13 +30,21 @@ export class LoginComponent implements OnInit {
 
   signIn(email: any) {
     console.log(`login with ${email}`);
-    this.login.post( {machine: {name: this.deviceService.getDeviceInfo().device}, name: this.email, password: "Admin"})
+    this.login.post( {
+      data: {
+        machine: {name: this.deviceService.getDeviceInfo().device},
+        name: this.email,
+        password: "Admin"
+      }
+    })
       .subscribe(value => {
         //set local
         console.log(value);
         if (value != "FAILED") {
           localStorage.setItem("signed", JSON.stringify(value));
+          this.data.user = this.data.getUser();
           this.router.navigateByUrl("home").then();
+          this.data.loadNecessary();
         }else
           alert("הכניסה נכשלה - אמייל לא תואם")
       });
@@ -44,7 +52,7 @@ export class LoginComponent implements OnInit {
   }
 
   register(registerName: any, email: any) {
-    this.registe.post({machine: {name: "machina"}, user:{name: registerName, email: email}})
+    this.registe.post({data: {machine: {name: "machina"}, user: {name: registerName, email: email}}})
       .subscribe(value => {
         //set local
         console.log(value);
@@ -67,7 +75,7 @@ export class LoginComponent implements OnInit {
 
 
   getUserLogin(){
-    return this.data.getUserName();
+    return this.data.getUser().firstName;
   }
 
 }
