@@ -1,3 +1,22 @@
+a{
+  font-family: "Heebo", sans-serif !important;
+}
 .site-menu-section{
   background-color: lightpink;
 }
+
+.form-check-input {
+  margin-left: 0!important;
+}
+
+input[type="email"]{
+  text-align: left;
+}
+
+
+input{
+  text-align: right;
+}
+
+
+

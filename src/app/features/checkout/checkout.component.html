@@ -1,5 +1,5 @@
-<div class="section section-padding">
-  <div class="container">
+<div class="section section-padding checkout">
+  <div class="container wrap">
     <div class="checkout-coupon">
       <p class="coupon-toggle">
         <a href="#checkout-coupon-form" data-toggle="collapse" class="collapsed" aria-expanded="false">לחצי כאן להזנת קופון</a>
@@ -14,10 +14,10 @@
         </div>
       </div>
     </div>
-    <div class="section-title2">
+<!--    <div class="section-title2">
       <h2 class="title">פרטי תשלום</h2>
-    </div>
-    <form action="#" class="checkout-form learts-mb-50">
+    </div>-->
+    <form action="#" class="anyflexbox">
       <div class="row">
         <div class="col-md-6 col-12 learts-mb-20">
           <label for="bdFirstName">שם פרטי<abbr class="required">*</abbr></label>
@@ -27,99 +27,19 @@
           <label for="bdLastName">שם משפחה <abbr class="required">*</abbr></label>
           <input type="text" id="bdLastName">
         </div>
-        <!--        <div class="col-12 learts-mb-20">
-                  <label for="bdCountry">מדינה <abbr class="required">*</abbr></label>
-                  <select id="bdCountry" class="select2-basic select2-hidden-accessible" data-select2-id="bdCountry" tabindex="-1" aria-hidden="true">
-                    <option value="">Select a country…</option>
-                    <option value="AX">ישראל</option>
-                    <option value="AF">ארה"ב</option>
-                    <option value="BD" selected="" data-select2-id="5">ישראל</option>
-                  </select><span class="select2 select2-container select2-container&#45;&#45;default" dir="ltr" data-select2-id="4" style="width: 357.2px;"><span class="selection"><span class="select2-selection select2-selection&#45;&#45;single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-bdCountry-container"><span class="select2-selection__rendered" id="select2-bdCountry-container" role="textbox" aria-readonly="true" title="ישראל">ישראל</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                </div>-->
-        <div class="col-12 learts-mb-20">
-          <label for="bdAddress1">כתובת <abbr class="required">*</abbr></label>
-          <input type="text" id="bdAddress1" placeholder="מספר בית ורחוב">
+
+        <div class="col-md-6 col-12 learts-mb-20">
+          <label for="bdAddress2" > כניסה , דירה  </label>
+          <input type="text" id="bdAddress2" >
         </div>
-        <div class="col-12 learts-mb-20">
-          <label for="bdAddress2" class="sr-only">כניסה , דירה *אופציונלי</label>
-          <input type="text" id="bdAddress2" placeholder="כניסה , דירה *אופציונלי ">
+        <div class="col-md-6 col-12 learts-mb-20">
+          <label for="bdAddress1">כתובת <abbr class="required">*</abbr></label>
+          <input type="text" id="bdAddress1" >
         </div>
         <div class="col-12 learts-mb-20">
           <label for="bdTownOrCity">עיר <abbr class="required">*</abbr></label>
           <input type="text" id="bdTownOrCity">
         </div>
-        <!--
-                <div class="col-12 learts-mb-20">
-                  <label for="bdDistrict">District <abbr class="required">*</abbr></label>
-                  <select id="bdDistrict" class="select2-basic select2-hidden-accessible" data-select2-id="bdDistrict" tabindex="-1" aria-hidden="true">
-                    <option value="" data-select2-id="7">Select an option…</option>
-                    <option value="BD-05">Bagerhat</option>
-                    <option value="BD-01">Bandarban</option>
-                    <option value="BD-02">Barguna</option>
-                    <option value="BD-06">Barishal</option>
-                    <option value="BD-07">Bhola</option>
-                    <option value="BD-03">Bogura</option>
-                    <option value="BD-04">Brahmanbaria</option>
-                    <option value="BD-09">Chandpur</option>
-                    <option value="BD-10">Chattogram</option>
-                    <option value="BD-12">Chuadanga</option>
-                    <option value="BD-11">Cox's Bazar</option>
-                    <option value="BD-08">Cumilla</option>
-                    <option value="BD-13">Dhaka</option>
-                    <option value="BD-14">Dinajpur</option>
-                    <option value="BD-15">Faridpur </option>
-                    <option value="BD-16">Feni</option>
-                    <option value="BD-19">Gaibandha</option>
-                    <option value="BD-18">Gazipur</option>
-                    <option value="BD-17">Gopalganj</option>
-                    <option value="BD-20">Habiganj</option>
-                    <option value="BD-21">Jamalpur</option>
-                    <option value="BD-22">Jashore</option>
-                    <option value="BD-25">Jhalokati</option>
-                    <option value="BD-23">Jhenaidah</option>
-                    <option value="BD-24">Joypurhat</option>
-                    <option value="BD-29">Khagrachhari</option>
-                    <option value="BD-27">Khulna</option>
-                    <option value="BD-26">Kishoreganj</option>
-                    <option value="BD-28">Kurigram</option>
-                    <option value="BD-30">Kushtia</option>
-                    <option value="BD-31">Lakshmipur</option>
-                    <option value="BD-32">Lalmonirhat</option>
-                    <option value="BD-36">Madaripur</option>
-                    <option value="BD-37">Magura</option>
-                    <option value="BD-33">Manikganj </option>
-                    <option value="BD-39">Meherpur</option>
-                    <option value="BD-38">Moulvibazar</option>
-                    <option value="BD-35">Munshiganj</option>
-                    <option value="BD-34">Mymensingh</option>
-                    <option value="BD-48">Naogaon</option>
-                    <option value="BD-43">Narail</option>
-                    <option value="BD-40">Narayanganj</option>
-                    <option value="BD-42">Narsingdi</option>
-                    <option value="BD-44">Natore</option>
-                    <option value="BD-45">Nawabganj</option>
-                    <option value="BD-41">Netrakona</option>
-                    <option value="BD-46">Nilphamari</option>
-                    <option value="BD-47">Noakhali</option>
-                    <option value="BD-49">Pabna</option>
-                    <option value="BD-52">Panchagarh</option>
-                    <option value="BD-51">Patuakhali</option>
-                    <option value="BD-50">Pirojpur</option>
-                    <option value="BD-53">Rajbari</option>
-                    <option value="BD-54">Rajshahi</option>
-                    <option value="BD-56">Rangamati</option>
-                    <option value="BD-55">Rangpur</option>
-                    <option value="BD-58">Satkhira</option>
-                    <option value="BD-62">Shariatpur</option>
-                    <option value="BD-57">Sherpur</option>
-                    <option value="BD-59">Sirajganj</option>
-                    <option value="BD-61">Sunamganj</option>
-                    <option value="BD-60">Sylhet</option>
-                    <option value="BD-63">Tangail</option>
-                    <option value="BD-64">Thakurgaon</option>
-                  </select><span class="select2 select2-container select2-container&#45;&#45;default" dir="ltr" data-select2-id="6" style="width: 170.8px;"><span class="selection"><span class="select2-selection select2-selection&#45;&#45;single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-bdDistrict-container"><span class="select2-selection__rendered" id="select2-bdDistrict-container" role="textbox" aria-readonly="true" title="Select an option…">Select an option…</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                </div>
-        -->
         <div class="col-12 learts-mb-20">
           <label for="bdPostcode">מיקוד (לא חייב) </label>
           <input type="text" id="bdPostcode">
@@ -139,16 +59,13 @@
           </div>
         </div>
         <div class="col-12 learts-mb-20">
-          <label for="bdOrderNote">הערות</label>
+          <label for="bdOrderNote"></label>
           <textarea id="bdOrderNote" placeholder=".הערות לגבי המוצר והמשלוח"></textarea>
         </div>
       </div>
     </form>
-    <div class="section-title2 text-center">
-      <h2 class="title">ההזמנה שלך</h2>
-    </div>
-    <div class="row learts-mb-n30">
-      <div class="col-lg-6 order-lg-2 learts-mb-30">
+    <aside class="sidebar">
+      <div class=" order-lg-2 learts-mb-30">
         <div class="order-review">
           <table class="table">
             <thead>
@@ -175,7 +92,12 @@
             </tfoot>
           </table>
         </div>
+        <div class="text-center">
+          <p class="payment-note">הנתונים האישיים שלך ישמשו לעיבוד הזמנתך, לתמיכה בחווייתך ברחבי אתר זה ולמטרות אחרות המתוארות במדיניות הפרטיות שלנו.</p>
+          <button class="btn btn-dark btn-outline-hover-dark">שלחי הזמנה</button>
+        </div>
       </div>
+<!--
       <div class="col-lg-6 order-lg-1 learts-mb-30">
         <div class="order-payment">
           <div class="payment-method">
@@ -225,6 +147,7 @@
           </div>
         </div>
       </div>
-    </div>
+-->
+    </aside>
   </div>
 </div>

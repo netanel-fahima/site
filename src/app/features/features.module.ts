@@ -7,19 +7,18 @@ import {CartComponent} from "./cart/cart.component";
 import {CheckoutComponent} from "./checkout/checkout.component";
 import {ProductDetailsComponent} from "./product/product-details/product-details.component";
 import {AccountComponent} from "./account/account.component";
-import {DataService} from "../core/data.service";
 import {ProductComponent} from "./product/product.component";
 import {ProductDialogComponent} from "./product/product-dialog/product-dialog.component";
-import {ProductPipe} from "./product/pipe/product.pipe";
+import {ProductPipe} from "../core/pipe/product.pipe";
 import {LayoutModule} from "../shared/layout/arts/layout.module";
-import { CheckoutDetailsComponent } from './checkout/checkout-details/checkout-details.component';
+import {CloudinaryModule} from "@cloudinary/angular-5.x";
 
 
 @NgModule({
-  declarations: [ProductDialogComponent, ProductDetailsComponent, ProductPipe, CheckoutDetailsComponent],
+  declarations: [ProductDialogComponent, ProductDetailsComponent],
   exports: [
-    ProductDialogComponent,
-    ProductPipe
+    ProductDialogComponent
+
   ],
   imports: [
     CommonModule,
@@ -28,7 +27,7 @@ import { CheckoutDetailsComponent } from './checkout/checkout-details/checkout-d
       {path: 'account', pathMatch: 'full', component: AccountComponent},
       {path: 'lost-password', pathMatch: 'full', component: LostPasswordComponent},
       {path: 'shopping-cart', pathMatch: 'full', component: CartComponent},
-      /*{path: 'checkout', pathMatch: 'full', component: CheckoutComponent},*/
+      {path: 'checkout', pathMatch: 'full', component: CheckoutComponent},
       {
         path: 'product', component: ProductComponent, pathMatch: 'full',
         data: {breadcrumbs: ['Application Intel', 'Introduction']}
@@ -40,7 +39,8 @@ import { CheckoutDetailsComponent } from './checkout/checkout-details/checkout-d
         }
       },
     ]),
-    LayoutModule
+    LayoutModule,
+    CloudinaryModule
   ]
 })
 export class FeaturesModule {

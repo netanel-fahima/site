@@ -7,6 +7,8 @@ import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-s
 import {environment} from 'src/environments/environment';
 import {reducers} from '../store';
 import {CustomSerializer} from "../store/router";
+import {CloudinaryModule} from "@cloudinary/angular-5.x";
+import {Cloudinary} from "cloudinary-core";
 
 
 /**
@@ -20,7 +22,11 @@ import {CustomSerializer} from "../store/router";
     CommonModule,
     BrowserAnimationsModule,
 
-
+    CloudinaryModule.forRoot({Cloudinary},
+      {
+        cloud_name: 'ddvlwmhbe', upload_preset: 'ii9wuyma'
+      })
+    ,
     // ngrx modules
     StoreModule.forRoot(reducers, {
       runtimeChecks: {
@@ -40,7 +46,7 @@ import {CustomSerializer} from "../store/router";
   ],
   providers: [
     // use custom serializer to strip redundant router data
-    { provide: RouterStateSerializer, useClass: CustomSerializer }
+    {provide: RouterStateSerializer, useClass: CustomSerializer}
 
   ]
 })

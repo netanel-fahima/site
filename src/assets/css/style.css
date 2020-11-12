@@ -16575,16 +16575,3 @@ body.offcanvas-open .sticky-header {
     letter-spacing: 0;
   }
 }
-
-.form-check-input {
- margin-left: 0!important;
-}
-
-input[type="email"]{
-  text-align: left;
-}
-
-
-input{
-  text-align: right;
-}

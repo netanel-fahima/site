@@ -16,11 +16,11 @@ import {LostPasswordComponent} from './features/login/lost-password/lost-passwor
 import {AccountComponent} from './features/account/account.component';
 import {ContactUsComponent} from './features/contact-us/contact-us.component';
 import {CoreModule} from "./core/core.module";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
-import {DataService} from "./core/data.service";
-import {RestService} from "./core/rest/rest.service";
 import {FeaturesModule} from "./features/features.module";
+import {CloudinaryModule} from "@cloudinary/angular-5.x";
+import {Cloudinary} from "cloudinary-core";
 
 @NgModule({
   declarations: [
@@ -43,11 +43,11 @@ import {FeaturesModule} from "./features/features.module";
     HttpClientModule,
     FormsModule,
     HomeModule,
-    FeaturesModule,
     LayoutModule,
+    FeaturesModule,
   ],
   bootstrap: [AppComponent],
-  providers:[]
+  providers: []
 })
 export class AppModule {
 }

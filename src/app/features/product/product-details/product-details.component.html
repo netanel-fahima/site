@@ -18,12 +18,20 @@
           <div class="product-gallery-slider">
             <div class="product-zoom" *ngFor="let image of data.productImages ; let i = index"
                  data-image="{{data.productImagesZoom[i]}}">
-              <img src="{{image}}" alt="">
+              <cl-image public-id="someIteratorValue" secure="true">
+                <cl-transformation width="768" height="1024">
+                </cl-transformation>
+              </cl-image>
             </div>
           </div>
           <div class="product-thumb-slider">
             <div class="item" *ngFor="let image of data.productImagesZoom">
-              <img src="{{image}}" alt="">
+              <!--<img src="{{image}}" alt="">-->
+              <cl-image public-id="someIteratorValue" secure="true">
+                <cl-transformation width="570" height="760">
+                </cl-transformation>
+              </cl-image>
+
             </div>
           </div>
         </div>
@@ -33,16 +41,12 @@
       <!-- Product Summery Start -->
       <div dir="rtl" class="col-lg-6 col-12 learts-mb-40">
         <div class="product-summery">
-          <div class="product-nav">
-            <a href="#"><i class="fal fa-long-arrow-left"></i></a>
-            <a href="#"><i class="fal fa-long-arrow-right"></i></a>
-          </div>
           <div class="product-ratings">
                             <span class="star-rating">
                                 <span class="rating-active" style="width: 100%;">דירוג</span>
                             </span>
-            <a href="#reviews" class="review-link">(<span class="count">{{product.reviews.length}}</span> customer
-              reviews)</a>
+            <a href="#reviews" class="review-link">(<span class="count" *ngIf="product.reviews">{{product.reviews.length}}</span>
+              תגובות)</a>
           </div>
           <h3 class="product-title">{{product.title}}</h3>
           <div class="product-price">{{product.price | currency}}</div>

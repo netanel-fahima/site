@@ -1,8 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {MainComponent} from './shared/layout/arts/main/main.component';
-import {LayoutModule} from './shared/layout/arts/layout.module';
-import {CheckoutDetailsComponent} from "./features/checkout/checkout-details/checkout-details.component";
 
 const routes: Routes = [
 
@@ -19,14 +17,11 @@ const routes: Routes = [
       { path: 'icons', loadChildren: () => import('./features/icons/icons.module').then(m => m.IconsModule) },*/
 
     ]
-  },{
-    path : 'checkout',
-    component : CheckoutDetailsComponent
   }
 ];
 
 @NgModule({
-  imports: [LayoutModule, RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

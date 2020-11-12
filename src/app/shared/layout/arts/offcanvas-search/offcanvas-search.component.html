@@ -5,12 +5,48 @@
       <form action="#">
         <div class="row mb-n3">
           <div class="col-lg-4 col-12 mb-3">
-            <select class="search-select select2-basic">
+<!--            <select class="search-select select2-basic">
               <option value="0">כל הקטגוריות</option>
-              <option  *ngFor="let c of data.categories|async" value="{{c.title |lowercase }}">{{c.title}}</option>
-            </select>
+
+              <option *ngFor="let c of data.categories|async" value="{{c.title |lowercase }}">{{c.title}}</option>
+            </select>-->
           </div>
-          <div class="col-lg-8 col-12 mb-3"><input type="text" placeholder=" .... חפשי מוצר "></div>
+          <div class="col-lg-8 col-12 mb-3"><label>
+            <input type="text" placeholder=" .... חפשי מוצר " [(ngModel)]="name" name="name">
+          </label></div>
+          <div class="section learts-mt-70">
+            <div class="container">
+              <!-- Products Start -->
+              <div id="shop-products"
+                   class="products isotope-grid row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
+
+                <div class="grid-sizer col-1"></div>
+
+                <div class="grid-item col featured" *ngFor="let p of (data.productAsync | async  | productFilter : name) ">
+                  <div class="product">
+                    <div class="product-thumb">
+                      <a (click)="router.navigateByUrl('product-details?id='+p.id).then()" class="image">
+                        <img src="{{getImage(p.id)}}" alt="Product Image">
+                        <img class="image-hover " src="{{getImage(p.id)}}" alt="Product Image">
+                      </a>
+                    </div>
+                    <div class="product-info">
+                      <h6 class="title"><a routerLink="product-details?id={{p.id}}">{{p.title}}</a></h6>
+                      <span class="price">{{p.price | currency}}</span>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+              <!-- Products End -->
+<!--
+              <div class="text-center learts-mt-70">
+                <a href="" class="btn btn-dark btn-outline-hover-dark"><i class="ti-plus"></i> עוד</a>
+              </div>
+-->
+            </div>
+          </div>
         </div>
       </form>
     </div>

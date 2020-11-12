@@ -7,16 +7,18 @@ import {LogoComponent} from './logo/logo.component';
 import {PageHeaderComponent} from './page-header/page-header.component';
 import {PageHeadingComponent} from './page-heading/page-heading.component';
 import {PageFooterComponent} from './page-footer/page-footer.component';
-import { PageHeaderStickyComponent } from './page-header-sticky/page-header-sticky.component';
-import { PageHeaderMobileComponent } from './page-header-mobile/page-header-mobile.component';
-import { PageHeaderStickyMobileComponent } from './page-header-sticky-mobile/page-header-sticky-mobile.component';
-import { OffcanvasSearchComponent } from './offcanvas-search/offcanvas-search.component';
-import { OffcanvasWishlistComponent } from './offcanvas-wishlist/offcanvas-wishlist.component';
-import { OffcanvasCartComponent } from './offcanvas-cart/offcanvas-cart.component';
-import { OffcanvasMobileMenuComponent } from './offcanvas-mobile-menu/offcanvas-mobile-menu.component';
-import { SectionPaddingComponent } from '../../../features/home/art/section-padding/section-padding.component';
-import { PageTitleSectionComponent } from './page-title-section/page-title-section.component';
-import {DataService} from "../../../core/data.service";
+import {PageHeaderStickyComponent} from './page-header-sticky/page-header-sticky.component';
+import {PageHeaderMobileComponent} from './page-header-mobile/page-header-mobile.component';
+import {PageHeaderStickyMobileComponent} from './page-header-sticky-mobile/page-header-sticky-mobile.component';
+import {OffcanvasSearchComponent} from './offcanvas-search/offcanvas-search.component';
+import {OffcanvasWishlistComponent} from './offcanvas-wishlist/offcanvas-wishlist.component';
+import {OffcanvasCartComponent} from './offcanvas-cart/offcanvas-cart.component';
+import {OffcanvasMobileMenuComponent} from './offcanvas-mobile-menu/offcanvas-mobile-menu.component';
+import {SectionPaddingComponent} from '../../../features/home/art/section-padding/section-padding.component';
+import {PageTitleSectionComponent} from './page-title-section/page-title-section.component';
+import {FeaturesModule} from "../../../features/features.module";
+import {ProductPipe} from "../../../core/pipe/product.pipe";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations:
@@ -33,13 +35,15 @@ import {DataService} from "../../../core/data.service";
       OffcanvasCartComponent,
       OffcanvasMobileMenuComponent,
       SectionPaddingComponent,
-      PageTitleSectionComponent
+      PageTitleSectionComponent,
+      ProductPipe
     ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],/*providers: [DataService],*/
-  exports: [MainComponent, SectionPaddingComponent, PageFooterComponent, PageTitleSectionComponent],
+  exports: [MainComponent, SectionPaddingComponent, PageFooterComponent, PageTitleSectionComponent,ProductPipe],
   entryComponents: []
 })
 
