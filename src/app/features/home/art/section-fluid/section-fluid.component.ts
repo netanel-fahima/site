@@ -1,10 +1,12 @@
-import {AfterViewChecked, Component, OnInit} from '@angular/core';
-import {Init} from "../../../../../assets/js/init";
-import {RestService} from "../../../../core/rest/rest.service";
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {DataService} from "../../../../core/data.service";
-import {Router} from "@angular/router";
+import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
+import { Init } from '../../../../../assets/js/init';
+import { RestService } from '../../../../core/rest/rest.service';
+import { HttpClient } from '@angular/common/http';
+import { noop, Observable } from 'rxjs';
+import { DataService } from '../../../../core/data.service';
+import { Router } from '@angular/router';
+import { Category } from 'src/app/core/rest/mapFromServer';
+import { last } from 'rxjs/operators';
 
 @Component({
   selector: 'app-section-fluid',
@@ -14,17 +16,23 @@ import {Router} from "@angular/router";
 
 export class SectionFluidComponent implements OnInit, AfterViewChecked {
 
-  constructor(public data: DataService , private router :Router) {}
+  public categories: Category[];
+
+  constructor(public data: DataService, private router: Router) {
+    data.categories.asObservable().subscribe(data => {
+      this.categories = data;
+      setTimeout(()=>{
+        Init.banner()
+      },2000)
+    });
+  }
 
   ngOnInit(): void {
 
   }
 
   ngAfterViewChecked(): void {
-    console.log("categories =========" + this.data.categories);
-    this.data.categories.subscribe(data =>{
-      Init.banner();
-    });
+
   }
 
 }

@@ -1,10 +1,10 @@
 import {AfterViewChecked, Component, OnInit} from '@angular/core';
-import {Init} from "../../../assets/js/init";
-import {DataService} from "../../core/data.service";
+import {Init} from '../../../assets/js/init';
+import {DataService} from '../../core/data.service';
 
 @Component({
   selector: 'app-cart',
-  templateUrl: './cart.component.html',
+  templateUrl:  './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit, AfterViewChecked {
@@ -20,18 +20,18 @@ export class CartComponent implements OnInit, AfterViewChecked {
     Init.qtyBtn();
   }
 
-  alert(quantity: any) {
-    alert(quantity)
+  alert(quantity: any): void {
+    // alert(quantity)
   }
 
   updateCart() {
-    this.data.updateCartItems()
+    this.data.updateCartItems();
   }
 
   removeCart(p) {
-    this.data.cartItem = this.data.cartItem.filter(c => c.product.id !== p.product.id);
-    console.log("remove cart ", p);
-    this.data.removeCart(p)
+    //this.data.cartItem = this.data.cartItem.filter(c => c.product.id !== p.product.id);
+    console.log('remove cart ', p);
+    this.data.removeCart(p);
   }
 
 }

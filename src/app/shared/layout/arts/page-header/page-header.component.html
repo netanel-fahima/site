@@ -36,8 +36,8 @@
         <div class="header-tools justify-content-end">
           <div class="header-login">
             <div class="row-cols-1">
-              <a [routerLink]="data.getUser().profile !== 'GUEST' ? 'account' : 'login'">
-                <a style="padding-right:7px">{{getUserName()| async}}</a>
+              <a [routerLink]="(user |async )?.profile !== 'GUEST' ? 'account' : 'login'">
+                <a style="padding-right:7px">{{(user | async)?.firstName}}</a>
                 <i class="fal fa-user"></i>
               </a>
 
@@ -49,11 +49,11 @@
           </div>
           <div class="header-wishlist">
             <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span
-              class="wishlist-count"> {{ (data.wishList | async)?.length }}</span><i class="fal fa-heart"></i></a>
+              class="wishlist-count"> {{ (data.wishList.getValue())?.length }}</span><i class="fal fa-heart"></i></a>
           </div>
           <div class="header-cart">
             <a href="#offcanvas-cart" class="offcanvas-toggle"><span
-              class="cart-count">{{(data.cartList| async)?.length }}</span><i class="fal fa-shopping-cart"></i></a>
+              class="cart-count"><!--{{(data.cart| async)?.length }}--></span><i class="fal fa-shopping-cart"></i></a>
           </div>
         </div>
       </div>

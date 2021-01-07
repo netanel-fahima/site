@@ -1,6 +1,6 @@
 import {AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core';
-import {Init} from 'src/assets/js/init'
-import {DataService} from "../../../../core/data.service";
+import {Init} from 'src/assets/js/init';
+import {DataService} from '../../../../core/data.service';
 
 @Component({
   selector: 'app-page-header-sticky',
@@ -9,7 +9,7 @@ import {DataService} from "../../../../core/data.service";
 })
 export class PageHeaderStickyComponent implements OnInit, AfterViewChecked  {
 
-  constructor(public data : DataService) { }
+  constructor(public data: DataService) { }
 
 
   ngOnInit(): void {
@@ -25,7 +25,7 @@ export class PageHeaderStickyComponent implements OnInit, AfterViewChecked  {
   }
 
   ngAfterViewChecked(): void {
-    console.log("load slider");
+    console.log('load slider');
     Init.slider();
 
   }

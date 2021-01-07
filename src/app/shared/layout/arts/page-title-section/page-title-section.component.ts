@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit, ViewChild} from '@angular/core';
-import {getRouterState} from "../../../../core/router.selectors";
-import {Store} from "@ngrx/store";
+import {getRouterState} from '../../../../core/router.selectors';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-page-title-section',
@@ -15,11 +15,11 @@ export class PageTitleSectionComponent implements OnInit {
   vm$ = this.store.select(getRouterState);
 
   constructor(private store: Store<any>) {
-    console.log(store)
+    console.log(store);
   }
 
   @Input() siteMap: any;
-  title: any = "";
+  title: any = '';
 
 
   ngOnInit(): void {

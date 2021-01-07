@@ -1,6 +1,6 @@
 import {AfterViewChecked, Component, OnInit} from '@angular/core';
-import {Init} from "../../../assets/js/init";
-import {DataService} from "../../core/data.service";
+import {Init} from '../../../assets/js/init';
+import {DataService} from '../../core/data.service';
 
 @Component({
   selector: 'app-checkout',
@@ -10,10 +10,10 @@ import {DataService} from "../../core/data.service";
 export class CheckoutComponent implements OnInit , AfterViewChecked {
 
   ngAfterViewChecked(): void {
-    Init.select2()
+    Init.select2();
   }
 
-  constructor( public data : DataService) { }
+  constructor( public data: DataService) { }
 
   ngOnInit(): void {
   }

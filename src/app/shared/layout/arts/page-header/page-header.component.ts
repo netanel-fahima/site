@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {DataService} from "../../../../core/data.service";
-import {Observable, of} from "rxjs";
+import {DataService} from '../../../../core/data.service';
+import {Observable, of} from 'rxjs';
 
 
 @Component({
@@ -11,11 +11,11 @@ import {Observable, of} from "rxjs";
 
 export class PageHeaderComponent {
 
-  constructor(public data: DataService) {}
+  user: Observable<any>;
 
-  getUserName(): Observable<string> {
-    let user = this.data.getUser();
-    return of(user.profile === 'GUEST' ? 'אורח' : user.firstName)
+  constructor(public data: DataService) {
+    this.user = this.data.userDetail.asObservable();
   }
+
 
 }

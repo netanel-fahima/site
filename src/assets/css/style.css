@@ -10939,7 +10939,8 @@ body.offcanvas-open .sticky-header {
 /*----------------------------------------*/
 /* Product Wrapper */
 .products {
-  margin-bottom: -50px;
+  height: 100% !important;
+  margin-bottom: 2rem;
 }
 
 .products .product {

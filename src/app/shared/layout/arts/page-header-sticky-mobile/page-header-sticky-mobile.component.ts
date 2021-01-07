@@ -1,6 +1,6 @@
 import {AfterContentChecked, Component, OnInit} from '@angular/core';
-import {Init} from "../../../../../assets/js/init";
-import {DataService} from "../../../../core/data.service";
+import {Init} from '../../../../../assets/js/init';
+import {DataService} from '../../../../core/data.service';
 
 @Component({
   selector: 'app-page-header-sticky-mobile',

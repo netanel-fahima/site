@@ -1,4 +1,4 @@
-import {ActivatedRouteSnapshot, Params, RouterStateSnapshot,} from '@angular/router';
+import {ActivatedRouteSnapshot, Params, RouterStateSnapshot, } from '@angular/router';
 
 import * as fromRouter from '@ngrx/router-store';
 

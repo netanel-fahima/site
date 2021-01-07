@@ -10,28 +10,31 @@
         <div class="col-md col-12 learts-mb-20">
           <ul class="shop-toolbar-controls">
 
-<!--            <li>
-              <div class="product-sorting">
-                <select class="nice-select">
-                  <option value="menu_order" selected="selected">Default sorting</option>
-                  <option value="popularity">Sort by popularity</option>
-                  <option value="rating">Sort by average rating</option>
-                  <option value="date">Sort by latest</option>
-                  <option value="price">Sort by price: low to high</option>
-                  <option value="price-desc">Sort by price: high to low</option>
-                </select>
-              </div>
-            </li>-->
+            <!--            <li>
+                          <div class="product-sorting">
+                            <select class="nice-select">
+                              <option value="menu_order" selected="selected">Default sorting</option>
+                              <option value="popularity">Sort by popularity</option>
+                              <option value="rating">Sort by average rating</option>
+                              <option value="date">Sort by latest</option>
+                              <option value="price">Sort by price: low to high</option>
+                              <option value="price-desc">Sort by price: high to low</option>
+                            </select>
+                          </div>
+                        </li>-->
             <li>
               <div class="product-column-toggle d-none d-xl-flex">
-                <button class="toggle active hintT-top" data-hint="5 Column" data-column="5"><i class="ti-layout-grid4-alt"></i></button>
-                <button class="toggle hintT-top" data-hint="4 Column" data-column="4"><i class="ti-layout-grid3-alt"></i></button>
-                <button class="toggle hintT-top" data-hint="3 Column" data-column="3"><i class="ti-layout-grid2-alt"></i></button>
+                <button class="toggle active hintT-top" data-hint="5 Column" data-column="5"><i
+                  class="ti-layout-grid4-alt"></i></button>
+                <button class="toggle hintT-top" data-hint="4 Column" data-column="4"><i
+                  class="ti-layout-grid3-alt"></i></button>
+                <button class="toggle hintT-top" data-hint="3 Column" data-column="3"><i
+                  class="ti-layout-grid2-alt"></i></button>
               </div>
             </li>
-       <!--     <li>
-              <a class="product-filter-toggle" href="#product-filter">Filters</a>
-            </li>-->
+            <!--     <li>
+                   <a class="product-filter-toggle" href="#product-filter">Filters</a>
+                 </li>-->
 
           </ul>
         </div>
@@ -58,35 +61,38 @@
   <div class="section learts-mt-70">
     <div class="container">
       <!-- Products Start -->
-      <div id="shop-products" class="products isotope-grid row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
+      <div id="shop-products"
+           class="products isotope-grid row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
 
-        <div class="grid-sizer col-1"></div>
+        <div *ngIf="!(productAsync | async).length">Waiting</div>
 
-        <div  class="grid-item col featured" *ngFor="let p of data.productAsync | async">
+        <div class="grid-item col featured" *ngFor="let p of (productAsync | async ) | emptyFilter">
           <div class="product">
             <div class="product-thumb">
               <a (click)="router.navigateByUrl('product-details?id='+p.id).then()" class="image">
                 <img src="{{getImage(p.id)}}" alt="Product Image">
                 <img class="image-hover " src="{{getImage(p.id)}}" alt="Product Image">
               </a>
-              <a (click)="addToWithList(p)" href="wishlist" class="add-to-wishlist hintT-left" data-hint="הוסיפי למועדפים"><i class="far fa-heart"></i></a>
+              <a (click)="addToWithList(p)" href="wishlist" class="add-to-wishlist hintT-left"
+                 data-hint="הוסיפי למועדפים"><i class="far fa-heart"></i></a>
             </div>
             <div class="product-info">
               <h6 class="title"><a routerLink="product-details?id={{p.id}}">{{p.title}}</a></h6>
               <span class="price">{{p.price | currency}}</span>
               <div class="product-buttons">
-                <a href="#quickViewModal" (click)="openDialog(p)" data-toggle="modal" class="product-button hintT-top" data-hint="תצוגה"><i class="fal fa-search"></i></a>
-                <a   (click)="addToCart(p)" class="product-button hintT-top" data-hint="הוסף לעגלה"><i class="fal fa-shopping-cart"></i></a>
+                <a href="#quickViewModal" (click)="openDialog(p)" data-toggle="modal" class="product-button hintT-top"
+                   data-hint="תצוגה"><i class="fal fa-search"></i></a>
+                <a (click)="addToCart(p)" class="product-button hintT-top" data-hint="הוסף לעגלה"><i
+                  class="fal fa-shopping-cart"></i></a>
               </div>
             </div>
           </div>
         </div>
 
-
       </div>
       <!-- Products End -->
-      <div class="text-center learts-mt-70">
-        <a  href="" class="btn btn-dark btn-outline-hover-dark"><i class="ti-plus"></i> עוד</a>
+      <div class="text-center learts-mt-70" *ngIf="(productAsync | async).length" style="display: block">
+        <a href="" class="btn btn-dark btn-outline-hover-dark"><i class="ti-plus"></i> עוד</a>
       </div>
     </div>
   </div>

@@ -1,17 +1,17 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {RouterModule} from "@angular/router";
-import {LoginComponent} from "./login/login.component";
-import {LostPasswordComponent} from "./login/lost-password/lost-password.component";
-import {CartComponent} from "./cart/cart.component";
-import {CheckoutComponent} from "./checkout/checkout.component";
-import {ProductDetailsComponent} from "./product/product-details/product-details.component";
-import {AccountComponent} from "./account/account.component";
-import {ProductComponent} from "./product/product.component";
-import {ProductDialogComponent} from "./product/product-dialog/product-dialog.component";
-import {ProductPipe} from "../core/pipe/product.pipe";
-import {LayoutModule} from "../shared/layout/arts/layout.module";
-import {CloudinaryModule} from "@cloudinary/angular-5.x";
+import {RouterModule} from '@angular/router';
+import {LoginComponent} from './login/login.component';
+import {LostPasswordComponent} from './login/lost-password/lost-password.component';
+import {CartComponent} from './cart/cart.component';
+import {CheckoutComponent} from './checkout/checkout.component';
+import {ProductDetailsComponent} from './product/product-details/product-details.component';
+import {AccountComponent} from './account/account.component';
+import {ProductComponent} from './product/product.component';
+import {ProductDialogComponent} from './product/product-dialog/product-dialog.component';
+import {ProductPipe} from '../core/pipe/product.pipe';
+import {LayoutModule} from '../shared/layout/arts/layout.module';
+import {CloudinaryModule} from '@cloudinary/angular-5.x';
 
 
 @NgModule({

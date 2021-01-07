@@ -68,7 +68,7 @@
         <form class="user-login-register bg-light">
           <div class="login-register-title">
             <h2 class="title">רשומה כבר</h2>
-            <p class="desc">{{getUserLogin()}}</p>
+            <p class="desc">{{(user|async).firstName}}</p>
           </div>
           <div class="login-register-form">
             <form action="#">

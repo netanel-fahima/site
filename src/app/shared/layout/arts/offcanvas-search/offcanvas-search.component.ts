@@ -1,7 +1,7 @@
 import {AfterViewChecked, Component, OnInit} from '@angular/core';
-import {DataService} from "../../../../core/data.service";
-import {Init} from "../../../../../assets/js/init";
-import {Router} from "@angular/router";
+import {DataService} from '../../../../core/data.service';
+import {Init} from '../../../../../assets/js/init';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-offcanvas-search',
@@ -15,13 +15,13 @@ export class OffcanvasSearchComponent implements OnInit , AfterViewChecked {
 
   }
 
-  constructor(public data : DataService, private router : Router) { }
+  constructor(public data: DataService, private router: Router) { }
 
   ngOnInit(): void {
     Init.select2();
   }
 
   getImage(id: any) {
-    return "assets/images/product/s328/product-17.jpg"
+    return 'assets/images/product/s328/product-17.jpg';
   }
 }

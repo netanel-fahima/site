@@ -1,6 +1,6 @@
 import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
-import {Init} from "../../../../assets/js/init";
-import {DataService} from "../../../core/data.service";
+import {Init} from '../../../../assets/js/init';
+import {DataService} from '../../../core/data.service';
 
 @Component({
   selector: 'app-product-dialog',
@@ -11,17 +11,13 @@ export class ProductDialogComponent implements OnInit, AfterViewChecked {
 
   @Input() product: any;
 
+  constructor(public data: DataService) {}
 
-  constructor(public data: DataService) {
-  }
-
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   ngAfterViewChecked(): void {
     Init.productZoom();
-    console.log("ProductDialogComponent");
+    console.log('ProductDialogComponent');
     Init.qtyBtn();
   }
 

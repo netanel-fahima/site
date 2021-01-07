@@ -1,6 +1,6 @@
 import {AfterViewChecked, Component, OnInit} from '@angular/core';
-import {DataService} from "../../../../core/data.service";
-import {Init} from "../../../../../assets/js/init";
+import {DataService} from '../../../../core/data.service';
+import {Init} from '../../../../../assets/js/init';
 
 @Component({
   selector: 'app-offcanvas-mobile-menu',
@@ -11,10 +11,10 @@ export class OffcanvasMobileMenuComponent implements OnInit , AfterViewChecked {
 
   ngAfterViewChecked(): void {}
 
-  constructor(public data : DataService ) { }
+  constructor(public data: DataService ) { }
 
   ngOnInit(): void {
-    Init.moblieMenu()
+    Init.moblieMenu();
   }
 
 }

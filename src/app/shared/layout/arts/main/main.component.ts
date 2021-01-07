@@ -1,7 +1,7 @@
 import {AfterContentInit, ChangeDetectionStrategy, Component, NgZone, OnInit, ViewChild} from '@angular/core';
-import {DataService} from "../../../../core/data.service";
-import {ProductDialogComponent} from "../../../../features/product/product-dialog/product-dialog.component";
-import {OffcanvasCartComponent} from "../offcanvas-cart/offcanvas-cart.component";
+import {DataService} from '../../../../core/data.service';
+import {ProductDialogComponent} from '../../../../features/product/product-dialog/product-dialog.component';
+import {OffcanvasCartComponent} from '../offcanvas-cart/offcanvas-cart.component';
 
 
 @Component({
@@ -11,7 +11,7 @@ import {OffcanvasCartComponent} from "../offcanvas-cart/offcanvas-cart.component
 })
 export class MainComponent implements OnInit, AfterContentInit {
 
-  @ViewChild('app_offcanvas_cart',{static:true}) cartComponent:OffcanvasCartComponent;
+  @ViewChild('app_offcanvas_cart', {static: true}) cartComponent: OffcanvasCartComponent;
 
 
   constructor(private data: DataService, private zone: NgZone) {

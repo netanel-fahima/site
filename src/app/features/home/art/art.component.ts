@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Init} from "../../../../assets/js/init";
+import {Init} from '../../../../assets/js/init';
 
 @Component({
   selector: 'app-art',

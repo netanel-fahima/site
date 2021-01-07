@@ -6,9 +6,10 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {environment} from 'src/environments/environment';
 import {reducers} from '../store';
-import {CustomSerializer} from "../store/router";
-import {CloudinaryModule} from "@cloudinary/angular-5.x";
-import {Cloudinary} from "cloudinary-core";
+import {CustomSerializer} from '../store/router';
+import {CloudinaryModule} from '@cloudinary/angular-5.x';
+import {Cloudinary} from 'cloudinary-core';
+import { EmptyFilterPipe } from './pipe/empty-filter.pipe';
 
 
 /**
@@ -17,38 +18,41 @@ import {Cloudinary} from "cloudinary-core";
 
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    BrowserAnimationsModule,
+    declarations: [EmptyFilterPipe],
+    imports: [
+        CommonModule,
+        BrowserAnimationsModule,
 
-    CloudinaryModule.forRoot({Cloudinary},
-      {
-        cloud_name: 'ddvlwmhbe', upload_preset: 'ii9wuyma'
-      })
-    ,
-    // ngrx modules
-    StoreModule.forRoot(reducers, {
-      runtimeChecks: {
-        strictStateImmutability: false,
-        strictActionImmutability: false,
-        strictStateSerializability: false,
-        strictActionSerializability: false,
-      },
-    }),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25, logOnly: environment.production,
-      actionsBlocklist: ['@ngrx/router*']
-    }),
+        CloudinaryModule.forRoot({Cloudinary},
+                {
+                    cloud_name: 'ddvlwmhbe', upload_preset: 'ii9wuyma'
+                })
+        ,
+        // ngrx modules
+        StoreModule.forRoot(reducers, {
+            runtimeChecks: {
+                strictStateImmutability: false,
+                strictActionImmutability: false,
+                strictStateSerializability: false,
+                strictActionSerializability: false,
+            },
+        }),
+        StoreDevtoolsModule.instrument({
+            maxAge: 25, logOnly: environment.production,
+            actionsBlocklist: ['@ngrx/router*']
+        }),
 
-    StoreRouterConnectingModule.forRoot(),
+        StoreRouterConnectingModule.forRoot(),
 
-  ],
-  providers: [
-    // use custom serializer to strip redundant router data
-    {provide: RouterStateSerializer, useClass: CustomSerializer}
+    ],
+    exports: [
+        EmptyFilterPipe
+    ],
+    providers: [
+        // use custom serializer to strip redundant router data
+        {provide: RouterStateSerializer, useClass: CustomSerializer}
 
-  ]
+    ]
 })
 export class CoreModule {
   // thi module can be load only once
