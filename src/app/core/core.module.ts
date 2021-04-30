@@ -6,9 +6,9 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {environment} from 'src/environments/environment';
 import {reducers} from '../store';
-import {CustomSerializer} from "../store/router";
-import {CloudinaryModule} from "@cloudinary/angular-5.x";
-import {Cloudinary} from "cloudinary-core";
+import {CustomSerializer} from '../store/router';
+import {CloudinaryModule} from '@cloudinary/angular-5.x';
+import {Cloudinary} from 'cloudinary-core';
 
 
 /**

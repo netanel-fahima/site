@@ -636,6 +636,7 @@
     /*--
         Instagram Feed
     -----------------------------------*/
+/*
     $.instagramFeed({
         'username': 'ecommerce.devitems',
         'container': ".instagram-feed",
@@ -646,6 +647,7 @@
         'items': 12,
         "image_size": "320",
     });
+*/
     $('.instagram-feed').on("DOMNodeInserted", function (e) {
         if (e.target.className == 'instagram_gallery') {
             $('.instagram-carousel1 .' + e.target.className).slick({

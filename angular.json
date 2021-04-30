@@ -13,6 +13,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "create-hmac",
+              "url-parse",
+              "axios",
+              "cloudinary-core",
+              "crypto-js",
+              "jquery"
+            ],
             "outputPath": "dist/learts",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -51,7 +59,7 @@
               "src/assets/js/plugins/swiper.min.js",
               "src/assets/js/plugins/slick.min.js",
               "src/assets/js/plugins/mo.min.js",
-              "src/assets/js/plugins/jquery.instagramFeed.min.js",
+
               "src/assets/js/plugins/jquery.ajaxchimp.min.js",
               "src/assets/js/plugins/jquery.countdown.min.js",
               "src/assets/js/plugins/imagesloaded.pkgd.min.js",
@@ -72,6 +80,7 @@
             ]
           },
           "configurations": {
+
             "production": {
               "fileReplacements": [
                 {

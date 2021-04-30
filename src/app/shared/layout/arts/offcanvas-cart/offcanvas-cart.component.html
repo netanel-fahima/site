@@ -7,27 +7,28 @@
     </div>
     <div class="body customScroll">
       <ul class="minicart-product-list">
-        <li *ngFor="let c of cart ">
-
-          <a routerLink="product-details" class="image"><img src="assets/images/product/cart-product-1.jpg"
-                                                             alt="Cart product Image"></a>
-          <div class="content">
-            <a routerLink="product-details" [queryParams]="{id:c.product.id}" class="title">{{c.product.title}}</a>
-            <span class="quantity-price">{{c.quantity}} x <span class="amount">${{c.product.price}}</span></span>
-            <a class="remove" (click)="removeCart(c)">×</a>
+        <li *ngFor="let c of data.cart$ |async ">
+          <a routerLink="product-details" class="image">
+            <img src="assets/images/product/cart-product-1.jpg" alt="Cart product Image">
+          </a>
+          <div class="content d-flex flex-column">
+            <a class="remove" (click)="removeCart(c)">X</a>
+            <a routerLink="product-details" [queryParams]="{id:c.product.id}" class="title">{{c.product.name}}</a>
+            <span class="quantity-price">{{c.quantity}} x <span
+              class="amount">{{c.product?.price|currency}}</span></span>`
           </div>
         </li>
       </ul>
     </div>
     <div class="foot">
       <div class="sub-total">
-        <span class="amount">{{(data.totalCart())   |currency}}</span>
+        <span class="amount">{{(data.totalCart()|async)|currency}}</span>
         <strong> : מחיר</strong>
       </div>
       <div class="buttons">
 
-        <a routerLink="shopping-cart" class="btn btn-dark btn-hover-primary">צפי בעגלה</a>
-        <a href="checkout" class="btn btn-outline-dark">להזמנה</a>
+        <a routerLink="shopping-cart" class="btn btn-dark btn-hover-info">צפי בעגלה</a>
+        <a href="checkout" class="btn btn-outline-hover-success btn-outline-body">להזמנה</a>
       </div>
       <p class="minicart-message">משלוח חינם מעל 200 ש"ח</p>
     </div>

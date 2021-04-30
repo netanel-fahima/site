@@ -1,6 +1,10 @@
 import {AfterViewChecked, Component, OnInit} from '@angular/core';
-import {Init} from "../../../assets/js/init";
-import {DataService} from "../../core/data.service";
+import {Init} from '../../../assets/js/init';
+import {Observable} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {EntityService} from '../../core/store/entity.service';
+import * as productActions from '../../core/store/actions';
+import {EntityType} from '../../core/store/actions';
 
 @Component({
   selector: 'app-cart',
@@ -9,7 +13,8 @@ import {DataService} from "../../core/data.service";
 })
 export class CartComponent implements OnInit, AfterViewChecked {
 
-  constructor(public data: DataService) {
+
+  constructor(public data: EntityService, private store: Store) {
   }
 
   ngOnInit(): void {
@@ -21,17 +26,15 @@ export class CartComponent implements OnInit, AfterViewChecked {
   }
 
   alert(quantity: any) {
-    alert(quantity)
+    alert(quantity);
   }
 
-  updateCart() {
-    this.data.updateCartItems()
+  updateCart(item: object) {
   }
 
-  removeCart(p) {
-    this.data.cartItem = this.data.cartItem.filter(c => c.product.id !== p.product.id);
-    console.log("remove cart ", p);
-    this.data.removeCart(p)
-  }
 
+  removeCart(cart: any) {
+    this.store.dispatch(new productActions.RemoveVisualCart(EntityType.Carts, cart.product.id));
+
+  }
 }

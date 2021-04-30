@@ -5,11 +5,11 @@
       <form action="#">
         <div class="row mb-n3">
           <div class="col-lg-4 col-12 mb-3">
-<!--            <select class="search-select select2-basic">
-              <option value="0">כל הקטגוריות</option>
+            <!--            <select class="search-select select2-basic">
+                          <option value="0">כל הקטגוריות</option>
 
-              <option *ngFor="let c of data.categories|async" value="{{c.title |lowercase }}">{{c.title}}</option>
-            </select>-->
+                          <option *ngFor="let c of data.categories|async" value="{{c.title |lowercase }}">{{c.title}}</option>
+                        </select>-->
           </div>
           <div class="col-lg-8 col-12 mb-3"><label>
             <input type="text" placeholder=" .... חפשי מוצר " [(ngModel)]="name" name="name">
@@ -22,7 +22,7 @@
 
                 <div class="grid-sizer col-1"></div>
 
-                <div class="grid-item col featured" *ngFor="let p of (data.productAsync | async  | productFilter : name) ">
+                <div class="grid-item col featured" *ngFor="let p of (data.products$ | async | productFilter : name ) ">
                   <div class="product">
                     <div class="product-thumb">
                       <a (click)="router.navigateByUrl('product-details?id='+p.id).then()" class="image">
@@ -31,7 +31,7 @@
                       </a>
                     </div>
                     <div class="product-info">
-                      <h6 class="title"><a routerLink="product-details?id={{p.id}}">{{p.title}}</a></h6>
+                      <h6 class="title"><a routerLink="product-details?id={{p.id}}">{{p.name}}</a></h6>
                       <span class="price">{{p.price | currency}}</span>
                     </div>
                   </div>
@@ -40,11 +40,11 @@
 
               </div>
               <!-- Products End -->
-<!--
-              <div class="text-center learts-mt-70">
-                <a href="" class="btn btn-dark btn-outline-hover-dark"><i class="ti-plus"></i> עוד</a>
-              </div>
--->
+              <!--
+                            <div class="text-center learts-mt-70">
+                              <a href="" class="btn btn-dark btn-outline-hover-dark"><i class="ti-plus"></i> עוד</a>
+                            </div>
+              -->
             </div>
           </div>
         </div>

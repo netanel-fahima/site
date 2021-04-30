@@ -1,5 +1,8 @@
 import {AfterViewInit, Component, NgZone, OnInit} from '@angular/core';
-import {DataService} from "../../../../core/data.service";
+import {EntityService} from '../../../../core/store/entity.service';
+import {Store} from '@ngrx/store';
+import * as productActions from '../../../../core/store/actions';
+import {EntityType} from '../../../../core/store/actions';
 
 @Component({
   selector: 'app-offcanvas-cart',
@@ -9,27 +12,19 @@ import {DataService} from "../../../../core/data.service";
 
 export class OffcanvasCartComponent implements OnInit, AfterViewInit {
 
-  public carts:any[] =  [];
 
-  constructor(public data: DataService, private zone: NgZone) {
+  constructor(public data: EntityService, private store: Store) {
   }
 
   ngOnInit(): void {
 
   }
 
-
   ngAfterViewInit(): void {
   }
 
-  removeCart(p) {
-    this.data.cartItem = this.data.cartItem.filter(c => c.product.id !== p.product.id);
-    console.log("remove cart ", p);
-    this.data.removeCart(p)
-  }
-
-  get cart(): any {
-    return this.data.cartItem;
+  removeCart(cart): void {
+    this.store.dispatch(new productActions.RemoveVisualCart(EntityType.Carts, cart.product.id));
   }
 
 

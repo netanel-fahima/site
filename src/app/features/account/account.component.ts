@@ -1,30 +1,30 @@
-import {AfterViewChecked, AfterViewInit, Component, Input, NgZone, OnInit} from '@angular/core';
-import {DataService} from "../../core/data.service";
-import {RestService} from "../../core/rest/rest.service";
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
+import {EntityService} from '../../core/store/entity.service';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
 })
-export class AccountComponent implements OnInit , AfterViewChecked{
+export class AccountComponent implements OnInit, AfterViewChecked {
 
-  public orderRest: RestService = new RestService("order", this.http);
-  @Input() orders:any;
+  @Input() orders: any;
 
-  constructor(public data :DataService, private http: HttpClient) { }
+  constructor(public data: EntityService) {
+  }
 
-  load(){
-    this.orders = this.orderRest.listBy({});
+  load() {
+
   }
 
   ngOnInit(): void {
-    this.load()
+    this.load();
   }
 
   ngAfterViewChecked(): void {
   }
 
+  signOut() {
+
+  }
 }

@@ -16,7 +16,7 @@
                             {"src": "assets/images/product/single/1/product-zoom-4.jpg", "w": 700, "h": 1100}
                         ]'><i class="far fa-expand"></i></button>
           <div class="product-gallery-slider">
-            <div class="product-zoom" *ngFor="let image of data.productImages ; let i = index"
+            <div class="product-zoom" *ngFor="let image of [] ; let i = index"
                  data-image="{{data.productImagesZoom[i]}}">
               <cl-image public-id="someIteratorValue" secure="true">
                 <cl-transformation width="768" height="1024">
@@ -25,7 +25,7 @@
             </div>
           </div>
           <div class="product-thumb-slider">
-            <div class="item" *ngFor="let image of data.productImagesZoom">
+            <div class="item" *ngFor="let image of []">
               <!--<img src="{{image}}" alt="">-->
               <cl-image public-id="someIteratorValue" secure="true">
                 <cl-transformation width="570" height="760">

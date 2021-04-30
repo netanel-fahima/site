@@ -21,32 +21,24 @@ export class Init {
 
   static first() {
 
-    console.log("first");
-    /*--
-        Scroll Up
-    -----------------------------------*/
-    /*   $.Scrollax();
-        $.scrollUp({
-          scrollText: '<i class="fal fa-long-arrow-up"></i>',
-        });
-        /!*--
-            Custom Scrollbar (Perfect Scrollbar)
-        -----------------------------------*!/
-        $('.customScroll').perfectScrollbar({
-          suppressScrollX: !0
-        });*/
+    console.log('first');
+
+    $.Scrollax();
+    $.scrollUp({
+      scrollText: '<i class="fal fa-long-arrow-up"></i>',
+    });
 
     $('.customScroll').perfectScrollbar({
       suppressScrollX: !0
     });
 
-    $('[data-bg-image]').each(function () {
+    $('[data-bg-image]').each(function() {
       var $this = $(this),
         $image = $this.data('bg-image');
       $this.css('background-image', 'url(' + $image + ')');
     });
 
-    $('[data-bg-color]').each(function () {
+    $('[data-bg-color]').each(function() {
       var $this = $(this),
         $color = $this.data('bg-color');
       $this.css('background-color', $color);
@@ -91,27 +83,27 @@ export class Init {
 
   }
 
-static select2(){
-  $('.select2-basic').select2();
-  // No Search Field
-  $('.select2-noSearch').select2({
-    minimumResultsForSearch: Infinity
-  });
+  static select2() {
+    $('.select2-basic').select2();
+    // No Search Field
+    $('.select2-noSearch').select2({
+      minimumResultsForSearch: Infinity
+    });
 
-  // Custom Scrollbar For Select2 Result
-  $('.select2-basic, .select2-noSearch').on('select2:open', function () {
-    $('.select2-results__options').each(function () {
-      // @ts-ignore
-      var ps = new PerfectScrollbar($(this)[0], {
-        suppressScrollX: true
+    // Custom Scrollbar For Select2 Result
+    $('.select2-basic, .select2-noSearch').on('select2:open', function() {
+      $('.select2-results__options').each(function() {
+        // @ts-ignore
+        var ps = new PerfectScrollbar($(this)[0], {
+          suppressScrollX: true
+        });
       });
     });
-  });
-}
+  }
 
   static slider() {
 
-    console.log("slider");
+    console.log('slider');
     // Home 1 Slider
     // @ts-ignore
     var $home1Slider = new Swiper('.home1-slider', {
@@ -127,7 +119,7 @@ static select2(){
   }
 
   static moblieMenu() {
-    console.log("moblieMenu");
+    console.log('moblieMenu');
 
     var $offCanvasNav = $('.offcanvas-menu, .overlay-menu'),
       $offCanvasNavSubMenu = $offCanvasNav.find('.sub-menu');
@@ -137,7 +129,7 @@ static select2(){
 
     /*Category Sub Menu Toggle*/
     $offCanvasNav.off();
-    $offCanvasNav.on('click', 'li a, .menu-expand', function (e) {
+    $offCanvasNav.on('click', 'li a, .menu-expand', function(e) {
       var $this = $(this);
       if ($this.attr('href') === '#' || $this.hasClass('menu-expand')) {
         e.preventDefault();
@@ -146,7 +138,8 @@ static select2(){
           $this.siblings('ul').slideUp();
           $this.parent('li').find('li').removeClass('active');
           $this.parent('li').find('ul:visible').slideUp();
-        } else {
+        }
+        else {
           $this.parent('li').addClass('active');
           $this.closest('li').siblings('li').removeClass('active').find('li').removeClass('active');
           $this.closest('li').siblings('li').find('ul:visible').slideUp();
@@ -159,14 +152,14 @@ static select2(){
 
   static offcanvasToggle() {
 
-    console.log("offcanvasToggle");
+    console.log('offcanvasToggle');
 
     var $offCanvasToggle = $('.offcanvas-toggle'),
       $offCanvas = $('.offcanvas'),
       $offCanvasOverlay = $('.offcanvas-overlay'),
       $mobileMenuToggle = $('.mobile-menu-toggle');
 
-    $offCanvasToggle.on('click', function (e) {
+    $offCanvasToggle.on('click', function(e) {
       e.preventDefault();
       var $this = $(this),
         $target = $this.attr('href');
@@ -178,7 +171,7 @@ static select2(){
       }
     });
 
-    $('.offcanvas-close, .offcanvas-overlay').on('click', function (e) {
+    $('.offcanvas-close, .offcanvas-overlay').on('click', function(e) {
       e.preventDefault();
       $body.removeClass('offcanvas-open');
       $offCanvas.removeClass('offcanvas-open');
@@ -188,22 +181,21 @@ static select2(){
   }
 
   static offcanvasOpen() {
-    console.log("offcanvasOpen");
+    console.log('offcanvasOpen');
     var $offCanvasToggle = $('.offcanvas-toggle[href=#offcanvas-cart]');
     $offCanvasToggle.click();
   }
 
 
   static offcanvasOpenWishlist() {
-    console.log("offcanvasOpen");
+    console.log('offcanvasOpen');
     var $offCanvasToggle = $('.offcanvas-toggle[href=#offcanvas-wishlist]');
     $offCanvasToggle.click();
   }
 
 
-
   static banner() {
-    console.log("banner");
+    console.log('banner');
     $('.category-banner1-carousel').not('.slick-initialized').slick({
       infinite: true,
       slidesToShow: 3,
@@ -229,7 +221,7 @@ static select2(){
 
   static isotopeGrid() {
     var $isotopeGrid = $('.isotope-grid');
-    $isotopeGrid.imagesLoaded(function () {
+    $isotopeGrid.imagesLoaded(function() {
       $isotopeGrid.isotope({
         itemSelector: '.grid-item',
         masonry: {
@@ -242,12 +234,12 @@ static select2(){
   }
 
   static isotopeFilter() {
-    console.log("isotopeFilter");
+    console.log('isotopeFilter');
     /*--
         Isotpe
     -----------------------------------*/
     var $isotopeFilter = $('.isotope-filter');
-    $isotopeFilter.on('click', 'button', function () {
+    $isotopeFilter.on('click', 'button', function() {
       var $this = $(this),
         $filterValue = $this.attr('data-filter'),
         $targetIsotop = $this.parent().data('target');
@@ -259,9 +251,9 @@ static select2(){
   }
 
   static filterToggle() {
-    console.log("filterToggle");
+    console.log('filterToggle');
     // Filter Toggle
-    $('.product-filter-toggle').off().on('click', function (e) {
+    $('.product-filter-toggle').off().on('click', function(e) {
       e.preventDefault();
       var $this = $(this),
         $target = $this.attr('href');
@@ -273,9 +265,9 @@ static select2(){
 
 
   static columnToggle() {
-    console.log("columnToggle");
+    console.log('columnToggle');
     // Column Toggle
-    $('.product-column-toggle').off().on('click', '.toggle', function (e) {
+    $('.product-column-toggle').off().on('click', '.toggle', function(e) {
       e.preventDefault();
       let $this = $(this),
         $column = $this.data('column'),
@@ -288,7 +280,7 @@ static select2(){
   }
 
   static addWishList() {
-    console.log("addWishList");
+    console.log('addWishList');
     /*--
       Add To Wishlist
   -----------------------------------*/
@@ -316,7 +308,7 @@ static select2(){
         easing: 'quint.out'
       }
     });
-    $('.add-to-wishlist').off().on('click', function (e) {
+    $('.add-to-wishlist').off().on('click', function(e) {
       var $this = $(this),
         offset = $this.offset(),
         width = $this.width(),
@@ -337,21 +329,23 @@ static select2(){
 
   static qtyBtn() {
 
-    console.log("qtyBtn");
+    console.log('qtyBtn');
     /*--
       Product Quantity
   -----------------------------------*/
 
-    $('.qty-btn').off().on('click', function () {
+    $('.qty-btn').off().on('click', function() {
       var $this = $(this);
       var oldValue = $this.siblings('input').val();
       if ($this.hasClass('plus')) {
         var newVal = parseFloat(oldValue) + 1;
-      } else {
+      }
+      else {
         // Don't allow decrementing below zero
         if (oldValue > 1) {
           var newVal = parseFloat(oldValue) - 1;
-        } else {
+        }
+        else {
           newVal = 1;
         }
       }
@@ -396,10 +390,10 @@ static select2(){
 
 
   static galleryPopup() {
-    console.log("galleryPopup");
+    console.log('galleryPopup');
     var $productPopupGalleryBtn = $('.product-gallery-popup'),
       $productPopupGallery = $productPopupGalleryBtn.data('images'),
-      $openPhotoSwipe = function () {
+      $openPhotoSwipe = function() {
         var pswpElement = $('.pswp')[0],
           items = $productPopupGallery,
           options = {
@@ -417,9 +411,9 @@ static select2(){
 
   static productZoom() {
 
-    console.log("productZoom");
+    console.log('productZoom');
 
-    $('.product-zoom').each(function () {
+    $('.product-zoom').each(function() {
       var $this = $(this),
         $image = $this.data('image');
       $this.zoom({
@@ -429,7 +423,7 @@ static select2(){
   }
 
   quickViewModal() {
-    $('#quickViewModal').off().on('shown.bs.modal', function (e) {
+    $('#quickViewModal').off().on('shown.bs.modal', function(e) {
       $('.product-gallery-slider-quickview').not('.slick-initialized').slick({
         dots: true,
         infinite: true,
@@ -444,7 +438,7 @@ static select2(){
 
   static quickViewModal() {
     let _self = this;
-    $('#quickViewModal').on('shown.bs.modal', function (e) {
+    $('#quickViewModal').on('shown.bs.modal', function(e) {
       var $e = $('.product-gallery-slider-quickview');
 
       $e.not('.slick-initialized').slick({
@@ -457,7 +451,7 @@ static select2(){
       });
     });
 
-    $('#quickViewModal').on('hidden.bs.modal', function (e) {
+    $('#quickViewModal').on('hidden.bs.modal', function(e) {
       $('.qty-btn').unbind().off();
     });
 

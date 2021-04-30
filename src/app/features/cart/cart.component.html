@@ -12,10 +12,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let c of data.cartItem ">
+        <tr *ngFor="let c of data.cart$ |async ">
           <td class="thumbnail"><a href="product-details.html"><img src="assets/images/product/cart-product-1.jpg"></a>
           </td>
-          <td class="name"><a href="product-details.html">{{c.product.title}}</a></td>
+          <td class="name"><a href="product-details.html">{{c.product.name}}</a></td>
           <td class="price"><span>{{c.product.price | currency}}</span></td>
           <td class="quantity">
             <div class="product-quantity">
@@ -23,7 +23,8 @@
               <input type="number" class="input-qty"
                      [(ngModel)]="c.quantity" value="{{c.quantity}}" (ngModelChange)="alert(c.quantity)"
                      [ngModelOptions]="{standalone: true}">
-              <span class="qty-btn minus" (click)="c.quantity = c.quantity > 0 ? c.quantity  - 1 : 0 "><i class="ti-minus"></i></span>
+              <span class="qty-btn minus" (click)="c.quantity = c.quantity > 0 ? c.quantity  - 1 : 0 "><i
+                class="ti-minus"></i></span>
             </div>
           </td>
           <td class="subtotal"><span>{{c.product.price * c.quantity| currency}}</span></td>
@@ -41,7 +42,7 @@
         </div>
         <div class="col-auto">
           <div class="col-auto">
-            <button class="btn btn-dark btn-outline-hover-dark mb-3" (click)="updateCart()">עדכן</button>
+            <button class="btn btn-dark btn-outline-hover-dark mb-3" (click)="updateCart({})">עדכן</button>
             <a class="btn btn-light btn-hover-dark mr-3 mb-3" href="product">המשך קניה</a>
           </div>
         </div>
@@ -55,11 +56,11 @@
         <tbody>
         <tr class="subtotal">
           <th>מחיר</th>
-          <td><span class="amount">{{(data.totalCart()) | currency}}</span></td>
+          <td><span class="amount">{{(data.cart$|async)  | currency}}</span></td>
         </tr>
         <tr class="total">
           <th>סה"כ</th>
-          <td><strong><span class="amount">{{(data.totalCart()) | currency}}</span></strong></td>
+          <td><strong><span class="amount">{{data.totalCart()|async|currency}}</span></strong></td>
         </tr>
         </tbody>
       </table>

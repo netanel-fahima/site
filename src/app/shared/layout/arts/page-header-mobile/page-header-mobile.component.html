@@ -16,14 +16,14 @@
           <div class="header-login d-none d-sm-block">
             <a href="my-account.html"><i class="fal fa-user"></i></a>
           </div>
-          <div class="header-search d-none d-sm-block">
+          <div class="header-search d-sm-block">
             <a href="#offcanvas-search" class="offcanvas-toggle"><i class="fal fa-search"></i></a>
           </div>
           <div class="header-wishlist d-none d-sm-block">
-            <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span class="wishlist-count" > {{ (data.wishList | async)?.length }}</span><i class="fal fa-heart"></i></a>
+            <a href="#offcanvas-wishlist" class="offcanvas-toggle"><span class="wishlist-count" > {{ (data.wishlist$ | async)?.length }}</span><i class="fal fa-heart"></i></a>
           </div>
           <div class="header-cart">
-            <a href="#offcanvas-cart" class="offcanvas-toggle"><span class="cart-count">{{(data.cartItem)?.length }}</span><i class="fal fa-shopping-cart"></i></a>
+            <a href="#offcanvas-cart" class="offcanvas-toggle"><span class="cart-count">{{(data.cart$|async)?.length }}</span><i class="fal fa-shopping-cart"></i></a>
           </div>
           <div class="mobile-menu-toggle">
             <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">

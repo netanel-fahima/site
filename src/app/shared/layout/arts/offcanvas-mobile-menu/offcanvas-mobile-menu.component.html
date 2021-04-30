@@ -46,10 +46,13 @@
                 <li><a href="shop.html"><span class="menu-text">Shop No Sidebar</span></a></li>
                 <li><a href="shop-left-sidebar.html"><span class="menu-text">Shop Left Sidebar</span></a></li>
                 <li><a href="shop-right-sidebar.html"><span class="menu-text">Shop Right Sidebar</span></a></li>
-                <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">Shop Fullwidth No Space</span></a></li>
+                <li><a href="shop-fullwidth-no-gutters.html"><span class="menu-text">Shop Fullwidth No Space</span></a>
+                </li>
                 <li><a href="shop-fullwidth.html"><span class="menu-text">Shop Fullwidth No Sidebar</span></a></li>
-                <li><a href="shop-fullwidth-left-sidebar.html"><span class="menu-text">Shop Fullwidth Left Sidebar</span></a></li>
-                <li><a href="shop-fullwidth-right-sidebar.html"><span class="menu-text">Shop Fullwidth Right Sidebar</span></a></li>
+                <li><a href="shop-fullwidth-left-sidebar.html"><span
+                  class="menu-text">Shop Fullwidth Left Sidebar</span></a></li>
+                <li><a href="shop-fullwidth-right-sidebar.html"><span
+                  class="menu-text">Shop Fullwidth Right Sidebar</span></a></li>
               </ul>
             </li>
             <li>
@@ -60,10 +63,12 @@
                 <li><a href="product-details-sticky.html"><span class="menu-text">Sticky Details</span></a></li>
                 <li><a href="product-details-sidebar.html"><span class="menu-text">Width Sidebar</span></a></li>
                 <li><a href="product-details-extra-content.html"><span class="menu-text">Extra Content</span></a></li>
-                <li><a href="product-details-image-variation.html"><span class="menu-text">Variations Images</span></a></li>
+                <li><a href="product-details-image-variation.html"><span class="menu-text">Variations Images</span></a>
+                </li>
                 <li><a href="product-details-group.html"><span class="menu-text">Bought Together</span></a></li>
                 <li><a href="product-details-360.html"><span class="menu-text">Product 360</span></a></li>
-                <li><a href="product-details-background.html"><span class="menu-text">Product with Background</span></a></li>
+                <li><a href="product-details-background.html"><span class="menu-text">Product with Background</span></a>
+                </li>
               </ul>
             </li>
             <li>
@@ -95,7 +100,8 @@
               <ul class="sub-menu">
                 <li><a href="elements-products.html"><span class="menu-text">Product Styles</span></a></li>
                 <li><a href="elements-products-tabs.html"><span class="menu-text">Product Tabs</span></a></li>
-                <li><a href="elements-product-sale-banner.html"><span class="menu-text">Product & Sale Banner</span></a></li>
+                <li><a href="elements-product-sale-banner.html"><span class="menu-text">Product & Sale Banner</span></a>
+                </li>
               </ul>
             </li>
             <li>
@@ -183,7 +189,8 @@
           <a href="wishlist.html"><span>3</span><i class="fal fa-heart"></i></a>
         </div>
         <div class="header-cart">
-          <a href="shopping-cart.html"><span class="cart-count">{{(data.cartItem)?.length }}</span><i class="fal fa-shopping-cart"></i></a>
+          <a href="shopping-cart.html"><span class="cart-count">{{(data.cart$|async)?.length }}</span><i
+            class="fal fa-shopping-cart"></i></a>
         </div>
       </div>
     </div>

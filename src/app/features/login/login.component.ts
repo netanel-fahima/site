@@ -1,9 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {RestService} from "../../core/rest/rest.service";
-import {DataService} from "../../core/data.service";
-import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
-import {DeviceDetectorService} from "ngx-device-detector";
+import {Router} from '@angular/router';
+import {EntityService} from '../../core/store/entity.service';
+import * as actions from './slice/actions';
+import {getErr} from './slice/actions';
+import {Store} from '@ngrx/store';
+import {getLocalUser, removeLocalUser} from '../../core/localStore/loadStorage';
+import {Observable} from 'rxjs/internal/Observable';
+
 
 @Component({
   selector: 'app-login',
@@ -11,71 +14,41 @@ import {DeviceDetectorService} from "ngx-device-detector";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  private login: RestService = new RestService("login", this.http);
-  private registe: RestService = new RestService("register", this.http);
-
   @Input() email: any;
   @Input() name: any;
   @Input() registerName: any;
+  @Input() registerEmail: any;
+  public error$: Observable<{ l: string; r: string }>;
+  @Input() user: any;
 
-  constructor(private data: DataService, private http: HttpClient, private router: Router,
-              private deviceService: DeviceDetectorService) {
+
+  constructor(public data: EntityService, private router: Router, private store: Store) {
   }
 
-//{name: "machina"} ,"momo" , "asaas"
   ngOnInit(): void {
-
+    this.store.dispatch(new actions.Load(getLocalUser()));
+    this.error$ = this.store.select(getErr);
+    this.error$ = this.store.select(getErr);
   }
 
-  signIn(email: any) {
-    console.log(`login with ${email}`);
-    this.login.post( {
-      data: {
-        machine: {name: this.deviceService.getDeviceInfo().device},
-        name: this.email,
-        password: "Admin"
-      }
-    })
-      .subscribe(value => {
-        //set local
-        console.log(value);
-        if (value != "FAILED") {
-          localStorage.setItem("signed", JSON.stringify(value));
-          this.data.user = this.data.getUser();
-          this.router.navigateByUrl("home").then();
-          this.data.loadNecessary();
-        }else
-          alert("הכניסה נכשלה - אמייל לא תואם")
-      });
-
+  signIn(email: any, username: any): void {
+    this.store.dispatch(new actions.Login({email, username}));
   }
 
-  register(registerName: any, email: any) {
-    this.registe.post({data: {machine: {name: "machina"}, user: {name: registerName, email: email}}})
-      .subscribe(value => {
-        //set local
-        console.log(value);
-        if (value != "FAILED") {
-          localStorage.setItem("signed", JSON.stringify(value));
-          if (value.email === email) {
-            alert("רשום כבר - הכניסה מתבצעת");
-          } else {
-            alert("נרשמת בהצלחה");
-          }
-          this.router.navigateByUrl("home").then();
-        }
-      });
-  }
-
-  logedIn() {
-    return (localStorage.getItem("signed") !== null);
+  register(): void {
+    if (!this.user) {
+      this.store.dispatch(new actions.Register({
+        email: this.registerEmail,
+        first_name: this.registerName,
+        last_name: this.registerName,
+        username: this.registerName,
+      }));
+    }
   }
 
 
-
-  getUserLogin(){
-    return this.data.getUser().firstName;
+  signOut(): void {
+    removeLocalUser();
+    this.store.dispatch(new actions.Load(null));
   }
-
 }

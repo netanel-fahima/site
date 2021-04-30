@@ -1,10 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {RouterModule} from "@angular/router";
-import {ArtComponent} from "./art/art.component";
-import { SectionFluidComponent } from './art/section-fluid/section-fluid.component';
-import {DataService} from "../../core/data.service";
-
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {RouterModule} from '@angular/router';
+import {ArtComponent} from './art/art.component';
+import {SectionFluidComponent} from './art/section-fluid/section-fluid.component';
 
 
 @NgModule({
@@ -21,6 +19,7 @@ import {DataService} from "../../core/data.service";
         data: {breadcrumbs: ['Application Intel', 'Introduction']}
       }
     ])
-  ]/*,providers: [DataService]*/
+  ]
 })
-export class HomeModule { }
+export class HomeModule {
+}

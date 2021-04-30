@@ -3,13 +3,14 @@
   <div class="container">
     <div class="category-banner1-carousel">
 
-      <div class="col" *ngFor="let c of data.categories | async">
+      <div class="col" *ngFor="let c of  data.categories$ |async">
         <div class="category-banner1">
           <div class="inner">
-            <a  (click)="router.navigateByUrl('product?category='+c.id).then()" class="image"><img src="assets/images/slider/home1/slide-2-2.png" alt="{{c.title}}"></a>
+            <a (click)="router.navigateByUrl('product?category='+c.id).then()" class="image"><img
+              [src]="c?.image?.src || 'assets/images/slider/home1/slide-2-2.png' " alt="{{c.name}}"></a>
             <div class="content">
               <h3 class="title">
-                <a href="shop.html">{{c.title }}</a>
+                <a href="shop.html">{{c.name }}</a>
                 <!--<span class="number">16</span>-->
               </h3>
             </div>

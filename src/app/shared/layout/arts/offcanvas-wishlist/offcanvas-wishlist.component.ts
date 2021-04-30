@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {DataService} from "../../../../core/data.service";
+import {EntityService} from '../../../../core/store/entity.service';
+
 
 @Component({
   selector: 'app-offcanvas-wishlist',
@@ -8,7 +9,7 @@ import {DataService} from "../../../../core/data.service";
 })
 export class OffcanvasWishlistComponent implements OnInit {
 
-  constructor(public data: DataService) {
+  constructor(public data: EntityService) {
   }
 
   ngOnInit(): void {

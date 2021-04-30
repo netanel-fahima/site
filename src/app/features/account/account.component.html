@@ -1,4 +1,4 @@
-<div *ngIf=" data.getUser().profile !== 'GUEST' " class="section section-padding" dir="rtl">
+<div *ngIf=" data.getUser() !== 'GUEST' " class="section section-padding" dir="rtl">
   <div class="container">
     <div class="row learts-mb-n30">
 
@@ -9,7 +9,7 @@
           <a href="#orders" data-toggle="tab" (click)="load()">הזמנות <i class="far fa-file-alt"></i></a>
           <a href="#address" data-toggle="tab">כתובת <i class="far fa-map-marker-alt"></i></a>
           <a href="#account-info" data-toggle="tab">פרטי חשבון <i class="far fa-user"></i></a>
-          <a (click)="data.signOut()" href="">יציאה<i class="far fa-sign-out-alt"></i></a>
+          <a (click)="signOut()" href="">יציאה<i class="far fa-sign-out-alt"></i></a>
         </div>
       </div>
       <!-- My Account Tab List End -->
@@ -21,7 +21,7 @@
           <!-- Single Tab Content Start -->
           <div class="tab-pane fade show active" id="dashboad">
             <div class="myaccount-content dashboad">
-              <p>שלום <strong>{{data.user.firstName}}</strong> </p>
+              <p>שלום <strong>{{data.getUser()}}</strong> </p>
               <p>From your account dashboard you can view your <span>recent orders</span>, manage your <span>shipping and billing addresses</span>, and <span>edit your password and account details</span>.</p>
             </div>
           </div>
@@ -45,7 +45,7 @@
                   <tr *ngFor="let o of orders| async">
                     <td>{{o.id}}</td>
                     <td>{{o.createdAt}}</td>
-                    <td>{{data.getStatus(o.status)}}</td>
+                    <td>{{o.status}}</td>
                     <td>{{o.total}}</td>
                     <td><a [routerLink]="'/shopping-cart?orderId='+o.id">View</a></td>
                   </tr>

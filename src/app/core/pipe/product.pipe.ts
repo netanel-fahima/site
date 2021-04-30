@@ -6,9 +6,10 @@ import {Pipe, PipeTransform} from '@angular/core';
 export class ProductPipe implements PipeTransform {
 
   transform(products: any[], ...args: unknown[]): unknown {
-    if (products != null)
-      return products.filter(value => value.title.indexOf(args[0]) >= 0 && !!args[0] );
-    return products
+    if (products != null) {
+      return products.filter(value => value.name.indexOf(args[0]) >= 0 && !!args[0]);
+    }
+    return products;
   }
 
 }

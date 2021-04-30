@@ -1,6 +1,6 @@
 import {AfterContentChecked, Component, OnInit} from '@angular/core';
-import {Init} from "../../../../../assets/js/init";
-import {DataService} from "../../../../core/data.service";
+import {EntityService} from '../../../../core/store/entity.service';
+
 
 @Component({
   selector: 'app-page-header-sticky-mobile',
@@ -11,7 +11,8 @@ export class PageHeaderStickyMobileComponent implements OnInit, AfterContentChec
   ngAfterContentChecked(): void {
   }
 
-  constructor(public data: DataService) {}
+  constructor(public data: EntityService) {
+  }
 
   ngOnInit(): void {
   }

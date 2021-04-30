@@ -2,21 +2,22 @@
   <div class="container wrap">
     <div class="checkout-coupon">
       <p class="coupon-toggle">
-        <a href="#checkout-coupon-form" data-toggle="collapse" class="collapsed" aria-expanded="false">לחצי כאן להזנת קופון</a>
+        <a href="#checkout-coupon-form" data-toggle="collapse" class="collapsed" aria-expanded="false">לחצי כאן להזנת
+          קופון</a>
       </p>
       <div id="checkout-coupon-form" class="collapse" style="">
         <div class="coupon-form">
           <p>.אם יש לך קופון אנא הזיני אותו פה</p>
           <form action="#" class="learts-mb-n10">
-            <button class="btn btn-dark btn-outline-hover-dark learts-mb-10">אשרי קופון</button>
+            <button class="btn btn-dark btn-outline-hover-dark learts-mb-10" style="margin-right: 5px">אשרי קופון</button>
             <input class="learts-mb-10" type="text" placeholder="קוד קופון">
           </form>
         </div>
       </div>
     </div>
-<!--    <div class="section-title2">
-      <h2 class="title">פרטי תשלום</h2>
-    </div>-->
+    <!--    <div class="section-title2">
+          <h2 class="title">פרטי תשלום</h2>
+        </div>-->
     <form action="#" class="anyflexbox">
       <div class="row">
         <div class="col-md-6 col-12 learts-mb-20">
@@ -29,12 +30,12 @@
         </div>
 
         <div class="col-md-6 col-12 learts-mb-20">
-          <label for="bdAddress2" > כניסה , דירה  </label>
-          <input type="text" id="bdAddress2" >
+          <label for="bdAddress2"> כניסה , דירה </label>
+          <input type="text" id="bdAddress2">
         </div>
         <div class="col-md-6 col-12 learts-mb-20">
           <label for="bdAddress1">כתובת <abbr class="required">*</abbr></label>
-          <input type="text" id="bdAddress1" >
+          <input type="text" id="bdAddress1">
         </div>
         <div class="col-12 learts-mb-20">
           <label for="bdTownOrCity">עיר <abbr class="required">*</abbr></label>
@@ -75,7 +76,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let o of data.cartItem">
+            <tr *ngFor="let o of data.cart$">
               <td class="name">{{o.title}}&nbsp; <strong class="quantity">×&nbsp;{{o.quantity}} </strong></td>
               <td class="total"><span>{{o.price | currency}}</span></td>
             </tr>
@@ -83,71 +84,72 @@
             <tfoot>
             <tr class="subtotal">
               <th>מחיר</th>
-              <td><span>{{data.totalCart() | currency}}</span></td>
+              <td><span>{{data.totalCart() |async| currency}}</span></td>
             </tr>
             <tr class="total">
               <th>Total</th>
-              <td><strong><span>{{data.totalCart() | currency}}</span></strong></td>
+              <td><strong><span>{{data.totalCart() |async | currency}}</span></strong></td>
             </tr>
             </tfoot>
           </table>
         </div>
         <div class="text-center">
-          <p class="payment-note">הנתונים האישיים שלך ישמשו לעיבוד הזמנתך, לתמיכה בחווייתך ברחבי אתר זה ולמטרות אחרות המתוארות במדיניות הפרטיות שלנו.</p>
-          <button class="btn btn-dark btn-outline-hover-dark">שלחי הזמנה</button>
+          <p class="payment-note">הנתונים האישיים שלך ישמשו לעיבוד הזמנתך, לתמיכה בחווייתך ברחבי אתר זה ולמטרות אחרות
+            המתוארות במדיניות הפרטיות שלנו.</p>
+          <button class="btn btn-dark btn-outline-hover-dark">לתשלום</button>
         </div>
       </div>
-<!--
-      <div class="col-lg-6 order-lg-1 learts-mb-30">
-        <div class="order-payment">
-          <div class="payment-method">
-            <div class="accordion" id="paymentMethod">
-              <div class="card active">
-                <div class="card-header">
-                  <button data-toggle="collapse" data-target="#checkPayments" class="" aria-expanded="true">Check
-                    payments
-                  </button>
-                </div>
-                <div id="checkPayments" class="collapse show" data-parent="#paymentMethod" style="">
-                  <div class="card-body">
-                    <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store
-                      Postcode.</p>
+      <!--
+            <div class="col-lg-6 order-lg-1 learts-mb-30">
+              <div class="order-payment">
+                <div class="payment-method">
+                  <div class="accordion" id="paymentMethod">
+                    <div class="card active">
+                      <div class="card-header">
+                        <button data-toggle="collapse" data-target="#checkPayments" class="" aria-expanded="true">Check
+                          payments
+                        </button>
+                      </div>
+                      <div id="checkPayments" class="collapse show" data-parent="#paymentMethod" style="">
+                        <div class="card-body">
+                          <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store
+                            Postcode.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card">
+                      <div class="card-header">
+                        <button data-toggle="collapse" data-target="#cashkPayments" aria-expanded="false" class="collapsed">
+                          Cash on delivery
+                        </button>
+                      </div>
+                      <div id="cashkPayments" class="collapse" data-parent="#paymentMethod" style="">
+                        <div class="card-body">
+                          <p>Pay with cash upon delivery.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card">
+                      <div class="card-header">
+                        <button data-toggle="collapse" data-target="#payPalPayments" aria-expanded="false" class="collapsed">
+                          PayPal <img src="assets/images/others/pay-2.png" alt=""></button>
+                      </div>
+                      <div id="payPalPayments" class="collapse" data-parent="#paymentMethod" style="">
+                        <div class="card-body">
+                          <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="card">
-                <div class="card-header">
-                  <button data-toggle="collapse" data-target="#cashkPayments" aria-expanded="false" class="collapsed">
-                    Cash on delivery
-                  </button>
-                </div>
-                <div id="cashkPayments" class="collapse" data-parent="#paymentMethod" style="">
-                  <div class="card-body">
-                    <p>Pay with cash upon delivery.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header">
-                  <button data-toggle="collapse" data-target="#payPalPayments" aria-expanded="false" class="collapsed">
-                    PayPal <img src="assets/images/others/pay-2.png" alt=""></button>
-                </div>
-                <div id="payPalPayments" class="collapse" data-parent="#paymentMethod" style="">
-                  <div class="card-body">
-                    <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
-                  </div>
+                <div class="text-center">
+                  <p class="payment-note">Your personal data will be used to process your order, support your experience
+                    throughout this website, and for other purposes described in our privacy policy.</p>
+                  <button class="btn btn-dark btn-outline-hover-dark">שלחי הזמנה</button>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="text-center">
-            <p class="payment-note">Your personal data will be used to process your order, support your experience
-              throughout this website, and for other purposes described in our privacy policy.</p>
-            <button class="btn btn-dark btn-outline-hover-dark">שלחי הזמנה</button>
-          </div>
-        </div>
-      </div>
--->
+      -->
     </aside>
   </div>
 </div>

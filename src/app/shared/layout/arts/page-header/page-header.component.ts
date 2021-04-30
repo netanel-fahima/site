@@ -1,21 +1,24 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {DataService} from "../../../../core/data.service";
-import {Observable, of} from "rxjs";
+import {Observable, of} from 'rxjs';
+import {EntityService} from '../../../../core/store/entity.service';
+import {getLocalUser} from '../../../../core/localStore/loadStorage';
 
 
 @Component({
-  selector: 'smart-page-header',
+  selector: 'app-smart-page-header',
   templateUrl: './page-header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class PageHeaderComponent {
 
-  constructor(public data: DataService) {}
+  constructor(public data: EntityService) {
+  }
 
   getUserName(): Observable<string> {
-    let user = this.data.getUser();
-    return of(user.profile === 'GUEST' ? 'אורח' : user.firstName)
+    return getLocalUser() && getLocalUser().username;
+
   }
 
 }
+
