@@ -4,7 +4,7 @@ import * as productActions from './actions';
 import {EntityType} from './actions';
 import * as fromProduct from './';
 import {select, Store} from '@ngrx/store';
-import {switchMap} from 'rxjs/operators';
+import {filter, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
 import {getUser} from '../../features/login/slice/actions';
 
@@ -28,7 +28,7 @@ export class EntityService {
     this.categories$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Categories}));
     this.products$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Products}));
     this.cart$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Carts}));
-    this.wishlist$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Orders}));
+    this.wishlist$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.WishList}));
     this.users$ = this.store.select(getUser);
     this.error$ = this.store.pipe(select(fromProduct.getError));
   }

@@ -389,10 +389,11 @@ export class Init {
   }
 
 
-  static galleryPopup() {
+  // tslint:disable-next-line:typedef
+  static galleryPopup(imgs) {
     console.log('galleryPopup');
     var $productPopupGalleryBtn = $('.product-gallery-popup'),
-      $productPopupGallery = $productPopupGalleryBtn.data('images'),
+      $productPopupGallery = imgs,
       $openPhotoSwipe = function() {
         var pswpElement = $('.pswp')[0],
           items = $productPopupGallery,
@@ -409,20 +410,17 @@ export class Init {
     $productPopupGalleryBtn.off().on('click', $openPhotoSwipe);
   }
 
-  static productZoom() {
-
-    console.log('productZoom');
-
-    $('.product-zoom').each(function() {
-      var $this = $(this),
-        $image = $this.data('image');
+  static productZoom(images: string[]): void {
+    $('.product-zoom').each((index, e) => {
+      const $this = $($('.product-zoom').get(index));
+      const $image = images[index];
       $this.zoom({
         url: $image
       });
     });
   }
 
-  quickViewModal() {
+  squickViewModal() {
     $('#quickViewModal').off().on('shown.bs.modal', function(e) {
       $('.product-gallery-slider-quickview').not('.slick-initialized').slick({
         dots: true,

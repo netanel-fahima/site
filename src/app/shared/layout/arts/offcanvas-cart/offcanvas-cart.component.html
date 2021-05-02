@@ -8,8 +8,8 @@
     <div class="body customScroll">
       <ul class="minicart-product-list">
         <li *ngFor="let c of data.cart$ |async ">
-          <a routerLink="product-details" class="image">
-            <img src="assets/images/product/cart-product-1.jpg" alt="Cart product Image">
+          <a routerLink="product-details" [queryParams]="{id:c.product.id}" class="image">
+            <img [src]="getImages(c.product)" alt="Cart product Image">
           </a>
           <div class="content d-flex flex-column">
             <a class="remove" (click)="removeCart(c)">X</a>

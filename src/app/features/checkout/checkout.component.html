@@ -9,7 +9,8 @@
         <div class="coupon-form">
           <p>.אם יש לך קופון אנא הזיני אותו פה</p>
           <form action="#" class="learts-mb-n10">
-            <button class="btn btn-dark btn-outline-hover-dark learts-mb-10" style="margin-right: 5px">אשרי קופון</button>
+            <button class="btn btn-dark btn-outline-hover-dark learts-mb-10" style="margin-right: 5px">אשרי קופון
+            </button>
             <input class="learts-mb-10" type="text" placeholder="קוד קופון">
           </form>
         </div>
@@ -18,51 +19,87 @@
     <!--    <div class="section-title2">
           <h2 class="title">פרטי תשלום</h2>
         </div>-->
-    <form action="#" class="anyflexbox">
-      <div class="row">
-        <div class="col-md-6 col-12 learts-mb-20">
-          <label for="bdFirstName">שם פרטי<abbr class="required">*</abbr></label>
-          <input type="text" id="bdFirstName">
-        </div>
-        <div class="col-md-6 col-12 learts-mb-20">
-          <label for="bdLastName">שם משפחה <abbr class="required">*</abbr></label>
-          <input type="text" id="bdLastName">
-        </div>
-
-        <div class="col-md-6 col-12 learts-mb-20">
-          <label for="bdAddress2"> כניסה , דירה </label>
-          <input type="text" id="bdAddress2">
-        </div>
-        <div class="col-md-6 col-12 learts-mb-20">
-          <label for="bdAddress1">כתובת <abbr class="required">*</abbr></label>
-          <input type="text" id="bdAddress1">
-        </div>
-        <div class="col-12 learts-mb-20">
-          <label for="bdTownOrCity">עיר <abbr class="required">*</abbr></label>
-          <input type="text" id="bdTownOrCity">
-        </div>
-        <div class="col-12 learts-mb-20">
-          <label for="bdPostcode">מיקוד (לא חייב) </label>
-          <input type="text" id="bdPostcode">
-        </div>
-        <div class="col-md-6 col-12 learts-mb-20">
-          <label for="bdEmail">אמייל <abbr class="required">*</abbr></label>
-          <input type="email" id="bdEmail">
-        </div>
-        <div class="col-md-6 col-12 learts-mb-30">
-          <label for="bdPhone">טלפון <abbr class="required">*</abbr></label>
-          <input type="text" id="bdPhone">
-        </div>
-        <div class="col-12 learts-mb-40">
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" checked id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">?צור משתמש</label>
+    <form action="#" class="anyflexbox" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row form-group">
+        <div class="col-md-6 col-12 learts-mb-20 form-group">
+          <label for="firstName">שם פרטי <abbr class="required">*</abbr></label>
+          <input id="firstName" type="text" formControlName="firstName" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"/>
+          <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+            <div *ngIf="f.firstName.errors.required">שדה נדרש</div>
           </div>
         </div>
-        <div class="col-12 learts-mb-20">
-          <label for="bdOrderNote"></label>
-          <textarea id="bdOrderNote" placeholder=".הערות לגבי המוצר והמשלוח"></textarea>
+        <div class="col-md-6 col-12 learts-mb-20 form-group">
+          <label for="lastName">שם משפחה <abbr class="required">*</abbr></label>
+          <input id="lastName" type="text" formControlName="lastName" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"/>
+          <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+            <div *ngIf="f.lastName.errors.required">שדה נדרש</div>
+          </div>
         </div>
+
+        <div class="col-md-6 col-12 learts-mb-20 form-group">
+          <label for="bdAddress2"> כניסה , דירה </label>
+          <input id="bdAddress2" type="text" formControlName="bdAddress2" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.bdAddress2.errors }"/>
+          <div *ngIf="submitted && f.bdAddress2.errors" class="invalid-feedback">
+            <div *ngIf="f.bdAddress2.errors.required">שדה נדרש</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-12 learts-mb-20 form-group">
+          <label for="bdAddress1">כתובת <abbr class="required">*</abbr></label>
+          <input id="bdAddress1" type="text" formControlName="bdAddress1" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.bdAddress1.errors }"/>
+          <div *ngIf="submitted && f.bdAddress1.errors" class="invalid-feedback">
+            <div *ngIf="f.bdAddress1.errors.required">שדה נדרש</div>
+          </div>
+        </div>
+        <div class="col-12 learts-mb-20 form-group">
+          <label for="city">עיר <abbr class="required">*</abbr></label>
+          <input id="city" type="text" formControlName="city" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.city.errors }"/>
+          <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+            <div *ngIf="f.city.errors.required">שדה נדרש</div>
+          </div>
+        </div>
+        <div class="col-12 learts-mb-20 form-group">
+          <label for="postal">מיקוד (לא חייב) </label>
+          <input id="postal" type="text" formControlName="postal" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.postal.errors }"/>
+          <div *ngIf="submitted && f.postal.errors" class="invalid-feedback">
+             <div *ngIf="f.postal.errors.required">שדה נדרש</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-12 learts-mb-20 form-group">
+          <label for="email">אמייל <abbr class="required">*</abbr></label>
+          <input id="email" type="text" formControlName="email" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">שדה נדרש</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-12 learts-mb-30 form-group">
+          <label for="phone">טלפון <abbr class="required">*</abbr></label>
+          <input id="phone" type="text" formControlName="phone" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"/>
+          <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+            <div *ngIf="f.phone.errors.required">שדה נדרש</div>
+          </div>
+        </div>
+        <div class="col-12 learts-mb-40 form-group">
+          <div class="form-check">
+            <input style="height: 20px" type="checkbox" name="createUser" class="form-check-input" formControlName="createUser" checked
+                   id="createUser">
+            <label class="form-check-label" for="createUser">?צור משתמש</label>
+          </div>
+        </div>
+        <div class="col-12 learts-mb-20 form-group">
+          <label for="note"></label>
+          <textarea id="note" placeholder=".הערות לגבי המוצר והמשלוח" name="note" formControlName="note"></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary">Register</button>
       </div>
     </form>
     <aside class="sidebar">
@@ -71,24 +108,26 @@
           <table class="table">
             <thead>
             <tr>
-              <th class="name">מוצר</th>
               <th class="total">סך הכל</th>
+              <th class="name">מוצר</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let o of data.cart$">
-              <td class="name">{{o.title}}&nbsp; <strong class="quantity">×&nbsp;{{o.quantity}} </strong></td>
-              <td class="total"><span>{{o.price | currency}}</span></td>
+            <tr *ngFor="let o of data.cart$ |async">
+              <td class="total"><span>{{o.product.price | currency}}</span></td>
+              <td class="name">{{o.product.name}}&nbsp; <strong class="quantity">×&nbsp;{{o.quantity}} </strong></td>
             </tr>
             </tbody>
             <tfoot>
             <tr class="subtotal">
-              <th>מחיר</th>
+
               <td><span>{{data.totalCart() |async| currency}}</span></td>
+              <th>מחיר</th>
             </tr>
             <tr class="total">
-              <th>Total</th>
+
               <td><strong><span>{{data.totalCart() |async | currency}}</span></strong></td>
+              <th>סה"כ</th>
             </tr>
             </tfoot>
           </table>
@@ -96,7 +135,7 @@
         <div class="text-center">
           <p class="payment-note">הנתונים האישיים שלך ישמשו לעיבוד הזמנתך, לתמיכה בחווייתך ברחבי אתר זה ולמטרות אחרות
             המתוארות במדיניות הפרטיות שלנו.</p>
-          <button class="btn btn-dark btn-outline-hover-dark">לתשלום</button>
+
         </div>
       </div>
       <!--

@@ -35,6 +35,5 @@ export class CartComponent implements OnInit, AfterViewChecked {
 
   removeCart(cart: any) {
     this.store.dispatch(new productActions.RemoveVisualCart(EntityType.Carts, cart.product.id));
-
   }
 }

@@ -2,6 +2,13 @@ import {AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core'
 import {Init} from '../../../../assets/js/init';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
+import {EntityService} from '../../../core/store/entity.service';
+import {filter, map} from 'rxjs/operators';
+import {getImages} from '../utils/productUtil';
+import {of} from 'rxjs/internal/observable/of';
+import * as productActions from '../../../core/store/actions';
+import {EntityType} from '../../../core/store/actions';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-product-details',
@@ -10,71 +17,58 @@ import {Observable} from 'rxjs';
   styleUrls: ['./product-details.component.css']
 })
 
-export class ProductDetailsComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class ProductDetailsComponent implements OnInit, AfterViewChecked {
 
-  ngAfterViewChecked(): void {
+  public product: any = null;
+
+  constructor(private route: ActivatedRoute, public data: EntityService, private store: Store) {
+
   }
-
-  private ps: Observable<any>;
-
-  constructor( private route: ActivatedRoute) {
-  }
-
-  product: any = {}
-
-    /*{
-    categories: ["מטפית"],
-    description: "מוצר צמוייןח שלדמסש שלדמחסשדס שלחמדלסשד שלחדמסשמ",
-    id: 1,
-    options: [{type: "גודל", items: ["קטן", "גדול"]}],
-    price: 200,
-    reviews: [1],
-    sku: "02051",
-    tags: ["צדיקות"],
-    title: "מטפחת ריו",
-  }*/;
 
   ngOnInit(): void {
-    //this.ps = this.data.getProduct(this.route.snapshot.queryParams);
-    /*this.ps.subscribe(product => {
-      this.product = product[0];
-      Init.first();
-      Init.qtyBtn();
-      Init.galleryPopup();
-      Init.productZoom();
-      Init.productGallerySlider();
+    console.log('id', this.route.snapshot.queryParams.id);
+    this.setImges('');
+    this.data.products$.pipe(
+      filter(value => !!value),
+      map((pp) =>
+        pp.filter((p, index) => p.id === +this.route.snapshot.queryParams.id)
+      )
+    ).subscribe(products => {
+      this.product = products[0];
     });
-*/
   }
 
-  groupBy(options: any[], name: string) {
-    let op = [];
-    options.forEach(value => {
+  loads(): void {
+    Init.first();
+    Init.qtyBtn();
 
-      let o = op.find(value1 => {
-        return value1.type === (value[name]);
-      });
-      if (!o) {
-        op.push({type: value[name], items: [value]});
-      }
-      else {
-        o.items.push(value);
-      }
-    });
-
-    return op;
+    this.setImges(this.product.description);
+    Init.productZoom(getImages(this.product.description));
+    Init.productGallerySlider();
   }
 
-  addToCart(p: any) {
+  getImages(str): any[] {
+    return getImages(str);
+  }
+
+  setImges(str): void {
+    const imgs = getImages(str).map(value => {
+      return {src: value, w: 700, h: 1100};
+    });
+    Init.galleryPopup(imgs);
+  }
+
+  addToCart(product: any): void {
+    this.store.dispatch(new productActions.AddVisual(EntityType.Carts, {product, quantity: 1}));
     Init.offcanvasOpen();
   }
 
-  addToWish(p: any) {
+  addToWithList(product: any): void {
+    this.store.dispatch(new productActions.AddVisualWishList(EntityType.WishList, {product, quantity: 1}));
     Init.offcanvasOpenWishlist();
   }
 
-  ngAfterViewInit(): void {
-
-
+  ngAfterViewChecked(): void {
+    console.log('id', this.route.snapshot.queryParams.id);
   }
 }

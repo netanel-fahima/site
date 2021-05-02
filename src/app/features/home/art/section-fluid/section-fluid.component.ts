@@ -3,7 +3,7 @@ import {AfterViewChecked, Component, DoCheck, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {EntityService} from '../../../../core/store/entity.service';
 import {Init} from '../../../../../assets/js/init';
-import {delay, timeout} from 'rxjs/operators';
+import {delay, filter, timeout} from 'rxjs/operators';
 
 @Component({
   selector: 'app-section-fluid',
@@ -25,10 +25,12 @@ export class SectionFluidComponent implements OnInit, AfterViewChecked, DoCheck 
 
   ngAfterViewChecked(): void {
     this.data.categories$.pipe(
-      delay(4000)
-    ).subscribe(data => {
-      Init.banner();
-    });
+      filter(value => !!value?.length),
+      delay(500)
+    )
+      .subscribe(data => {
+        Init.banner();
+      });
   }
 
 }

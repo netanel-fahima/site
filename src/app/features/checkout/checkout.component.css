@@ -1,8 +1,8 @@
 .checkout input {
-
+  height: 60px;
   border: 1px #d3d3d3 solid !important;
   background-clip: padding-box !important;
-  border-radius: 5px!important;
+  border-radius: 5px !important;
   display: block !important;
   -webkit-box-sizing: border-box !important;
   box-sizing: border-box !important;
@@ -13,8 +13,11 @@
   line-height: inherit !important;
   font: inherit;
 }
+.form-control.is-invalid, .was-validated .form-control:invalid {
+  background-position: left calc(.375em + .1875rem) center;
+}
 
-.checkout label{
+.checkout label {
   font-size: 0.8571428571em;
   font-weight: normal;
   position: absolute;
@@ -40,12 +43,12 @@
   text-align: right;
   color: #737373;
   letter-spacing: 0 !important;
-  right: 7px!important;
+  right: 7px !important;
 }
 
 
-@media (min-width: 1000px){
-  .anyflexbox{
+@media (min-width: 1000px) {
+  .anyflexbox {
     float: right;
     max-width: 50%;
   }
@@ -53,12 +56,20 @@
 }
 
 @media (min-width: 1000px) {
-  .sidebar{
+  .sidebar {
     float: left;
     max-width: 45%;
   }
 }
 
-.sidebar *{
+.sidebar * {
   text-align: right !important;
+}
+
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid #a94442; /* red */
 }

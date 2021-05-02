@@ -17,7 +17,7 @@ import {AccountComponent} from './features/account/account.component';
 import {ContactUsComponent} from './features/contact-us/contact-us.component';
 import {CoreModule} from './core/core.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FeaturesModule} from './features/features.module';
 import {StoreModule} from '@ngrx/store';
 import {EntityService} from './core/store/entity.service';
@@ -55,7 +55,8 @@ import {LoginEffect} from './features/login/slice/effect';
     FeaturesModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
-    EffectsModule.forRoot([ProductEffect, LoginEffect])
+    EffectsModule.forRoot([ProductEffect, LoginEffect]),
+    ReactiveFormsModule
   ],
   bootstrap: [AppComponent],
   providers: [

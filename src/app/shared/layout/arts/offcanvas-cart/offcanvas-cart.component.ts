@@ -3,6 +3,7 @@ import {EntityService} from '../../../../core/store/entity.service';
 import {Store} from '@ngrx/store';
 import * as productActions from '../../../../core/store/actions';
 import {EntityType} from '../../../../core/store/actions';
+import {getImages} from '../../../../features/product/utils/productUtil';
 
 @Component({
   selector: 'app-offcanvas-cart',
@@ -28,4 +29,7 @@ export class OffcanvasCartComponent implements OnInit, AfterViewInit {
   }
 
 
+  getImages(product: any): string {
+    return getImages(product.description)?.[0];
+  }
 }

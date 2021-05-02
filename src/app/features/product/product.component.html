@@ -1,6 +1,7 @@
 <app-product-title></app-product-title>
 <!-- Shop Products Section Start -->
-<div class="section section-padding pt-0">
+
+<div  class="section section-padding pt-0">
 
   <!-- Shop Toolbar Start -->
   <div class="shop-toolbar border-bottom">
@@ -67,7 +68,7 @@
 
         <div class="grid-sizer col-1"></div>
 
-        <div class="grid-item col featured" *ngFor="let p of data.products$ | async">
+        <div class="grid-item col featured" *ngFor="let p of products$ | async">
           <div class="product">
             <div class="product-thumb">
               <a (click)="router.navigateByUrl('product-details?id='+p.id).then()" class="image">
@@ -102,4 +103,4 @@
 </div>
 <!-- Shop Products Section End -->
 
-<app-product-dialog #dialog></app-product-dialog>
+<app-product-dialog #dialog ></app-product-dialog>

@@ -1,7 +1,6 @@
-<!-- Modal -->
-<div class="quickViewModal modal fade" id="quickViewModal" *ngIf="product">
+<div class="quickViewModal modal fade" id="quickViewModal" >
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" >
+    <div class="modal-content" *ngIf="product">
       <button class="close" data-dismiss="modal">&times;</button>
       <div class="row learts-mb-n30">
 
@@ -9,7 +8,7 @@
         <div class="col-lg-6 col-12 learts-mb-30">
           <div class="product-images">
             <div class="product-gallery-slider-quickview">
-              <div *ngFor="let image of data.productImages ; let i = index" class="product-zoom" data-image="{{data.productImagesZoom[1]}}">
+              <div *ngFor="let image of getImages(product.description) ; let i = index" class="product-zoom">
                 <img src="{{image}}" alt="">
               </div>
             </div>
@@ -24,21 +23,21 @@
                                 <span class="star-rating">
                                 <span class="rating-active" style="width: 100%;">ratings</span>
                                 </span>
-              <a href="#reviews" class="review-link">(<span class="count"><!--{{product.reviews.length}}--></span> customer reviews)</a>
+              <a href="#reviews" class="review-link">(<span class="count"><!--{{product.reviews.length}}--></span>
+                customer reviews)</a>
             </div>
-            <h3 class="product-title">{{product.title}}</h3>
+            <h3 class="product-title">{{product.name}}</h3>
             <div class="product-price">{{product.price | currency}}</div>
-            <div class="product-description">
-              <p>{{product.description}}</p>
+            <div class="product-description" [innerHTML]="product.short_description">
             </div>
             <div class="product-variations">
               <table>
                 <tbody>
-                <tr *ngFor="let option of product.options">
+                <tr *ngFor="let option of []">
                   <td class="label"><span>{{option.type}}</span></td>
                   <td class="value">
                     <div class="product-sizes">
-                      <a href="#" *ngFor="let item of option.items" > {{item}} </a>
+                      <a href="#" *ngFor="let item of option.items"> {{item}} </a>
                     </div>
                   </td>
                 </tr>
@@ -56,17 +55,19 @@
               </table>
             </div>
             <div class="product-buttons">
-              <a (click)="data.addToWithList(product)" class="btn btn-icon btn-outline-body btn-hover-dark"><i class="fal fa-heart"></i></a>
-              <a  routerLink="shopping-cart" (click)="data.addToCart(product)"   class="btn btn-dark btn-outline-hover-dark"><i class="fal fa-shopping-cart"></i> הוסיפי לעגלה</a>
-    <!--          <a href="#" class="btn btn-icon btn-outline-body btn-hover-dark"><i class="fal fa-random"></i></a>-->
+              <a (click)="addToWithList(product)" class="btn btn-icon btn-outline-body btn-hover-dark"><i
+                class="fal fa-heart"></i></a>
+              <a routerLink="shopping-cart" (click)="addToCart(product)"
+                 class="btn btn-dark btn-outline-hover-dark"><i class="fal fa-shopping-cart"></i> הוסיפי לעגלה</a>
+              <!--          <a href="#" class="btn btn-icon btn-outline-body btn-hover-dark"><i class="fal fa-random"></i></a>-->
             </div>
-<!--            <div class="product-brands">
-              <span class="title">Brands</span>
-              <div class="brands">
-                <a href="#"><img src="assets/images/brands/brand-3.png" alt=""></a>
-                <a href="#"><img src="assets/images/brands/brand-8.png" alt=""></a>
-              </div>
-            </div>-->
+            <!--            <div class="product-brands">
+                          <span class="title">Brands</span>
+                          <div class="brands">
+                            <a href="#"><img src="assets/images/brands/brand-3.png" alt=""></a>
+                            <a href="#"><img src="assets/images/brands/brand-8.png" alt=""></a>
+                          </div>
+                        </div>-->
             <div class="product-meta mb-0">
               <table>
                 <tbody>
@@ -78,7 +79,7 @@
                   <td class="label"><span>קטגוריה</span></td>
                   <td class="value">
                     <ul class="product-category">
-                      <li *ngFor="let category of product.categories" ><a href="#">{{category}}</a></li>
+                      <li *ngFor="let category of product.categories"><a href="#">{{category.name}}</a></li>
                     </ul>
                   </td>
                 </tr>
@@ -86,7 +87,7 @@
                   <td class="label"><span>תגית</span></td>
                   <td class="value">
                     <ul class="product-tags">
-                      <li *ngFor="let tag of product.tags" ><a href="#">{{tag}}</a></li>
+                      <li *ngFor="let tag of product.tags"><a href="#">{{tag.name}}</a></li>
                     </ul>
                   </td>
                 </tr>

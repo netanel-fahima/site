@@ -6,6 +6,9 @@ import {EntityService} from '../../core/store/entity.service';
 import {Store} from '@ngrx/store';
 import {EntityType, ProductActions} from '../../core/store/actions';
 import * as productActions from '../../core/store/actions';
+import {filter, map} from 'rxjs/operators';
+import {Observable} from 'rxjs/internal/Observable';
+import {getImages} from './utils/productUtil';
 
 @Component({
   selector: 'app-product',
@@ -16,22 +19,37 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   @ViewChild('dialog', {static: true}) dialog: ProductDialogComponent;
 
+  public products$: Observable<any>;
+
+
   constructor(private store: Store, public data: EntityService, private route: ActivatedRoute, private router: Router) {
+    const params = this.route.snapshot.queryParams;
+    this.products$ = this.data.products$.pipe(
+      filter(value => !!value),
+      map(products => {
+        if (params.category) {
+          const pp = products.filter(product => {
+            return product.categories.find(c => {
+              return c.id === +params.category;
+            });
+          });
+          console.log('pp', pp);
+          return pp;
+        }
+        else {
+          return products;
+        }
+      }));
   }
 
+
   ngOnInit(): void {
-    /*let params = this.route.snapshot.queryParams;
-    if (!!params.category)
-      this.data.productAsync = this.data.categoryRest.post({data: {}, cmd: `/${params.category}/products`});
-    else {
-      this.data.productAsync = this.data.productRest
-         .list();
-    }*/
+
   }
 
   ngAfterViewChecked(): void {
     Init.first();
-    this.data.products$.subscribe((value) => {
+    this.products$.subscribe((value) => {
       setTimeout(() => {
         Init.filterToggle();
         Init.isotopeFilter();
@@ -44,19 +62,7 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   getImage(str: any): string {
-    const imgs = [];
-    const regex = /\"(?<Protocol>\w+):\/\/(?<Domain>[\w.]+\/?)\S*\"/gm;
-    let m: RegExpExecArray;
-    // tslint:disable-next-line:no-conditional-assignment
-    while ((m = regex.exec(str)) !== null) {
-      // This is necessary to avoid infinite loops with zero-width matches
-      if (m.index === regex.lastIndex) {
-        regex.lastIndex++;
-      }
-      // @ts-ignore
-      imgs.push(m?.[0].replaceAll('"', ''));
-      // The result can be accessed through the `m`-variable
-    }
+    const imgs = getImages(str);
     if (imgs.length) {
       return imgs[0];
     }
@@ -68,6 +74,7 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
     Init.offcanvasOpen();
   }
 
+
   openDialog(product: any): void {
     this.dialog.product = product;
   }
@@ -75,7 +82,8 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  addToWithList(p: any): void {
+  addToWithList(product: any): void {
+    this.store.dispatch(new productActions.AddVisualWishList(EntityType.WishList, {product, quantity: 1}));
     Init.offcanvasOpenWishlist();
   }
 }

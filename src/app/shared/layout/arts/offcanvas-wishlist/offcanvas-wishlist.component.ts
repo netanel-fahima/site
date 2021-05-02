@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {EntityService} from '../../../../core/store/entity.service';
+import * as productActions from '../../../../core/store/actions';
+import {EntityType} from '../../../../core/store/actions';
+import {Store} from '@ngrx/store';
 
 
 @Component({
@@ -9,11 +12,14 @@ import {EntityService} from '../../../../core/store/entity.service';
 })
 export class OffcanvasWishlistComponent implements OnInit {
 
-  constructor(public data: EntityService) {
+  constructor(public data: EntityService, private store: Store) {
   }
 
   ngOnInit(): void {
   }
 
 
+  remove(id: number) {
+    this.store.dispatch(new productActions.RemoveVisualCart(EntityType.WishList, id));
+  }
 }

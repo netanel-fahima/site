@@ -6,6 +6,10 @@ export const removeLocalUser = () => {
 };
 
 const removeFromLocalCart = (localCart, productId) => {
+  return removeProductFromLocal(localCart, productId);
+};
+
+const removeProductFromLocal = (localCart, productId) => {
   const newCart = localCart.filter((cart) => {
     return cart.product.id !== productId;
   });
@@ -18,9 +22,18 @@ const updateFromLocalCart = (localCart, {product, quantity}) => {
 };
 
 
+export const getLocalWishList = () => {
+  return getLocalProduct('vizual_localCart');
+};
+
+
 export const getLocalCart = () => {
+  return getLocalProduct('vizual_localCart');
+};
+
+const getLocalProduct = (type) => {
   // grab localCart from localStorage
-  const cachedCart = localStorage.getItem('vizual_localCart');
+  const cachedCart = localStorage.getItem(type);
   // if so, use cached
   if (cachedCart && cachedCart.length !== 0) {
     console.log('Cart: Using cached!');
@@ -32,7 +45,15 @@ export const getLocalCart = () => {
 };
 
 
+const addToWishList = (localCart, {product, quantity}): any[] => {
+  return addProductToLocal('vizual_localCart', localCart, {product, quantity});
+};
+
 const addToCart = (localCart, {product, quantity}): any[] => {
+  return addProductToLocal('vizual_localCart', localCart, {product, quantity});
+};
+
+const addProductToLocal = (type, localCart, {product, quantity}): any[] => {
   const checkId = obj => obj.product.id === product.id;
   if (localCart.some(checkId)) {
     console.log('The item you are trying to add is already in your cart!');
@@ -41,7 +62,7 @@ const addToCart = (localCart, {product, quantity}): any[] => {
   else {
     const newCart = {product, quantity};
     localStorage.setItem(
-      'vizual_localCart',
+      type,
       JSON.stringify([...localCart, newCart])
     );
     return [...localCart, newCart];
@@ -59,6 +80,7 @@ const initialState: EntityState = {
   toggleCheckBox: true,
   entities: new Map<string, any[]>()
     .set(EntityType.Carts, getLocalCart())
+    .set(EntityType.WishList, getLocalCart())
     .set(EntityType.Customers, [])
     .set(EntityType.Orders, []),
   loaded: false,
@@ -103,6 +125,33 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       };
     }
     case ActionTypes.UpdateVisualCart: {
+      console.log(state.entities);
+      return {
+        ...state,
+        entities: state.entities.set(action.cmd, updateFromLocalCart(getLocalCart(), action.payload)),
+        loaded: true,
+        error: state.error.set(action.cmd, '')
+      };
+    }
+    case ActionTypes.AddVisualWishList: {
+      console.log(state.entities);
+      return {
+        ...state,
+        entities: state.entities.set(action.cmd, addToCart(getLocalCart(), action.payload)),
+        loaded: true,
+        error: state.error.set(action.cmd, '')
+      };
+    }
+    case ActionTypes.RemoveVisualWishList: {
+      console.log(state.entities);
+      return {
+        ...state,
+        entities: state.entities.set(action.cmd, removeFromLocalCart(getLocalCart(), action.payload)),
+        loaded: true,
+        error: state.error.set(action.cmd, '')
+      };
+    }
+    case ActionTypes.UpdateVisualWishList: {
       console.log(state.entities);
       return {
         ...state,
