@@ -67,7 +67,7 @@
           <input id="postal" type="text" formControlName="postal" class="form-control"
                  [ngClass]="{ 'is-invalid': submitted && f.postal.errors }"/>
           <div *ngIf="submitted && f.postal.errors" class="invalid-feedback">
-             <div *ngIf="f.postal.errors.required">שדה נדרש</div>
+            <div *ngIf="f.postal.errors.required">שדה נדרש</div>
           </div>
         </div>
         <div class="col-md-6 col-12 learts-mb-20 form-group">
@@ -88,9 +88,13 @@
         </div>
         <div class="col-12 learts-mb-40 form-group">
           <div class="form-check">
-            <input style="height: 20px" type="checkbox" name="createUser" class="form-check-input" formControlName="createUser" checked
-                   id="createUser">
             <label class="form-check-label" for="createUser">?צור משתמש</label>
+            <input style="height: 20px" type="checkbox" name="createUser" class="form-check-input"
+                   formControlName="createUser" checked
+                   id="createUser">
+            <div *ngIf="submitted && f.createUser.errors" class="invalid-feedback">
+              <div *ngIf="f.createUser.errors.required">נדרש יצירת משתמש!</div>
+            </div>
           </div>
         </div>
         <div class="col-12 learts-mb-20 form-group">

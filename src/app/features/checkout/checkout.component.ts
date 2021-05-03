@@ -1,18 +1,15 @@
 import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl, AbstractControl
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Init} from '../../../assets/js/init';
 import {EntityService} from '../../core/store/entity.service';
-import Checkout, {MustMatch} from './checkout';
+import Checkout from './checkout';
 import {Store} from '@ngrx/store';
 import * as productActions from '../../core/store/actions';
 import {EntityType} from '../../core/store/actions';
 import {getLocalCart} from '../../core/store/reducer';
 import {getLocalUser} from '../../core/localStore/loadStorage';
+import * as actions from '../login/slice/actions';
+import {getUser} from '../login/slice/actions';
 
 
 @Component({
@@ -25,15 +22,18 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
   @Input() createUser: any;
   form: FormGroup;
   public model = new Checkout('', '', '', '', '', '', '', '', '', false);
+  private user: any;
 
   ngAfterViewChecked(): void {
     Init.select2();
   }
 
   constructor(public data: EntityService, public store: Store, private formBuilder: FormBuilder) {
+    this.store.dispatch(new actions.Load(getLocalUser()));
   }
 
   ngOnInit(): void {
+    this.store.dispatch(new actions.Load(getLocalUser()));
     this.form = this.formBuilder.group({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
@@ -46,7 +46,9 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
       note: new FormControl(''),
       createUser: new FormControl(''),
     });
-
+    this.store.select(getUser).subscribe(value => {
+      this.user = value;
+    });
   }
 
   // convenience getter for easy access to form fields
@@ -58,6 +60,43 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
 
   createOrder(): void {
 
+    const lineItems = getLocalCart().map(item => {
+      return {
+        product_id: item.product.id,
+        quantity: item.quantity,
+        meta_data: item.options
+      };
+    });
+
+    this.store.dispatch(new productActions.Add(EntityType.Orders, {
+      customer_id: this.user?.id || 0,
+      customer_note: this.f.note.value,
+      billing: {
+        first_name: this.f.firstName.value,
+        last_name: this.f.lastName.value,
+        address_1: this.f.bdAddress1.value,
+        address_2: this.f.bdAddress2.value,
+        city: this.f.city.value,
+        state: 'ISRAEL',
+        postcode: this.f.postal.value,
+        country: '',
+        email: this.f.email.value,
+        phone: this.f.phone.value
+      },
+      shipping: {
+        first_name: this.f.firstName.value,
+        last_name: this.f.lastName.value,
+        address_1: this.f.bdAddress1.value,
+        address_2: this.f.bdAddress2.value,
+        city: this.f.city.value,
+        state: 'ISRAEL',
+        postcode: this.f.postal.value,
+        country: ''
+      },
+      line_items: lineItems
+    }));
+    alert('');
+
   }
 
 
@@ -65,41 +104,22 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
     this.submitted = true;
 
     if (this.form.valid) {
-
-      const lineItems = getLocalCart().map(item => {
-        return {
-          product_id: item.product.id,
-          quantity: item.quantity
-        };
-      });
-
-      this.store.dispatch(new productActions.Add(EntityType.Orders, {
-        customer_id: getLocalUser()?.id || 0,
-        customer_note: this.f.note.value,
-        billing: {
-          first_name: this.f.firstName.value,
-          last_name: this.f.lastName.value,
-          address_1: this.f.bdAddress1.value,
-          address_2: this.f.bdAddress2.value,
-          city: this.f.city.value,
-          state: 'ISRAEL',
-          postcode: this.f.postal.value,
-          country: '',
+      if (!this.user && this.f.createUser.value) {
+        this.store.dispatch(new actions.Register({
+          username: this.f.firstName.value,
           email: this.f.email.value,
-          phone: this.f.phone.value
-        },
-        shipping: {
           first_name: this.f.firstName.value,
           last_name: this.f.lastName.value,
-          address_1: this.f.bdAddress1.value,
-          address_2: this.f.bdAddress2.value,
-          city: this.f.city.value,
-          state: 'ISRAEL',
-          postcode: this.f.postal.value,
-          country: ''
-        },
-        line_items: lineItems
-      }));
+        }));
+        this.data.users$.subscribe(value => {
+          if (value && this.f.createUser.value) {
+            this.createOrder();
+          }
+        });
+      }
+      else {
+        this.createOrder();
+      }
     }
   }
 }

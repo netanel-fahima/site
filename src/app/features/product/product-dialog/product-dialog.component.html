@@ -1,4 +1,4 @@
-<div class="quickViewModal modal fade" id="quickViewModal" >
+<div class="quickViewModal modal fade" id="quickViewModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" *ngIf="product">
       <button class="close" data-dismiss="modal">&times;</button>
@@ -8,9 +8,14 @@
         <div class="col-lg-6 col-12 learts-mb-30">
           <div class="product-images">
             <div class="product-gallery-slider-quickview">
-              <div *ngFor="let image of getImages(product.description) ; let i = index" class="product-zoom">
-                <img src="{{image}}" alt="">
-              </div>
+              <ng-container *ngFor="let image of getImages(product.description) ; let i = index">
+                <div class="product-zoom" data-image="{{getImageUrl(image)}}">
+                  <cl-image public-id="{{getImageName(image)}}" alt="{{product.name}}">
+                    <cl-transformation height="760" width="570" crop="fill">
+                    </cl-transformation>
+                  </cl-image>
+                </div>
+              </ng-container>
             </div>
           </div>
         </div>

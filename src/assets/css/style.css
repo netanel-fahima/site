@@ -12858,6 +12858,10 @@ body.offcanvas-open .sticky-header {
   color: #333333;
 }
 
+.product-sizes a:active {
+  color: #333333;
+}
+
 @media only screen and (max-width: 575px) {
   .product-sizes a {
     font-size: 18px;

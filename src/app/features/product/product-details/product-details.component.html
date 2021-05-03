@@ -1,4 +1,4 @@
-<app-page-title-section #title></app-page-title-section>
+<app-page-title-section></app-page-title-section>
 
 <!-- Single Products Section Start -->
 <ng-container *ngIf="product">
@@ -14,14 +14,14 @@
                     data-images="">
               <i class="far fa-expand"></i></button>
             <div class="product-gallery-slider">
-              <div class="product-zoom" *ngFor="let image of getImages(product.description) ; let i = index"
-                   data-image="{{getImages(product.description)[i]}}">
-                <img src="{{getImages(product.description)[i]}}" alt="">
+              <div class="product-zoom" *ngFor="let image of product.images ; let i = index"
+                   data-image="{{image.src}}">
+                <img src="{{image.src}}" alt="">
               </div>
             </div>
             <div class="product-thumb-slider">
-              <div class="item" *ngFor="let image of getImages(product.description)">
-                <img src="{{image}}" alt="">
+              <div class="item" *ngFor="let image of product.images">
+                <img src="{{image.src}}" alt="">
               </div>
             </div>
           </div>
@@ -48,11 +48,12 @@
             <div class="product-variations">
               <table>
                 <tbody>
-                <tr *ngFor="let option of []">
-                  <td class="label"><span>{{option.type}}</span></td>
+                <tr *ngFor="let attribute of product.attributes">
+                  <td class="label"><span>{{attribute.name}}</span></td>
                   <td class="value">
                     <div class="product-sizes">
-                      <a href="#" *ngFor="let item of option.items"> {{item.option}} </a>
+                      <a *ngFor="let option of attribute.options"
+                         (click)="setOption(attribute.name,option)"> {{option}} </a>
                     </div>
                   </td>
                 </tr>
@@ -76,6 +77,7 @@
               <a (click)="addToCart(product)" routerLink="shopping-cart" class="btn btn-dark btn-outline-hover-dark"><i
                 class="fal fa-shopping-cart"></i> הוסיפי לעגלה</a>
             </div>
+
             <div class="product-meta">
               <table>
                 <tbody>
@@ -95,7 +97,7 @@
                   <td class="label"><span>תגית</span></td>
                   <td class="value">
                     <ul class="product-tags">
-                      <li *ngFor="let tag of product.tags"><a href="#">{{tag}}</a></li>
+                      <li *ngFor="let tag of product.tags"><a href="#">{{tag.name}}</a></li>
                     </ul>
                   </td>
                 </tr>
@@ -211,9 +213,14 @@
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <tbody>
-                    <tr *ngFor="let option of []">
-                      <td>{{option.items}}</td>
-                      <td>{{option.type}}</td>
+                    <tr *ngFor="let option of product.attributes">
+                      <td class="label"><span>{{option.name}}</span></td>
+                      <td class="value">
+                        <div class="product-sizes">
+                          <a href="#" *ngFor="let item of option.options"> {{item}} </a>
+
+                        </div>
+                      </td>
                     </tr>
                     </tbody>
                   </table>

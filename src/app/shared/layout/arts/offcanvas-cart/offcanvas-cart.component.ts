@@ -30,6 +30,6 @@ export class OffcanvasCartComponent implements OnInit, AfterViewInit {
 
 
   getImages(product: any): string {
-    return getImages(product.description)?.[0];
+    return product.images?.[0].src || '';
   }
 }

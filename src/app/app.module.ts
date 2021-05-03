@@ -29,6 +29,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {reducers} from './core/store';
 import {ProductEffect} from './core/store/effect';
 import {LoginEffect} from './features/login/slice/effect';
+import {CloudinaryModule} from '@cloudinary/angular-5.x';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import {LoginEffect} from './features/login/slice/effect';
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     EffectsModule.forRoot([ProductEffect, LoginEffect]),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CloudinaryModule
   ],
   bootstrap: [AppComponent],
   providers: [

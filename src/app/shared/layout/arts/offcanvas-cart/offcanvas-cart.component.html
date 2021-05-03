@@ -14,8 +14,10 @@
           <div class="content d-flex flex-column">
             <a class="remove" (click)="removeCart(c)">X</a>
             <a routerLink="product-details" [queryParams]="{id:c.product.id}" class="title">{{c.product.name}}</a>
-            <span class="quantity-price">{{c.quantity}} x <span
-              class="amount">{{c.product?.price|currency}}</span></span>`
+            <span class="quantity-price">{{c.quantity}} x
+              <span class="amount">{{c.product?.price|currency}}</span>
+            </span>
+            <span *ngFor="let o of c?.options || []">{{o.value}}</span>
           </div>
         </li>
       </ul>

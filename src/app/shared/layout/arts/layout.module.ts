@@ -16,34 +16,33 @@ import {OffcanvasCartComponent} from './offcanvas-cart/offcanvas-cart.component'
 import {OffcanvasMobileMenuComponent} from './offcanvas-mobile-menu/offcanvas-mobile-menu.component';
 import {SectionPaddingComponent} from '../../../features/home/art/section-padding/section-padding.component';
 import {PageTitleSectionComponent} from './page-title-section/page-title-section.component';
-import {FeaturesModule} from "../../../features/features.module";
-import {ProductPipe} from "../../../core/pipe/product.pipe";
-import {FormsModule} from "@angular/forms";
+import {ProductPipe} from '../../../core/pipe/product.pipe';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations:
     [MainComponent,
-      LogoComponent,
-      PageHeaderComponent,
-      PageHeadingComponent,
-      PageFooterComponent,
-      PageHeaderStickyComponent,
-      PageHeaderMobileComponent,
-      PageHeaderStickyMobileComponent,
-      OffcanvasSearchComponent,
-      OffcanvasWishlistComponent,
-      OffcanvasCartComponent,
-      OffcanvasMobileMenuComponent,
-      SectionPaddingComponent,
-      PageTitleSectionComponent,
-      ProductPipe
+     LogoComponent,
+     PageHeaderComponent,
+     PageHeadingComponent,
+     PageFooterComponent,
+     PageHeaderStickyComponent,
+     PageHeaderMobileComponent,
+     PageHeaderStickyMobileComponent,
+     OffcanvasSearchComponent,
+     OffcanvasWishlistComponent,
+     OffcanvasCartComponent,
+     OffcanvasMobileMenuComponent,
+     SectionPaddingComponent,
+     PageTitleSectionComponent,
+     ProductPipe
     ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule
-  ],/*providers: [DataService],*/
-  exports: [MainComponent, SectionPaddingComponent, PageFooterComponent, PageTitleSectionComponent,ProductPipe],
+  ],
+  exports: [MainComponent, SectionPaddingComponent, PageFooterComponent, PageTitleSectionComponent, ProductPipe],
   entryComponents: []
 })
 

@@ -1,12 +1,13 @@
 <app-product-title></app-product-title>
 <!-- Shop Products Section Start -->
 
-<div  class="section section-padding pt-0">
+<div class="section section-padding pt-0">
 
   <!-- Shop Toolbar Start -->
   <div class="shop-toolbar border-bottom">
     <div class="container">
       <div class="row learts-mb-n20">
+
 
         <div class="col-md col-12 learts-mb-20">
           <ul class="shop-toolbar-controls">
@@ -72,8 +73,14 @@
           <div class="product">
             <div class="product-thumb">
               <a (click)="router.navigateByUrl('product-details?id='+p.id).then()" class="image">
-                <img src="{{getImage(p.description)}}" alt="Product Image">
-                <img class="image-hover " src="{{getImage(p.id)}}" alt="Product Image">
+                <cl-image public-id="{{getImage(p)}}" alt="{{p.name}}">
+                  <cl-transformation height="437" width="328" crop="fill">
+                  </cl-transformation>
+                </cl-image>
+                <cl-image class="image-hover " public-id="{{getImage(p)}}" alt="{{p.name}}">
+                  <cl-transformation height="437" width="328" crop="fill">
+                  </cl-transformation>
+                </cl-image>
               </a>
               <a (click)="addToWithList(p)" href="wishlist" class="add-to-wishlist hintT-left"
                  data-hint="הוסיפי למועדפים"><i class="far fa-heart"></i></a>
@@ -103,4 +110,4 @@
 </div>
 <!-- Shop Products Section End -->
 
-<app-product-dialog #dialog ></app-product-dialog>
+<app-product-dialog #dialog></app-product-dialog>

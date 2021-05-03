@@ -13,8 +13,12 @@ import {EntityType} from '../../core/store/actions';
 })
 export class CartComponent implements OnInit, AfterViewChecked {
 
+  public cart: any[];
 
   constructor(public data: EntityService, private store: Store) {
+    this.data.cart$.subscribe(value => {
+      this.cart = value;
+    });
   }
 
   ngOnInit(): void {
@@ -29,7 +33,10 @@ export class CartComponent implements OnInit, AfterViewChecked {
     alert(quantity);
   }
 
-  updateCart(item: object) {
+  updateCart() {
+    this.cart.forEach(item => {
+      this.store.dispatch(new productActions.UpdateVisualCart(EntityType.Carts, item));
+    });
   }
 
 

@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {EntityService} from '../../core/store/entity.service';
 import * as actions from './slice/actions';
-import {getErr} from './slice/actions';
+import {getErr, getUser} from './slice/actions';
 import {Store} from '@ngrx/store';
 import {getLocalUser, removeLocalUser} from '../../core/localStore/loadStorage';
 import {Observable} from 'rxjs/internal/Observable';
@@ -27,7 +27,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(new actions.Load(getLocalUser()));
-    this.error$ = this.store.select(getErr);
+    this.store.select(getUser).subscribe(value => {
+      this.user = value;
+    });
     this.error$ = this.store.select(getErr);
   }
 
@@ -43,7 +45,9 @@ export class LoginComponent implements OnInit {
         last_name: this.registerName,
         username: this.registerName,
       }));
+      return;
     }
+    alert('כבר רשום!');
   }
 
 

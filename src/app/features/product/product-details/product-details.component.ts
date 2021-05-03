@@ -1,11 +1,9 @@
-import {AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Init} from '../../../../assets/js/init';
 import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
 import {EntityService} from '../../../core/store/entity.service';
 import {filter, map} from 'rxjs/operators';
 import {getImages} from '../utils/productUtil';
-import {of} from 'rxjs/internal/observable/of';
 import * as productActions from '../../../core/store/actions';
 import {EntityType} from '../../../core/store/actions';
 import {Store} from '@ngrx/store';
@@ -20,6 +18,7 @@ import {Store} from '@ngrx/store';
 export class ProductDetailsComponent implements OnInit, AfterViewChecked {
 
   public product: any = null;
+  private options: any = [];
 
   constructor(private route: ActivatedRoute, public data: EntityService, private store: Store) {
 
@@ -59,7 +58,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewChecked {
   }
 
   addToCart(product: any): void {
-    this.store.dispatch(new productActions.AddVisual(EntityType.Carts, {product, quantity: 1}));
+    this.store.dispatch(new productActions.AddVisual(EntityType.Carts, {product, quantity: 1, options: this.options}));
     Init.offcanvasOpen();
   }
 
@@ -70,5 +69,10 @@ export class ProductDetailsComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked(): void {
     console.log('id', this.route.snapshot.queryParams.id);
+  }
+
+  setOption(name: string, option: any): void {
+    this.options = this.options.filter(o => o.key !== name);
+    this.options.push({key: name, value: option});
   }
 }

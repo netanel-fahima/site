@@ -8,7 +8,7 @@ import {EntityType, ProductActions} from '../../core/store/actions';
 import * as productActions from '../../core/store/actions';
 import {filter, map} from 'rxjs/operators';
 import {Observable} from 'rxjs/internal/Observable';
-import {getImages} from './utils/productUtil';
+import {getImageName, getImages} from './utils/productUtil';
 
 @Component({
   selector: 'app-product',
@@ -22,7 +22,7 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
   public products$: Observable<any>;
 
 
-  constructor(private store: Store, public data: EntityService, private route: ActivatedRoute, private router: Router) {
+  constructor(private store: Store, public data: EntityService, public route: ActivatedRoute, public router: Router) {
     const params = this.route.snapshot.queryParams;
     this.products$ = this.data.products$.pipe(
       filter(value => !!value),
@@ -61,12 +61,8 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
     });
   }
 
-  getImage(str: any): string {
-    const imgs = getImages(str);
-    if (imgs.length) {
-      return imgs[0];
-    }
-    return 'assets/images/product/s328/product-17.jpg';
+  getImage(product: any): string {
+    return product.images?.[0].src || 'assets/images/product/s328/product-17.jpg';
   }
 
   addToCart(product: any): void {

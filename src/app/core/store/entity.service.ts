@@ -37,7 +37,7 @@ export class EntityService {
     return this.cart$.pipe(
       switchMap(cart => {
         const total = cart.reduce((previousValue, currentValue) => {
-          return previousValue += Number(currentValue.product.price);
+          return previousValue += Number(currentValue.product.price) * currentValue.quantity;
         }, 0);
         console.log('total', total);
         return of(total);

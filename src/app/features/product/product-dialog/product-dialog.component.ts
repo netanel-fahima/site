@@ -1,9 +1,10 @@
 import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
 import {Init} from '../../../../assets/js/init';
-import {getImages} from '../utils/productUtil';
+import {getImageName, getImages} from '../utils/productUtil';
 import * as productActions from '../../../core/store/actions';
 import {EntityType} from '../../../core/store/actions';
 import {Store} from '@ngrx/store';
+import {Cloudinary} from '@cloudinary/angular-5.x';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class ProductDialogComponent implements OnInit, AfterViewChecked {
   @Input() product: any;
 
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private cloudinary: Cloudinary) {
   }
 
   ngOnInit(): void {
@@ -56,5 +57,14 @@ export class ProductDialogComponent implements OnInit, AfterViewChecked {
   addToWithList(product: any): void {
     this.store.dispatch(new productActions.AddVisualWishList(EntityType.WishList, {product, quantity: 1}));
     Init.offcanvasOpenWishlist();
+  }
+
+  getImageName(image: any) {
+    return getImageName(image);
+  }
+
+  getImageUrl(image: any) {
+    console.log(this.cloudinary.url(getImageName(image), {height: 1024, width: 768, crop: 'fill'}));
+    return this.cloudinary.url(getImageName(image), {height: 1024, width: 768, crop: 'fill'});
   }
 }

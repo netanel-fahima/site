@@ -1,4 +1,3 @@
-import {EntityAction} from '../../../core/store/actions';
 import {Action, createFeatureSelector, createSelector} from '@ngrx/store';
 import * as fromProduct from './reducer';
 

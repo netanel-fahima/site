@@ -20,6 +20,6 @@ export class OffcanvasWishlistComponent implements OnInit {
 
 
   remove(id: number) {
-    this.store.dispatch(new productActions.RemoveVisualCart(EntityType.WishList, id));
+    this.store.dispatch(new productActions.RemoveVisualWishList(EntityType.WishList, id));
   }
 }
