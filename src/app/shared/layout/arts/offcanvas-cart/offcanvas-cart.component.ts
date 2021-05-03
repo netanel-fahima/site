@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, NgZone, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {EntityService} from '../../../../core/store/entity.service';
 import {Store} from '@ngrx/store';
 import * as productActions from '../../../../core/store/actions';
 import {EntityType} from '../../../../core/store/actions';
-import {getImages} from '../../../../features/product/utils/productUtil';
+import {getImageName} from '../../../../features/product/utils/productUtil';
+import {Cloudinary} from '@cloudinary/angular-5.x';
 
 @Component({
   selector: 'app-offcanvas-cart',
@@ -14,7 +15,7 @@ import {getImages} from '../../../../features/product/utils/productUtil';
 export class OffcanvasCartComponent implements OnInit, AfterViewInit {
 
 
-  constructor(public data: EntityService, private store: Store) {
+  constructor(public data: EntityService, private store: Store, private cloudinary: Cloudinary) {
   }
 
   ngOnInit(): void {
@@ -30,6 +31,15 @@ export class OffcanvasCartComponent implements OnInit, AfterViewInit {
 
 
   getImages(product: any): string {
-    return product.images?.[0].src || '';
+    try {
+      const src = product.images?.[0].src ? this.cloudinary.url(getImageName(product.images?.[0].src),
+        {height: 100, width: 75, crop: 'fill'}) : 'assets/images/product/cart-product-1.jpg';
+      console.log(src);
+      return src;
+    }
+    catch (e) {
+      return 'assets/images/product/cart-product-1.jpg';
+    }
   }
+
 }

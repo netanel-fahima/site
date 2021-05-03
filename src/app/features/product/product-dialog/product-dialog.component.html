@@ -8,9 +8,9 @@
         <div class="col-lg-6 col-12 learts-mb-30">
           <div class="product-images">
             <div class="product-gallery-slider-quickview">
-              <ng-container *ngFor="let image of getImages(product.description) ; let i = index">
-                <div class="product-zoom" data-image="{{getImageUrl(image)}}">
-                  <cl-image public-id="{{getImageName(image)}}" alt="{{product.name}}">
+              <ng-container *ngFor="let image of product.images ">
+                <div class="product-zoom" data-image="{{getImage(image.src)}}">
+                  <cl-image public-id="{{getImage(image.src)}}" alt="{{image.name}}">
                     <cl-transformation height="760" width="570" crop="fill">
                     </cl-transformation>
                   </cl-image>

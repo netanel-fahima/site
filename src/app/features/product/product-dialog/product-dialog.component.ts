@@ -63,8 +63,16 @@ export class ProductDialogComponent implements OnInit, AfterViewChecked {
     return getImageName(image);
   }
 
-  getImageUrl(image: any) {
-    console.log(this.cloudinary.url(getImageName(image), {height: 1024, width: 768, crop: 'fill'}));
-    return this.cloudinary.url(getImageName(image), {height: 1024, width: 768, crop: 'fill'});
+
+
+  getImage(img: any): string {
+    try {
+      const src = this.cloudinary.url(getImageName(img), {height: 1024, width: 768, crop: 'fill'});
+      console.log(src);
+      return src;
+    }
+    catch (e) {
+      return '';
+    }
   }
 }

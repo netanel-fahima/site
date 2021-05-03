@@ -14,14 +14,14 @@
                     data-images="">
               <i class="far fa-expand"></i></button>
             <div class="product-gallery-slider">
-              <div class="product-zoom" *ngFor="let image of product.images ; let i = index"
-                   data-image="{{image.src}}">
-                <img src="{{image.src}}" alt="">
+              <div *ngFor="let image of product.images" class="product-zoom"
+                   data-image="{{getImage(image.src)}}">
+                <img src="{{getImage(image.src)}}" alt="{{image.name}}">
               </div>
             </div>
             <div class="product-thumb-slider">
               <div class="item" *ngFor="let image of product.images">
-                <img src="{{image.src}}" alt="">
+                <img src="{{getImage(image.src)}}" alt="{{image.name}}">
               </div>
             </div>
           </div>

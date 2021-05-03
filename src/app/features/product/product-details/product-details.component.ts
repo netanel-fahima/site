@@ -3,10 +3,11 @@ import {Init} from '../../../../assets/js/init';
 import {ActivatedRoute} from '@angular/router';
 import {EntityService} from '../../../core/store/entity.service';
 import {filter, map} from 'rxjs/operators';
-import {getImages} from '../utils/productUtil';
+import {getImageName, getImages} from '../utils/productUtil';
 import * as productActions from '../../../core/store/actions';
 import {EntityType} from '../../../core/store/actions';
 import {Store} from '@ngrx/store';
+import {Cloudinary} from '@cloudinary/angular-5.x';
 
 @Component({
   selector: 'app-product-details',
@@ -20,7 +21,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewChecked {
   public product: any = null;
   private options: any = [];
 
-  constructor(private route: ActivatedRoute, public data: EntityService, private store: Store) {
+  constructor(private route: ActivatedRoute, public data: EntityService, private store: Store, private cloudinary: Cloudinary) {
 
   }
 
@@ -74,5 +75,17 @@ export class ProductDetailsComponent implements OnInit, AfterViewChecked {
   setOption(name: string, option: any): void {
     this.options = this.options.filter(o => o.key !== name);
     this.options.push({key: name, value: option});
+  }
+
+
+  getImage(img: any): string {
+    try {
+      const src = this.cloudinary.url(getImageName(img), {height: 1024, width: 768, crop: 'fill'});
+      console.log(src);
+      return src;
+    }
+    catch (e) {
+      return '';
+    }
   }
 }

@@ -62,7 +62,9 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   getImage(product: any): string {
-    return product.images?.[0].src || 'assets/images/product/s328/product-17.jpg';
+    const src = product.images?.[0].src ? getImageName(product.images?.[0].src) : 'assets/images/product/s328/product-17.jpg';
+    console.log(src);
+    return src;
   }
 
   addToCart(product: any): void {
