@@ -20,7 +20,7 @@
           <td class="price"><span>{{c.product.price | currency}}</span></td>
           <td class="quantity">
             <div class="product-quantity">
-              <span class="qty-btn plus" (click)="c.quantity = c.quantity  +1 "><i class="ti-plus"></i></span>
+              <span class="qty-btn plus" (click)="c.quantity = c.quantity  +1"><i class="ti-plus"></i></span>
               <input type="number" class="input-qty"
                      [(ngModel)]="c.quantity" value="{{c.quantity}}" (ngModelChange)="alert(c.quantity)"
                      [ngModelOptions]="{standalone: true}">

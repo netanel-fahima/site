@@ -9,7 +9,9 @@ import {EntityType} from '../../core/store/actions';
 import {getLocalCart} from '../../core/store/reducer';
 import {getLocalUser} from '../../core/localStore/loadStorage';
 import * as actions from '../login/slice/actions';
-import {getUser} from '../login/slice/actions';
+import {getErr, getUser} from '../login/slice/actions';
+import {Observable} from 'rxjs/internal/Observable';
+import {getError} from '../../core/store';
 
 
 @Component({
@@ -23,6 +25,9 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
   form: FormGroup;
   public model = new Checkout('', '', '', '', '', '', '', '', '', false);
   private user: any;
+  autError$: Observable<{ l: string; r: string }>;
+  private orderCreated = false;
+  orderError$: Observable<any>;
 
   ngAfterViewChecked(): void {
     Init.select2();
@@ -30,6 +35,8 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
 
   constructor(public data: EntityService, public store: Store, private formBuilder: FormBuilder) {
     this.store.dispatch(new actions.Load(getLocalUser()));
+    this.autError$ = this.store.select(getErr);
+    this.orderError$ = this.store.select(getError, {cmd: EntityType.Orders});
   }
 
   ngOnInit(): void {
@@ -96,12 +103,15 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
       line_items: lineItems
     }));
     alert('');
-
   }
 
 
   onSubmit(): void {
     this.submitted = true;
+
+    this.orderError$.subscribe(value => {
+      this.orderCreated = false;
+    });
 
     if (this.form.valid) {
       if (!this.user && this.f.createUser.value) {
@@ -113,7 +123,10 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
         }));
         this.data.users$.subscribe(value => {
           if (value && this.f.createUser.value) {
-            this.createOrder();
+            if (!this.orderCreated) {
+              this.createOrder();
+              this.orderCreated = true;
+            }
           }
         });
       }

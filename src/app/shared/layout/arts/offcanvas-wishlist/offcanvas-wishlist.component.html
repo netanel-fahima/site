@@ -9,7 +9,8 @@
       <ul class="minicart-product-list">
         <li *ngFor="let c of data.wishlist$ | async">
           <a routerLink="product-details" class="image">
-            <img src="assets/images/product/cart-product-1.jpg" alt="Cart product Image"></a>
+            <img src="{{imageService.getImage(c.product,{height: 100, width: 75, crop: 'fill'})}}"
+                 alt="Cart product Image"></a>
           <div class="content">
             <a routerLink="product-details" class="title">{{c.product.name}}</a>
             <span class="quantity-price"><span class="amount">{{c.product.price | currency}}</span></span>

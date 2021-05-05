@@ -39,7 +39,7 @@ export const getLoaded = createSelector(
 
 export const getError = createSelector(
   getProductFeatureState,
-  state => {
-    return state.error;
+  (state, {cmd}) => {
+    return state.error.get(cmd);
   }
 );

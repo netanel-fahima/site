@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
 import {Init} from '../../../../assets/js/init';
 import {getImageName, getImages} from '../utils/productUtil';
 import * as productActions from '../../../core/store/actions';
@@ -12,10 +12,9 @@ import {Cloudinary} from '@cloudinary/angular-5.x';
   templateUrl: './product-dialog.component.html',
   styleUrls: ['./product-dialog.component.css']
 })
-export class ProductDialogComponent implements OnInit, AfterViewChecked {
+export class ProductDialogComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   @Input() product: any;
-
 
   constructor(private store: Store, private cloudinary: Cloudinary) {
   }
@@ -31,18 +30,11 @@ export class ProductDialogComponent implements OnInit, AfterViewChecked {
     return getImages(str);
   }
 
-  setImges(str): void {
-    const imgs = getImages(str).map(value => {
-      return {src: value, w: 700, h: 1100};
-    });
-    Init.galleryPopup(imgs);
-  }
-
   ngAfterViewChecked(): void {
     if (this.product) {
       Init.first();
       Init.qtyBtn();
-      Init.productZoom(getImages(this.product.description));
+      Init.productZoom(this.product.images);
       Init.productGallerySlider();
     }
   }
@@ -59,12 +51,6 @@ export class ProductDialogComponent implements OnInit, AfterViewChecked {
     Init.offcanvasOpenWishlist();
   }
 
-  getImageName(image: any) {
-    return getImageName(image);
-  }
-
-
-
   getImage(img: any): string {
     try {
       const src = this.cloudinary.url(getImageName(img), {height: 1024, width: 768, crop: 'fill'});
@@ -72,7 +58,10 @@ export class ProductDialogComponent implements OnInit, AfterViewChecked {
       return src;
     }
     catch (e) {
-      return '';
+      return 'assets/images/product/cart-product-1.jpg';
     }
+  }
+  @HostListener('unloaded')
+  ngOnDestroy(): void {
   }
 }

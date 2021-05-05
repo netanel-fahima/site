@@ -15,11 +15,6 @@ import {fromPromise} from 'rxjs/internal-compatibility';
 @Injectable()
 export class ProductEffect {
 
-  private data = {
-    name: 'sasas',
-    regular_price: '2.3',
-    description: 'asas'
-  };
 
   constructor(private service: WooApi, private action$: Actions, private store: Store<any>) {
   }
@@ -50,7 +45,10 @@ export class ProductEffect {
       return fromPromise(
         this.service.addEntity(cmd, payload)
           .then(value => {
-            return value.json();
+            if (value?.message) {
+              return new actions.LoadFail(cmd, value?.message);
+            }
+            return value;
           }))
         .pipe(
           map(value => new actions.Added(cmd, payload)),

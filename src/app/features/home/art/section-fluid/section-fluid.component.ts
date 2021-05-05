@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {EntityService} from '../../../../core/store/entity.service';
 import {Init} from '../../../../../assets/js/init';
 import {delay, filter, timeout} from 'rxjs/operators';
+import {ImageServiceService} from '../../../../core/utils/image-service.service';
 
 @Component({
   selector: 'app-section-fluid',
@@ -11,12 +12,9 @@ import {delay, filter, timeout} from 'rxjs/operators';
   styleUrls: ['./section-fluid.component.css']
 })
 
-export class SectionFluidComponent implements OnInit, AfterViewChecked, DoCheck {
-  ngDoCheck(): void {
+export class SectionFluidComponent implements OnInit, AfterViewChecked {
 
-  }
-
-  constructor(private router: Router, public data: EntityService) {
+  constructor(private router: Router, public data: EntityService, public imageService: ImageServiceService) {
   }
 
   ngOnInit(): void {
@@ -27,10 +25,8 @@ export class SectionFluidComponent implements OnInit, AfterViewChecked, DoCheck 
     this.data.categories$.pipe(
       filter(value => !!value?.length),
       delay(500)
-    )
-      .subscribe(data => {
-        Init.banner();
-      });
+    ).subscribe(data => {
+      Init.banner();
+    });
   }
-
 }

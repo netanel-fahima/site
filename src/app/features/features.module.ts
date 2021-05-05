@@ -11,6 +11,7 @@ import {ProductComponent} from './product/product.component';
 import {ProductDialogComponent} from './product/product-dialog/product-dialog.component';
 import {LayoutModule} from '../shared/layout/arts/layout.module';
 import {CloudinaryModule} from '@cloudinary/angular-5.x';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import {CloudinaryModule} from '@cloudinary/angular-5.x';
       },
     ]),
     LayoutModule,
-    CloudinaryModule
+    CloudinaryModule,
+    FormsModule
   ]
 })
 export class FeaturesModule {

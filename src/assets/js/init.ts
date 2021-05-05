@@ -410,50 +410,33 @@ export class Init {
     $productPopupGalleryBtn.off().on('click', $openPhotoSwipe);
   }
 
-  static productZoom(images: string[]): void {
+  static productZoom(images: any[]): void {
     $('.product-zoom').each((index, e) => {
       const $this = $($('.product-zoom').get(index));
       const $image = images[index];
       $this.zoom({
-        url: $image
-      });
-    });
-  }
-
-  squickViewModal() {
-    $('#quickViewModal').off().on('shown.bs.modal', function(e) {
-      $('.product-gallery-slider-quickview').not('.slick-initialized').slick({
-        dots: true,
-        infinite: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        prevArrow: '<button class="slick-prev"><i class="ti-angle-left"></i></button>',
-        nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>'
+        url: $image?.src
       });
     });
   }
 
 
-  static quickViewModal() {
-    let _self = this;
-    $('#quickViewModal').on('shown.bs.modal', function(e) {
-      var $e = $('.product-gallery-slider-quickview');
-
+  static quickViewModal(): void {
+    $('#quickViewModal').on('shown.bs.modal', e => {
+      const $e = $('.product-gallery-slider-quickview');
       $e.not('.slick-initialized').slick({
         dots: true,
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
+        lazyLoad: 'anticipated',
         prevArrow: '<button class="slick-prev"><i class="ti-angle-left"></i></button>',
         nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>'
       });
-    });
-
-    $('#quickViewModal').on('hidden.bs.modal', function(e) {
+    }).on('hidden.bs.modal', e => {
       $('.qty-btn').unbind().off();
+      $(e.currentTarget).data('bs.modal', null);
     });
-
   }
-
 
 }

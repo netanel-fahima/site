@@ -61,9 +61,10 @@
                   <td class="label"><span>כמות</span></td>
                   <td class="value">
                     <div class="product-quantity">
-                      <span class="qty-btn plus"><i class="ti-plus"></i></span>
-                      <input type="text" class="input-qty" value="1">
-                      <span class="qty-btn minus"><i class="ti-minus"></i></span>
+                      <span class="qty-btn plus" (click)="quantity=quantity+1;"><i class="ti-plus"></i></span>
+                      <input type="text" class="input-qty" [(ngModel)]="quantity">
+                      <span class="qty-btn minus" (click)="quantity > 0 ? quantity=quantity-1 : null"><i
+                        class="ti-minus"></i></span>
                     </div>
                   </td>
                 </tr>
@@ -195,9 +196,9 @@
       <div class="container">
 
         <ul class="nav product-info-tab-list">
-          <li><a class="active" data-toggle="tab" href="#tab-description">תאור מוצר</a></li>
-          <li><a data-toggle="tab" href="#tab-additional_information">מפרט</a></li>
           <li><a data-toggle="tab" href="#tab-reviews"> תגובות {{product?.reviews?.length}}   </a></li>
+          <li><a data-toggle="tab" href="#tab-additional_information">מפרט</a></li>
+          <li><a class="active" data-toggle="tab" href="#tab-description">תאור מוצר</a></li>
         </ul>
         <div class="tab-content product-infor-tab-content">
           <div class="tab-pane fade show active" id="tab-description">
@@ -217,7 +218,7 @@
                       <td class="label"><span>{{option.name}}</span></td>
                       <td class="value">
                         <div class="product-sizes">
-                          <a href="#" *ngFor="let item of option.options"> {{item}} </a>
+                          <a *ngFor="let item of option.options"> {{item}} </a>
 
                         </div>
                       </td>

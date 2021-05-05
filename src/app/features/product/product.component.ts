@@ -4,11 +4,12 @@ import {ProductDialogComponent} from './product-dialog/product-dialog.component'
 import {ActivatedRoute, Router} from '@angular/router';
 import {EntityService} from '../../core/store/entity.service';
 import {Store} from '@ngrx/store';
-import {EntityType, ProductActions} from '../../core/store/actions';
 import * as productActions from '../../core/store/actions';
-import {filter, map} from 'rxjs/operators';
+import {EntityType} from '../../core/store/actions';
+import {delay, filter, map, withLatestFrom} from 'rxjs/operators';
 import {Observable} from 'rxjs/internal/Observable';
-import {getImageName, getImages} from './utils/productUtil';
+import {getImageName} from './utils/productUtil';
+import {of} from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'app-product',
@@ -23,17 +24,25 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
 
 
   constructor(private store: Store, public data: EntityService, public route: ActivatedRoute, public router: Router) {
-    const params = this.route.snapshot.queryParams;
+    this.updateProducts();
+  }
+
+  ngOnInit(): void {
+
+  }
+
+  updateProducts(): void {
     this.products$ = this.data.products$.pipe(
       filter(value => !!value),
-      map(products => {
-        if (params.category) {
+      withLatestFrom(of(this.route.snapshot.queryParams?.category)),
+      map(([products, categoryId]) => {
+        if (categoryId) {
           const pp = products.filter(product => {
             return product.categories.find(c => {
-              return c.id === +params.category;
+              return c.id === +categoryId;
             });
           });
-          console.log('pp', pp);
+          console.log('categoryId', categoryId);
           return pp;
         }
         else {
@@ -42,23 +51,19 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
       }));
   }
 
-
-  ngOnInit(): void {
-
-  }
-
   ngAfterViewChecked(): void {
+
     Init.first();
-    this.products$.subscribe((value) => {
-      setTimeout(() => {
+    this.products$
+      .pipe(delay(10))
+      .subscribe(() => {
         Init.filterToggle();
         Init.isotopeFilter();
         Init.isotopeGrid();
         Init.columnToggle();
         Init.addWishList();
         Init.quickViewModal();
-      }, 1000);
-    });
+      });
   }
 
   getImage(product: any): string {

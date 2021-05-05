@@ -20,6 +20,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewChecked {
 
   public product: any = null;
   private options: any = [];
+  public quantity: any = 1;
 
   constructor(private route: ActivatedRoute, public data: EntityService, private store: Store, private cloudinary: Cloudinary) {
 
@@ -43,7 +44,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewChecked {
     Init.qtyBtn();
 
     this.setImges(this.product.description);
-    Init.productZoom(getImages(this.product.description));
+    Init.productZoom(this.product.images);
     Init.productGallerySlider();
   }
 
@@ -59,7 +60,16 @@ export class ProductDetailsComponent implements OnInit, AfterViewChecked {
   }
 
   addToCart(product: any): void {
-    this.store.dispatch(new productActions.AddVisual(EntityType.Carts, {product, quantity: 1, options: this.options}));
+    if (product.attributes.length && !this.options.length) {
+      alert(` נא לבחור  ${product.attributes.map(a => a.name).join(' ,')}`);
+      return;
+    }
+    this.store.dispatch(new productActions.AddVisual(EntityType.Carts, {
+      product,
+      quantity: this.quantity,
+      options: this.options
+    }));
+
     Init.offcanvasOpen();
   }
 
@@ -69,7 +79,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-    console.log('id', this.route.snapshot.queryParams.id);
+
   }
 
   setOption(name: string, option: any): void {

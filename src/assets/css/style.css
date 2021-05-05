@@ -3592,12 +3592,12 @@ body.offside-header-left {
 .sub-menu {
   position: absolute;
   z-index: 9;
-  z-index: 9;
   top: 150%;
   visibility: hidden;
-  min-width: 280px;
+  min-width: 160px;
   margin: 0;
-  padding: 20px 0;
+  padding: 10px 0;
+  text-align: center;
   list-style: none;
   -webkit-transition: all 0.5s ease 0s;
   -o-transition: all 0.5s ease 0s;
@@ -12858,8 +12858,8 @@ body.offcanvas-open .sticky-header {
   color: #333333;
 }
 
-.product-sizes a:active {
-  color: #333333;
+.product-sizes a:active,.product-sizes a:visited {
+  color: #f1b0b7;
 }
 
 @media only screen and (max-width: 575px) {
