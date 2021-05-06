@@ -57,7 +57,7 @@
         <tbody>
         <tr class="subtotal">
           <th>מחיר</th>
-          <td><span class="amount">{{(data.cart$|async)  | currency}}</span></td>
+          <td><span class="amount">{{data.totalCart()|async|currency}}</span></td>
         </tr>
         <tr class="total">
           <th>סה"כ</th>

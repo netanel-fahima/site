@@ -1,4 +1,4 @@
-<div *ngIf=" data.getUser() !== 'GUEST' " class="section section-padding" dir="rtl">
+<div *ngIf=" (data.users$|async)?.id != 0 " class="section section-padding" dir="rtl">
   <div class="container">
     <div class="row learts-mb-n30">
 
@@ -6,10 +6,9 @@
       <div class="col-lg-4 col-12 learts-mb-30">
         <div class="myaccount-tab-list nav">
           <a href="#dashboad" class="active" data-toggle="tab"> <i class="far fa-home"></i></a>
-          <a href="#orders" data-toggle="tab" (click)="load()">הזמנות <i class="far fa-file-alt"></i></a>
-          <a href="#address" data-toggle="tab">כתובת <i class="far fa-map-marker-alt"></i></a>
+          <a href="#orders" (click)="load()" data-toggle="tab">הזמנות <i class="far fa-file-alt"></i></a>
           <a href="#account-info" data-toggle="tab">פרטי חשבון <i class="far fa-user"></i></a>
-          <a (click)="signOut()" href="">יציאה<i class="far fa-sign-out-alt"></i></a>
+          <a (click)="signOut()">יציאה<i class="far fa-sign-out-alt"></i></a>
         </div>
       </div>
       <!-- My Account Tab List End -->
@@ -21,8 +20,7 @@
           <!-- Single Tab Content Start -->
           <div class="tab-pane fade show active" id="dashboad">
             <div class="myaccount-content dashboad">
-              <p>שלום <strong>{{data.getUser()}}</strong> </p>
-              <p>From your account dashboard you can view your <span>recent orders</span>, manage your <span>shipping and billing addresses</span>, and <span>edit your password and account details</span>.</p>
+              <p>שלום <strong>{{(data.users$|async)?.first_name}}</strong></p>
             </div>
           </div>
           <!-- Single Tab Content End -->
@@ -42,12 +40,13 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let o of orders| async">
+                  <tr *ngFor="let o of orders$| async">
                     <td>{{o.id}}</td>
-                    <td>{{o.createdAt}}</td>
+                    <td>{{o.date_created}}</td>
                     <td>{{o.status}}</td>
-                    <td>{{o.total}}</td>
-                    <td><a [routerLink]="'/shopping-cart?orderId='+o.id">View</a></td>
+                    <td>{{o.total|currency}}</td>
+                    <td class="d-flex flex-wrap w-100"><a style="margin-right: 5px;text-decoration: underline"
+                                                          *ngFor="let item of o.line_items">{{item.name}}</a></td>
                   </tr>
 
                   </tbody>
@@ -127,22 +126,22 @@
                     <div class="col-md-6 col-12 learts-mb-30">
                       <div class="single-input-item">
                         <label for="first-name">שם פרטי<abbr class="required">*</abbr></label>
-                        <input type="text" id="first-name">
+                        <input type="text" id="first-name" [value]="(data.users$|async).first_name">
                       </div>
                     </div>
                     <div class="col-md-6 col-12 learts-mb-30">
                       <div class="single-input-item">
                         <label for="last-name">שם משפחה <abbr class="required">*</abbr></label>
-                        <input type="text" id="last-name">
+                        <input type="text" id="last-name" [value]="(data.users$|async).last_name">
                       </div>
                     </div>
                     <div class="col-12 learts-mb-30">
                       <label for="display-name">שם משתמש <abbr class="required">*</abbr></label>
-                      <input type="text" id="display-name" value="didiv91396">
+                      <input type="text" id="display-name" [value]="(data.users$|async).username">
                     </div>
                     <div class="col-12 learts-mb-30">
                       <label for="email">אמייל <abbr class="required">*</abbr></label>
-                      <input type="email" id="email" value="didiv91396@ismailgul.net">
+                      <input type="email" id="email" [value]="(data.users$|async).email">
                     </div>
                     <div class="col-12 learts-mb-30 learts-mt-30">
                       <fieldset>

@@ -1,5 +1,7 @@
 <div class="section section-padding checkout">
   <div class="container wrap">
+
+
     <div class="checkout-coupon">
       <p class="coupon-toggle">
         <a href="#checkout-coupon-form" data-toggle="collapse" class="collapsed" aria-expanded="false">לחצי כאן להזנת
@@ -19,186 +21,185 @@
     <!--    <div class="section-title2">
           <h2 class="title">פרטי תשלום</h2>
         </div>-->
-    <form action="#" class="anyflexbox" [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="row form-group">
-        <div class="col-md-6 col-12 learts-mb-20 form-group">
-          <label for="firstName">שם פרטי <abbr class="required">*</abbr></label>
-          <input id="firstName" type="text" formControlName="firstName" class="form-control"
-                 [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"/>
-          <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-            <div *ngIf="f.firstName.errors.required">שדה נדרש</div>
-          </div>
-        </div>
-        <div class="col-md-6 col-12 learts-mb-20 form-group">
-          <label for="lastName">שם משפחה <abbr class="required">*</abbr></label>
-          <input id="lastName" type="text" formControlName="lastName" class="form-control"
-                 [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"/>
-          <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-            <div *ngIf="f.lastName.errors.required">שדה נדרש</div>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-12 learts-mb-20 form-group">
-          <label for="bdAddress2"> כניסה , דירה </label>
-          <input id="bdAddress2" type="text" formControlName="bdAddress2" class="form-control"
-                 [ngClass]="{ 'is-invalid': submitted && f.bdAddress2.errors }"/>
-          <div *ngIf="submitted && f.bdAddress2.errors" class="invalid-feedback">
-            <div *ngIf="f.bdAddress2.errors.required">שדה נדרש</div>
-          </div>
-        </div>
-        <div class="col-md-6 col-12 learts-mb-20 form-group">
-          <label for="bdAddress1">כתובת <abbr class="required">*</abbr></label>
-          <input id="bdAddress1" type="text" formControlName="bdAddress1" class="form-control"
-                 [ngClass]="{ 'is-invalid': submitted && f.bdAddress1.errors }"/>
-          <div *ngIf="submitted && f.bdAddress1.errors" class="invalid-feedback">
-            <div *ngIf="f.bdAddress1.errors.required">שדה נדרש</div>
-          </div>
-        </div>
-        <div class="col-12 learts-mb-20 form-group">
-          <label for="city">עיר <abbr class="required">*</abbr></label>
-          <input id="city" type="text" formControlName="city" class="form-control"
-                 [ngClass]="{ 'is-invalid': submitted && f.city.errors }"/>
-          <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
-            <div *ngIf="f.city.errors.required">שדה נדרש</div>
-          </div>
-        </div>
-        <div class="col-12 learts-mb-20 form-group">
-          <label for="postal">מיקוד (לא חייב) </label>
-          <input id="postal" type="text" formControlName="postal" class="form-control"
-                 [ngClass]="{ 'is-invalid': submitted && f.postal.errors }"/>
-          <div *ngIf="submitted && f.postal.errors" class="invalid-feedback">
-            <div *ngIf="f.postal.errors.required">שדה נדרש</div>
-          </div>
-        </div>
-        <div class="col-md-6 col-12 learts-mb-20 form-group">
-          <label for="email">אמייל <abbr class="required">*</abbr></label>
-          <input id="email" type="text" formControlName="email" class="form-control"
-                 [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
-          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">שדה נדרש</div>
-          </div>
-        </div>
-        <div class="col-md-6 col-12 learts-mb-30 form-group">
-          <label for="phone">טלפון <abbr class="required">*</abbr></label>
-          <input id="phone" type="text" formControlName="phone" class="form-control"
-                 [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"/>
-          <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
-            <div *ngIf="f.phone.errors.required">שדה נדרש</div>
-          </div>
-        </div>
-        <div class="col-12 learts-mb-40 form-group">
-          <div class="form-check">
-            <label class="form-check-label" for="createUser">?צור משתמש</label>
-            <input style="height: 20px" type="checkbox" name="createUser" class="form-check-input"
-                   formControlName="createUser" checked
-                   id="createUser">
-            <div *ngIf="submitted && f.createUser.errors" class="invalid-feedback">
-              <div *ngIf="f.createUser.errors.required">נדרש יצירת משתמש!</div>
+    <section class="d-flex flex-row-reverse flex-wrap learts-mb-30">
+      <form action="#" class="anyflexbox" [formGroup]="form" (ngSubmit)="onSubmit()" >
+        <div class="row form-group">
+          <div class="col-md-6 col-12 learts-mb-20 form-group">
+            <label for="firstName">שם פרטי <abbr class="required">*</abbr></label>
+            <input id="firstName" type="text" formControlName="firstName" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"/>
+            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+              <div *ngIf="f.firstName.errors.required">שדה נדרש</div>
             </div>
           </div>
-        </div>
-        <div class="col-12 learts-mb-20 form-group">
-          <label for="note"></label>
-          <textarea id="note" placeholder=".הערות לגבי המוצר והמשלוח" name="note" formControlName="note"></textarea>
-        </div>
-      </div>
-      <div class="m-3 bg-danger text-white" *ngIf="(autError$ | async).r">
-        <p>{{(autError$|async).r }}</p>
-      </div>
-      <div class="m-3 bg-danger text-white" *ngIf="(orderError$ | async)">
-        <p>{{(orderError$|async) }}</p>
-      </div>
-      <div class="form-group">
-        <button class="btn btn-black btn-hover-primary">לתשלום</button>
-      </div>
-    </form>
-    <aside class="sidebar">
-      <div class=" order-lg-2 learts-mb-30">
-        <div class="order-review">
-          <table class="table">
-            <thead>
-            <tr>
-              <th class="total">סך הכל</th>
-              <th class="name">מוצר</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let o of data.cart$ |async">
-              <td class="total"><span>{{o.product.price | currency}}</span></td>
-              <td class="name">{{o.product.name}}&nbsp; <strong class="quantity">×&nbsp;{{o.quantity}} </strong></td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr class="subtotal">
+          <div class="col-md-6 col-12 learts-mb-20 form-group">
+            <label for="lastName">שם משפחה <abbr class="required">*</abbr></label>
+            <input id="lastName" type="text" formControlName="lastName" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"/>
+            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+              <div *ngIf="f.lastName.errors.required">שדה נדרש</div>
+            </div>
+          </div>
 
-              <td><span>{{data.totalCart() |async| currency}}</span></td>
-              <th>מחיר</th>
-            </tr>
-            <tr class="total">
-
-              <td><strong><span>{{data.totalCart() |async | currency}}</span></strong></td>
-              <th>סה"כ</th>
-            </tr>
-            </tfoot>
-          </table>
+          <div class="col-md-6 col-12 learts-mb-20 form-group">
+            <label for="bdAddress2"> כניסה , דירה </label>
+            <input id="bdAddress2" type="text" formControlName="bdAddress2" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.bdAddress2.errors }"/>
+            <div *ngIf="submitted && f.bdAddress2.errors" class="invalid-feedback">
+              <div *ngIf="f.bdAddress2.errors.required">שדה נדרש</div>
+            </div>
+          </div>
+          <div class="col-md-6 col-12 learts-mb-20 form-group">
+            <label for="bdAddress1">כתובת <abbr class="required">*</abbr></label>
+            <input id="bdAddress1" type="text" formControlName="bdAddress1" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.bdAddress1.errors }"/>
+            <div *ngIf="submitted && f.bdAddress1.errors" class="invalid-feedback">
+              <div *ngIf="f.bdAddress1.errors.required">שדה נדרש</div>
+            </div>
+          </div>
+          <div class="col-12 learts-mb-20 form-group">
+            <label for="city">עיר <abbr class="required">*</abbr></label>
+            <input id="city" type="text" formControlName="city" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.city.errors }"/>
+            <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+              <div *ngIf="f.city.errors.required">שדה נדרש</div>
+            </div>
+          </div>
+          <div class="col-12 learts-mb-20 form-group">
+            <label for="postal">מיקוד (לא חייב) </label>
+            <input id="postal" type="text" formControlName="postal" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.postal.errors }"/>
+            <div *ngIf="submitted && f.postal.errors" class="invalid-feedback">
+              <div *ngIf="f.postal.errors.required">שדה נדרש</div>
+            </div>
+          </div>
+          <div class="col-md-6 col-12 learts-mb-20 form-group">
+            <label for="email">אמייל <abbr class="required">*</abbr></label>
+            <input id="email" type="text" formControlName="email" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">שדה נדרש</div>
+            </div>
+          </div>
+          <div class="col-md-6 col-12 learts-mb-30 form-group">
+            <label for="phone">טלפון <abbr class="required">*</abbr></label>
+            <input id="phone" type="text" formControlName="phone" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"/>
+            <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+              <div *ngIf="f.phone.errors.required">שדה נדרש</div>
+            </div>
+          </div>
+          <div class="col-12 learts-mb-40 form-group">
+            <div class="form-check">
+              <label class="form-check-label" for="createUser">?צור משתמש</label>
+              <input style="height: 20px" type="checkbox" name="createUser" class="form-check-input"
+                     formControlName="createUser" checked
+                     id="createUser">
+              <div *ngIf="submitted && f.createUser.errors" class="invalid-feedback">
+                <div *ngIf="f.createUser.errors.required">נדרש יצירת משתמש!</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 learts-mb-20 form-group">
+            <label for="note"></label>
+            <textarea id="note" placeholder=".הערות לגבי המוצר והמשלוח" name="note" formControlName="note"></textarea>
+          </div>
         </div>
-        <div class="text-center">
-          <p class="payment-note">הנתונים האישיים שלך ישמשו לעיבוד הזמנתך, לתמיכה בחווייתך ברחבי אתר זה ולמטרות אחרות
-            המתוארות במדיניות הפרטיות שלנו.</p>
-
+        <div class="m-3 bg-danger text-white" *ngIf="(autError$ | async).r">
+          <p>{{(autError$|async).r }}</p>
         </div>
-      </div>
-      <!--
-            <div class="col-lg-6 order-lg-1 learts-mb-30">
-              <div class="order-payment">
-                <div class="payment-method">
-                  <div class="accordion" id="paymentMethod">
-                    <div class="card active">
-                      <div class="card-header">
-                        <button data-toggle="collapse" data-target="#checkPayments" class="" aria-expanded="true">Check
-                          payments
-                        </button>
-                      </div>
-                      <div id="checkPayments" class="collapse show" data-parent="#paymentMethod" style="">
-                        <div class="card-body">
-                          <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store
-                            Postcode.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <button data-toggle="collapse" data-target="#cashkPayments" aria-expanded="false" class="collapsed">
-                          Cash on delivery
-                        </button>
-                      </div>
-                      <div id="cashkPayments" class="collapse" data-parent="#paymentMethod" style="">
-                        <div class="card-body">
-                          <p>Pay with cash upon delivery.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <div class="card-header">
-                        <button data-toggle="collapse" data-target="#payPalPayments" aria-expanded="false" class="collapsed">
-                          PayPal <img src="assets/images/others/pay-2.png" alt=""></button>
-                      </div>
-                      <div id="payPalPayments" class="collapse" data-parent="#paymentMethod" style="">
-                        <div class="card-body">
-                          <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
-                        </div>
-                      </div>
+        <div class="m-3 bg-danger text-white" *ngIf="(orderError$ | async)">
+          <p>{{(orderError$|async) }}</p>
+        </div>
+        <div class="m-3 bg-danger text-white" *ngIf="submitted && !payMethod">
+          <p>{{ 'בחרי אמצאי תשלום' }}</p>
+        </div>
+        <div class="col-lg-12 order-lg-1 learts-mb-10" style="margin-left: auto" dir="rtl">
+          <h3 class="learts-mb-10" style="color: #7e7e7e">פרטי תשלום</h3>
+          <div class="order-payment" >
+            <div class="payment-method">
+              <div class="accordion" id="paymentMethod">
+                <div class="card active">
+                  <div class="card-header">
+                    <button data-toggle="collapse" (click)="setPayMethod('bank',$event)" data-target="#checkPayments">העברה בנקאית</button>
+                  </div>
+                  <div id="checkPayments" class="collapse show" data-parent="#paymentMethod">
+                    <div class="card-body">
+                      <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store
+                        Postcode.</p>
                     </div>
                   </div>
                 </div>
-                <div class="text-center">
-                  <p class="payment-note">Your personal data will be used to process your order, support your experience
-                    throughout this website, and for other purposes described in our privacy policy.</p>
-                  <button class="btn btn-dark btn-outline-hover-dark">שלחי הזמנה</button>
+                <div class="card">
+                  <div class="card-header">
+                    <button data-toggle="collapse" (click)="setPayMethod('credit',$event)" data-target="#cashkPayments">אשראי</button>
+                  </div>
+                  <div id="cashkPayments" class="collapse" data-parent="#paymentMethod">
+                    <div class="card-body">
+                      <p>Pay with cash upon delivery.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <button data-toggle="collapse" (click)="setPayMethod('paypal',$event)" data-target="#payPalPayments">PayPal <img
+                      src="assets/images/others/pay-2.png" alt=""></button>
+                  </div>
+                  <div id="payPalPayments" class="collapse" data-parent="#paymentMethod">
+                    <div class="card-body">
+                      <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-      -->
-    </aside>
+            <div class="text-center">
+              <p class="payment-note">הנתונים האישיים שלך ישמשו לעיבוד הזמנתך, לתמיכה בחווייתך ברחבי אתר זה ולמטרות אחרות המתוארות במדיניות הפרטיות שלנו.
+              </p>
+
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-dark btn-outline-hover-dark">לתשלום</button>
+      </form>
+
+      <aside class="sidebar">
+        <div class=" order-lg-2 learts-mb-30">
+          <div class="order-review">
+            <table class="table">
+              <thead>
+              <tr>
+                <th class="total">סך הכל</th>
+                <th class="name">מוצר</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let o of data.cart$ |async">
+                <td class="total"><span>{{o.product.price | currency}}</span></td>
+                <td class="name">{{o.product.name}}&nbsp; <strong class="quantity">×&nbsp;{{o.quantity}} </strong></td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr class="subtotal">
+
+                <td><span>{{data.totalCart() |async| currency}}</span></td>
+                <th>מחיר</th>
+              </tr>
+              <tr class="total">
+
+                <td><strong><span>{{data.totalCart() |async | currency}}</span></strong></td>
+                <th>סה"כ</th>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+          <div class="text-center">
+            <p class="payment-note">הנתונים האישיים שלך ישמשו לעיבוד הזמנתך, לתמיכה בחווייתך ברחבי אתר זה ולמטרות אחרות
+              המתוארות במדיניות הפרטיות שלנו.</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
   </div>
 </div>

@@ -90,7 +90,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewChecked {
 
   getImage(img: any): string {
     try {
-      const src = this.cloudinary.url(getImageName(img), {height: 1024, width: 768, crop: 'fill'});
+      const src = this.cloudinary.url(getImageName(img), {height: 900, width: 600, crop: 'fill'});
       console.log(src);
       return src;
     }

@@ -7,6 +7,7 @@ import {select, Store} from '@ngrx/store';
 import {filter, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
 import {getUser} from '../../features/login/slice/actions';
+import {Init} from '../../../assets/js/init';
 
 
 @Injectable()
@@ -19,6 +20,7 @@ export class EntityService {
   public wishlist$: Observable<any[]>;
   public products$: Observable<any[]>;
   public categories$: Observable<any[]>;
+  public orders$: Observable<any[]>;
 
   constructor(private store: Store) {
     this.store.dispatch(new productActions.Load(EntityType.Customers));
@@ -29,6 +31,7 @@ export class EntityService {
     this.products$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Products}));
     this.cart$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Carts}));
     this.wishlist$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.WishList}));
+    this.orders$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Orders}));
     this.users$ = this.store.select(getUser);
     this.error$ = this.store.pipe(select(fromProduct.getError));
   }
@@ -44,8 +47,12 @@ export class EntityService {
       }));
   }
 
-  public getUser() {
-    return 'GUEST';
+  addToCart(product: any): void {
+    this.store.dispatch(new productActions.AddVisual(EntityType.Carts, {product, quantity: 1}));
+    const sub = this.cart$.subscribe(() => {
+      sub.unsubscribe();
+      Init.offcanvasOpen();
+    });
   }
 }
 

@@ -80,6 +80,7 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   openDialog(product: any): void {
     this.dialog.product = product;
+    this.dialog.open();
   }
 
   ngOnDestroy(): void {

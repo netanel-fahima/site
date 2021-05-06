@@ -12,6 +12,7 @@ import * as actions from '../login/slice/actions';
 import {getErr, getUser} from '../login/slice/actions';
 import {Observable} from 'rxjs/internal/Observable';
 import {getError} from '../../core/store';
+import {map} from 'rxjs/operators';
 
 
 @Component({
@@ -28,6 +29,8 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
   autError$: Observable<{ l: string; r: string }>;
   private orderCreated = false;
   orderError$: Observable<any>;
+
+  public payMethod: string;
 
   ngAfterViewChecked(): void {
     Init.select2();
@@ -51,7 +54,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
       email: new FormControl('', [Validators.required, Validators.email]),
       phone: new FormControl('', Validators.required),
       note: new FormControl(''),
-      createUser: new FormControl(''),
+      createUser: new FormControl('')
     });
     this.store.select(getUser).subscribe(value => {
       this.user = value;
@@ -107,13 +110,15 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
 
 
   onSubmit(): void {
+
     this.submitted = true;
+
 
     this.orderError$.subscribe(value => {
       this.orderCreated = false;
     });
 
-    if (this.form.valid) {
+    if (this.form.valid && this.payMethod) {
       if (!this.user && this.f.createUser.value) {
         this.store.dispatch(new actions.Register({
           username: this.f.firstName.value,
@@ -133,6 +138,20 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
       else {
         this.createOrder();
       }
+      return;
     }
+
+    const interval = setInterval(() => {
+      window.scrollTo(window.scrollX - 10, window.scrollY - 10);
+      if (!window.scrollX && !window.scrollY) {
+        clearInterval(interval);
+      }
+    }, 1);
+
+  }
+
+  setPayMethod(payMethod: string, $event: MouseEvent): void {
+    $event.preventDefault();
+    this.payMethod = payMethod;
   }
 }

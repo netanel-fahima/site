@@ -13,6 +13,7 @@
   line-height: inherit !important;
   font: inherit;
 }
+
 .form-control.is-invalid, .was-validated .form-control:invalid {
   background-position: left calc(.375em + .1875rem) center;
 }
@@ -57,7 +58,7 @@
 
 @media (min-width: 1000px) {
   .sidebar {
-    float: left;
+    margin-right: auto;
     max-width: 45%;
   }
 }

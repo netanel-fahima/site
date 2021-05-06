@@ -1,10 +1,11 @@
-import {AfterViewChecked, Component, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, HostListener, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Init} from '../../../../assets/js/init';
 import {getImageName, getImages} from '../utils/productUtil';
 import * as productActions from '../../../core/store/actions';
 import {EntityType} from '../../../core/store/actions';
 import {Store} from '@ngrx/store';
 import {Cloudinary} from '@cloudinary/angular-5.x';
+import {EntityService} from '../../../core/store/entity.service';
 
 
 @Component({
@@ -14,16 +15,17 @@ import {Cloudinary} from '@cloudinary/angular-5.x';
 })
 export class ProductDialogComponent implements OnInit, AfterViewChecked, OnDestroy {
 
+
   @Input() product: any;
 
-  constructor(private store: Store, private cloudinary: Cloudinary) {
+  constructor(private store: Store, private cloudinary: Cloudinary, private data: EntityService) {
   }
 
   ngOnInit(): void {
 
   }
 
-  loads(): void {
+  public open(): void {
   }
 
   getImages(str): any[] {
@@ -39,11 +41,6 @@ export class ProductDialogComponent implements OnInit, AfterViewChecked, OnDestr
     }
   }
 
-
-  addToCart(product: any): void {
-    this.store.dispatch(new productActions.AddVisual(EntityType.Carts, {product, quantity: 1}));
-    Init.offcanvasOpen();
-  }
 
 
   addToWithList(product: any): void {
@@ -61,6 +58,7 @@ export class ProductDialogComponent implements OnInit, AfterViewChecked, OnDestr
       return 'assets/images/product/cart-product-1.jpg';
     }
   }
+
   @HostListener('unloaded')
   ngOnDestroy(): void {
   }
