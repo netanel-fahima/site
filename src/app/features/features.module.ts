@@ -12,10 +12,11 @@ import {ProductDialogComponent} from './product/product-dialog/product-dialog.co
 import {LayoutModule} from '../shared/layout/arts/layout.module';
 import {CloudinaryModule} from '@cloudinary/angular-5.x';
 import {FormsModule} from '@angular/forms';
+import { HighLightDirective } from './product/product-details/high-light.directive';
 
 
 @NgModule({
-  declarations: [ProductDialogComponent, ProductDetailsComponent],
+  declarations: [ProductDialogComponent, ProductDetailsComponent, HighLightDirective],
   exports: [
     ProductDialogComponent
 

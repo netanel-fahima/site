@@ -4,8 +4,7 @@
 <ng-container *ngIf="product">
   <div class="section section-padding border-bottom">
     <div class="container">
-      <div class="row learts-mb-n40">
-
+      <div class="row learts-mb-n40 product-details">
 
         <!-- Product Images Start -->
         <div class="col-lg-6 col-12 learts-mb-40">
@@ -14,21 +13,18 @@
                     data-images="">
               <i class="far fa-expand"></i></button>
             <div class="product-gallery-slider">
-              <div *ngFor="let image of product.images" class="product-zoom"
-                   data-image="{{getImage(image.src)}}">
-                <img src="{{getImage(image.src)}}" alt="{{image.name}}">
+              <div *ngFor="let image of (product |async).images" class="product-zoom">
+                <img src="{{getImage(image.src,{height: 760, width: 570, crop: 'fill'})}}" alt="{{image.name}}">
               </div>
             </div>
             <div class="product-thumb-slider">
-              <div class="item" *ngFor="let image of product.images">
-                <img src="{{getImage(image.src)}}" alt="{{image.name}}">
+              <div class="item" *ngFor="let image of (product |async).images">
+                <img src="{{getImage(image.src,{height: 150, width: 120, crop: 'fill'})}}" alt="{{image.name}}">
               </div>
             </div>
           </div>
         </div>
-
         <!-- Product Images End -->
-
         <!-- Product Summery Start -->
         <div dir="rtl" class="col-lg-6 col-12 learts-mb-40">
           <div class="product-summery">
@@ -37,21 +33,22 @@
                                 <span class="rating-active" style="width: 100%;">דירוג</span>
                             </span>
               <a href="#reviews" class="review-link">(<span class="count"
-                                                            *ngIf="product?.reviews">{{product.categories.length}}</span>
+                                                            *ngIf="(product |async)?.reviews">{{(product |async).categories.length}}</span>
                 תגובות)</a>
             </div>
-            <h3 class="product-title">{{product.name}}</h3>
-            <div class="product-price">{{product.price | currency}}</div>
+            <h3 class="product-title">{{(product |async).name}}</h3>
+            <div class="product-price">{{(product |async).price | currency}}</div>
             <div class="product-description">
-              <p>{{product.name}}</p>
+              <p>{{(product |async).name}}</p>
             </div>
             <div class="product-variations">
               <table>
                 <tbody>
-                <tr *ngFor="let attribute of product.attributes">
+                <tr *ngFor="let attribute of (product |async).attributes">
                   <td class="label"><span>{{attribute.name}}</span></td>
                   <td class="value">
-                    <div class="product-sizes">
+                    <div class="product-sizes " appHighLight
+                         defaultColor="lightpink">
                       <a *ngFor="let option of attribute.options"
                          (click)="setOption(attribute.name,option)"> {{option}} </a>
                     </div>
@@ -72,25 +69,24 @@
               </table>
             </div>
             <div class="product-buttons">
-              <a (click)="addToWithList(product)"
+              <a (click)="addToWithList()"
                  class="btn btn-icon btn-outline-body btn-hover-dark hintT-top" data-hint="Add to Wishlist"><i
                 class="fal fa-heart"></i></a>
-              <a (click)="addToCart(product)" routerLink="shopping-cart" class="btn btn-dark btn-outline-hover-dark"><i
+              <a (click)="addToCart()" class="btn btn-dark btn-outline-hover-dark"><i
                 class="fal fa-shopping-cart"></i> הוסיפי לעגלה</a>
             </div>
-
             <div class="product-meta">
               <table>
                 <tbody>
                 <tr>
                   <td class="label"><span>מק"ט</span></td>
-                  <td class="value">{{product.sku}}</td>
+                  <td class="value">{{(product |async).sku}}</td>
                 </tr>
                 <tr>
                   <td class="label"><span>קטגוריה</span></td>
                   <td class="value">
                     <ul class="product-category">
-                      <li *ngFor="let category of product.categories"><a href="#">{{category.title}}</a></li>
+                      <li *ngFor="let category of (product |async).categories"><a href="#">{{category.title}}</a></li>
                     </ul>
                   </td>
                 </tr>
@@ -98,7 +94,7 @@
                   <td class="label"><span>תגית</span></td>
                   <td class="value">
                     <ul class="product-tags">
-                      <li *ngFor="let tag of product.tags"><a href="#">{{tag.name}}</a></li>
+                      <li *ngFor="let tag of (product |async).tags"><a href="#">{{tag.name}}</a></li>
                     </ul>
                   </td>
                 </tr>
@@ -119,7 +115,7 @@
             </div>
           </div>
         </div>
-        <!-- Product Summery End -->
+        <!-- Product Summery End -->>
 
         <!-- Root element of PhotoSwipe. Must have class pswp. -->
         <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
@@ -140,7 +136,7 @@
               <div class="pswp__item"></div>
             </div>
 
-            <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+            <!-- Default (PhotoSwipeUI_Default) interface on op of sliding area. Can be changed. -->
             <div class="pswp__ui pswp__ui--hidden">
 
               <div class="pswp__top-bar">
@@ -196,14 +192,14 @@
       <div class="container">
 
         <ul class="nav product-info-tab-list">
-          <li><a data-toggle="tab" href="#tab-reviews"> תגובות {{product?.reviews?.length}}   </a></li>
+          <li><a data-toggle="tab" href="#tab-reviews"> תגובות {{(product |async)?.reviews?.length}}   </a></li>
           <li><a data-toggle="tab" href="#tab-additional_information">מפרט</a></li>
           <li><a class="active" data-toggle="tab" href="#tab-description">תאור מוצר</a></li>
         </ul>
         <div class="tab-content product-infor-tab-content">
           <div class="tab-pane fade show active" id="tab-description">
             <div class="row">
-              <div class="col-lg-10 col-12 mx-auto" [innerHTML]="product.short_description">
+              <div class="col-lg-10 col-12 mx-auto" [innerHTML]="(product |async).description">
 
               </div>
             </div>
@@ -214,12 +210,11 @@
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <tbody>
-                    <tr *ngFor="let option of product.attributes">
+                    <tr *ngFor="let option of (product |async).attributes">
                       <td class="label"><span>{{option.name}}</span></td>
                       <td class="value">
                         <div class="product-sizes">
                           <a *ngFor="let item of option.options"> {{item}} </a>
-
                         </div>
                       </td>
                     </tr>
@@ -231,9 +226,9 @@
           </div>
           <div class="tab-pane fade" id="tab-reviews">
             <div class="product-review-wrapper">
-              <span class="title"> תגובות {{product?.reviews?.length}}</span>
+              <span class="title"> תגובות {{(product |async)?.reviews?.length}}</span>
               <ul class="product-review-list">
-                <li *ngFor="let option of product?.reviews||[]">
+                <li *ngFor="let option of (product |async)?.reviews||[]">
                   <div class="product-review">
                     <div class="thumb"><img src="assets/images/review/review-1.jpeg" alt=""></div>
                     <div class="content">
@@ -280,6 +275,6 @@
 
       </div>
     </div>
-    {{loads()}}
+    {{loads(product |async)}}
   </div>
 </ng-container>

@@ -1,6 +1,7 @@
 import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Init} from '../../../../../assets/js/init';
 import {EntityService} from '../../../../core/store/entity.service';
+import {HeaderService} from '../header.service';
 
 @Component({
   selector: 'app-offcanvas-mobile-menu',
@@ -10,14 +11,16 @@ import {EntityService} from '../../../../core/store/entity.service';
 export class OffcanvasMobileMenuComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked(): void {
+    Init.moblieMenu();
+    Init.offcanvasToggle();
   }
 
-  constructor(public data: EntityService) {
+  constructor(public data: EntityService, public service: HeaderService) {
 
   }
 
   ngOnInit(): void {
-    Init.moblieMenu();
+
   }
 
 }

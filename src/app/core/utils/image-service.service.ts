@@ -24,7 +24,10 @@ export class ImageServiceService {
     if (!src) {
       return 'assets/images/product/cart-product-1.jpg';
     }
-    return this.cloudinary.url(getImageName(src), options);
+    const img = this.cloudinary.url(getImageName(src), options);
+
+    console.log(img);
+    return img;
   }
 
 }

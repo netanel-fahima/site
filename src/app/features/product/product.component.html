@@ -72,8 +72,8 @@
         <div class="grid-item col featured" *ngFor="let p of products$ | async">
           <div class="product">
             <div class="product-thumb">
-              <a (click)="router.navigateByUrl('product-details?id='+p.id).then()" class="image">
-                <cl-image public-id="{{getImage(p)}}" alt="{{p.name}}">
+              <a (click)="router.navigateByUrl('product-details?id='+p.id).then()" class="image" >
+                <cl-image public-id="{{getImage(p)}}" alt="{{p.name}}" class="d-flex">
                   <cl-transformation height="437" width="328" crop="fill">
                   </cl-transformation>
                 </cl-image>

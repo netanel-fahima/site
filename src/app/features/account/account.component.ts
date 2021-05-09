@@ -20,6 +20,9 @@ export class AccountComponent implements OnInit, AfterViewChecked {
 
   constructor(public data: EntityService, private store: Store) {
 
+    this.data.users$.subscribe(user => {
+      this.orders$ = this.data.orders$.pipe(map(orders => orders.filter(order => order.customer_id === user.id)));
+    });
   }
 
   ngOnInit(): void {
@@ -36,10 +39,7 @@ export class AccountComponent implements OnInit, AfterViewChecked {
   }
 
   load(): void {
-    this.data.users$.subscribe(user => {
-      this.store.dispatch(new productActions.Load(EntityType.Orders));
-      this.orders$ = this.data.orders$.pipe(map(orders => orders.filter(order => order.customer_id === user.id)));
-    });
+    this.store.dispatch(new productActions.Load(EntityType.Orders));
   }
 
 }

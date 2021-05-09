@@ -1,15 +1,14 @@
 import {AfterViewChecked, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Init} from '../../../assets/js/init';
 import {ProductDialogComponent} from './product-dialog/product-dialog.component';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {EntityService} from '../../core/store/entity.service';
 import {Store} from '@ngrx/store';
 import * as productActions from '../../core/store/actions';
 import {EntityType} from '../../core/store/actions';
-import {delay, filter, map, withLatestFrom} from 'rxjs/operators';
+import {delay, filter, map, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs/internal/Observable';
 import {getImageName} from './utils/productUtil';
-import {of} from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'app-product',
@@ -21,48 +20,55 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild('dialog', {static: true}) dialog: ProductDialogComponent;
 
   public products$: Observable<any>;
-
+  category = null;
 
   constructor(private store: Store, public data: EntityService, public route: ActivatedRoute, public router: Router) {
-    this.updateProducts();
+    this.products$ = this.route.queryParams.pipe(
+      switchMap(params => {
+        const filters = {
+          categoryId: params.category || '',
+        };
+
+        if (filters.categoryId !== localStorage.getItem('category')) {
+          localStorage.setItem('category', filters.categoryId);
+          window.location.reload();
+        }
+        return this.data.products$.pipe(
+          filter(value => !!value),
+          map((products) => {
+            if (filters.categoryId) {
+              const pp = products.filter(product => {
+                return product.categories.find(c => {
+                  return c.id === +filters.categoryId;
+                });
+              });
+              console.log('categoryId', filters.categoryId);
+              return pp;
+            }
+            else {
+              return products;
+            }
+          }));
+      }));
+
   }
 
   ngOnInit(): void {
 
   }
 
-  updateProducts(): void {
-    this.products$ = this.data.products$.pipe(
-      filter(value => !!value),
-      withLatestFrom(of(this.route.snapshot.queryParams?.category)),
-      map(([products, categoryId]) => {
-        if (categoryId) {
-          const pp = products.filter(product => {
-            return product.categories.find(c => {
-              return c.id === +categoryId;
-            });
-          });
-          console.log('categoryId', categoryId);
-          return pp;
-        }
-        else {
-          return products;
-        }
-      }));
-  }
 
   ngAfterViewChecked(): void {
-
     Init.first();
     this.products$
-      .pipe(delay(10))
+      .pipe(delay(100))
       .subscribe(() => {
-        Init.filterToggle();
-        Init.isotopeFilter();
+        // Init.filterToggle();
+        // Init.isotopeFilter();
         Init.isotopeGrid();
-        Init.columnToggle();
-        Init.addWishList();
-        Init.quickViewModal();
+        // Init.columnToggle();
+        // Init.addWishList();
+        // Init.quickViewModal();
       });
   }
 

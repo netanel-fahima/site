@@ -10,18 +10,14 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule)},
-      {path: '', loadChildren: () => import('./features/features.module').then(m => m.FeaturesModule)},
-      /* { path: 'settings', loadChildren: () => import('./features/settings/settings.module').then(m => m.SettingsModule) },
-      { path: 'info', loadChildren: () => import('./features/info/info.module').then(m => m.InfoModule) },
-      { path: 'ui', loadChildren: () => import('./features/ui-pages/ui-pages.module').then(m => m.UiPagesModule) },
-      { path: 'icons', loadChildren: () => import('./features/icons/icons.module').then(m => m.IconsModule) },*/
+      {path: '', loadChildren: () => import('./features/features.module').then(m => m.FeaturesModule)}
 
     ]
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

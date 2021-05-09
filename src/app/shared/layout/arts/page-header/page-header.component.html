@@ -21,7 +21,7 @@
           <div class="header-login">
             <div class="row-cols-1">
               <a [routerLink]="'GUEST' !== 'GUEST' ? 'account' : 'login'">
-                <a style="padding-right:7px">{{getUserName()}}</a>
+                <a style="padding-right:7px">{{(data.users$|async)?.username || ''}}</a>
                 <i class="fal fa-user"></i>
               </a>
 
@@ -49,16 +49,16 @@
   <!-- Site Menu Section Start -->
   <div class="site-menu-section section">
     <div class="container">
-      <nav *ngIf="(categoriesParent$ | async)" class="site-main-menu justify-content-center" dir="rtl">
+      <nav *ngIf="(service.categoriesParent$ | async)" class="site-main-menu justify-content-center" dir="rtl">
         <ul>
-          <li *ngFor="let c of categoriesParent$ | async"
-              class="{{foundChilds((categoriesChilds$ | async),c.id) && 'has-children'}}">
-            <a [href]="routeToProducts(c)">
+          <li *ngFor="let c of service.categoriesParent$ | async"
+              class="{{service.hadChildren((service.categoriesChilds$|async),c.id) && 'has-children'}}">
+            <a [href]="service.navigateToProducts(c)">
               <span class="menu-text">{{c.name}}</span>
             </a>
-            <ng-container *ngFor="let cc of categoriesChilds$ | async">
+            <ng-container *ngFor="let cc of service.categoriesChilds$ | async">
               <ul class="sub-menu" *ngIf="cc.parent == c.id">
-                <li><a [href]="routeToProducts(cc)"><span class="menu-text">{{cc.name}}</span></a></li>
+                <li><a [href]="service.navigateToProducts(cc)"><span class="menu-text">{{cc.name}}</span></a></li>
               </ul>
             </ng-container>
           </li>
