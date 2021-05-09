@@ -2,7 +2,7 @@ import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Init} from '../../../../assets/js/init';
 import {ActivatedRoute} from '@angular/router';
 import {EntityService} from '../../../core/store/entity.service';
-import {filter, map, switchMap} from 'rxjs/operators';
+import {filter, map, switchMap, tap} from 'rxjs/operators';
 import {getImageName, getImages} from '../utils/productUtil';
 import * as productActions from '../../../core/store/actions';
 import {EntityType} from '../../../core/store/actions';
@@ -29,14 +29,20 @@ export class ProductDetailsComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     this.setImges([]);
+
     this.product = this.route.queryParams.pipe(
       switchMap(params => {
         const p = {
           id: params.id || ''
         };
-        if (p.id !== localStorage.getItem('product')) {
+
+        const local = localStorage.getItem('product');
+        if (p.id !== local) {
           localStorage.setItem('product', p.id);
-          window.location.reload();
+          if (local) {
+            window.location.reload();
+            return of(null);
+          }
         }
         return this.data.products$.pipe(
           filter(value => !!value),

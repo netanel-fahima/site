@@ -6,9 +6,10 @@ import {EntityService} from '../../core/store/entity.service';
 import {Store} from '@ngrx/store';
 import * as productActions from '../../core/store/actions';
 import {EntityType} from '../../core/store/actions';
-import {delay, filter, map, switchMap} from 'rxjs/operators';
+import {delay, filter, map, switchMap, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs/internal/Observable';
 import {getImageName} from './utils/productUtil';
+import {of} from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'app-product',
@@ -29,9 +30,13 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
           categoryId: params.category || '',
         };
 
-        if (filters.categoryId !== localStorage.getItem('category')) {
+        const local = localStorage.getItem('category');
+        if (filters.categoryId !== local) {
           localStorage.setItem('category', filters.categoryId);
-          window.location.reload();
+          if (local) {
+            window.location.reload();
+            return of([]);
+          }
         }
         return this.data.products$.pipe(
           filter(value => !!value),
