@@ -49,22 +49,7 @@
   <!-- Site Menu Section Start -->
   <div class="site-menu-section section">
     <div class="container">
-      <nav *ngIf="(service.categoriesParent$ | async)" class="site-main-menu justify-content-center" dir="rtl">
-        <ul>
-          <li *ngFor="let c of service.categoriesParent$ | async"
-              class="{{service.hadChildren((service.categoriesChilds$|async),c.id) && 'has-children'}}">
-            <a [href]="service.navigateToProducts(c)">
-              <span class="menu-text">{{c.name}}</span>
-            </a>
-            <ng-container *ngFor="let cc of service.categoriesChilds$ | async">
-              <ul class="sub-menu" *ngIf="cc.parent == c.id">
-                <li><a [href]="service.navigateToProducts(cc)"><span class="menu-text">{{cc.name}}</span></a></li>
-              </ul>
-            </ng-container>
-          </li>
-          <li><a href="#"><span class="menu-text">מבצעים</span></a></li>
-        </ul>
-      </nav>
+    <app-header-nav></app-header-nav>
     </div>
   </div>
   <!-- Site Menu Section End -->

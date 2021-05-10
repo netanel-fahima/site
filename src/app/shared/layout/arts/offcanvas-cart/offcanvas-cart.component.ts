@@ -5,6 +5,7 @@ import * as productActions from '../../../../core/store/actions';
 import {EntityType} from '../../../../core/store/actions';
 import {getImageName} from '../../../../features/product/utils/productUtil';
 import {Cloudinary} from '@cloudinary/angular-5.x';
+import {Init} from '../../../../../assets/js/init';
 
 @Component({
   selector: 'app-offcanvas-cart',
@@ -42,4 +43,7 @@ export class OffcanvasCartComponent implements OnInit, AfterViewInit {
     }
   }
 
+  closeCart(): void {
+    Init.offcanvasClose();
+  }
 }

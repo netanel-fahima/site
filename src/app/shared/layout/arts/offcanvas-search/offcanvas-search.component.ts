@@ -2,6 +2,7 @@ import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Init} from '../../../../../assets/js/init';
 import {Router} from '@angular/router';
 import {EntityService} from '../../../../core/store/entity.service';
+import {ImageServiceService} from '../../../../core/utils/image-service.service';
 
 @Component({
   selector: 'app-offcanvas-search',
@@ -15,7 +16,7 @@ export class OffcanvasSearchComponent implements OnInit, AfterViewChecked {
 
   }
 
-  constructor(public data: EntityService, private router: Router) {
+  constructor(public data: EntityService, private router: Router, public imgService: ImageServiceService) {
   }
 
   ngOnInit(): void {

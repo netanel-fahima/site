@@ -18,6 +18,7 @@ import {SectionPaddingComponent} from '../../../features/home/art/section-paddin
 import {PageTitleSectionComponent} from './page-title-section/page-title-section.component';
 import {ProductPipe} from '../../../core/pipe/product.pipe';
 import {FormsModule} from '@angular/forms';
+import { HeaderNavComponent } from './header-nav/header-nav.component';
 
 @NgModule({
   declarations:
@@ -35,7 +36,8 @@ import {FormsModule} from '@angular/forms';
      OffcanvasMobileMenuComponent,
      SectionPaddingComponent,
      PageTitleSectionComponent,
-     ProductPipe
+     ProductPipe,
+     HeaderNavComponent
     ],
   imports: [
     CommonModule,

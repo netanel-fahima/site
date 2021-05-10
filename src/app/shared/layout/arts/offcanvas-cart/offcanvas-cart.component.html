@@ -8,12 +8,12 @@
     <div class="body customScroll">
       <ul class="minicart-product-list" style="overflow-y: hidden">
         <li *ngFor="let c of data.cart$ |async ">
-          <a routerLink="product-details" [queryParams]="{id:c.product.id}" class="image">
+          <a (click)="closeCart()" routerLink="product-details" [queryParams]="{id:c.product.id}" class="image">
             <img [src]="getImages(c.product)" alt="{{c.product.name}} תמונה ">
           </a>
           <div class="content d-flex flex-column">
             <a class="remove" (click)="removeCart(c)">X</a>
-            <a routerLink="product-details" [queryParams]="{id:c.product.id}" class="title">{{c.product.name}}</a>
+            <a (click)="closeCart()" routerLink="product-details" [queryParams]="{id:c.product.id}" class="title">{{c.product.name}}</a>
             <span class="quantity-price">{{c.quantity}} x
               <span class="amount">{{c.product?.price|currency}}</span>
             </span>
@@ -29,8 +29,8 @@
       </div>
       <div class="buttons">
 
-        <a routerLink="shopping-cart" class="btn btn-dark btn-hover-info">צפי בעגלה</a>
-        <a href="#checkout" class="btn btn-outline-hover-success btn-outline-body">להזמנה</a>
+        <a  (click)="closeCart()" routerLink="shopping-cart" class="btn btn-dark btn-hover-info">צפי בעגלה</a>
+        <a  (click)="closeCart()" href="#checkout" class="btn btn-outline-hover-success btn-outline-body">להזמנה</a>
       </div>
       <p class="minicart-message">משלוח חינם מעל 200 ש"ח</p>
     </div>

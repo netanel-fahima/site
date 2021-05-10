@@ -1438,6 +1438,22 @@ body.homepage-bg1.offcanvas-open {
   right: 0;
 }
 
+@media only screen and (max-width: 360px) {
+
+
+  .slick-slider .slick-arrow.slick-prev {
+    opacity: 1;
+    left: 20px;
+    top: 37%;
+  }
+
+  .slick-slider .slick-arrow.slick-next {
+    opacity: 1;
+    right: 20px;
+    top: 37%;
+  }
+}
+
 .slick-slider .slick-list {
   margin-right: -15px;
   margin-left: -15px;
@@ -16907,7 +16923,7 @@ body.offcanvas-open .sticky-header {
 
 @media only screen and (max-width: 768px) {
   .product-details {
-    flex-direction: column-reverse!important;
+    flex-direction: column-reverse !important;
     margin-right: 0px;
   }
 }

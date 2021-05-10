@@ -186,6 +186,12 @@ export class Init {
     $offCanvasToggle.click();
   }
 
+  static offcanvasClose() {
+    console.log('offcanvasOpen');
+    var $offCanvasToggle = $('.offcanvas-close, .offcanvas-overlay');
+    $offCanvasToggle.click();
+  }
+
 
   static offcanvasOpenWishlist() {
     console.log('offcanvasOpen');
@@ -425,7 +431,7 @@ export class Init {
 
   static quickViewModal(): void {
     $('#quickViewModal').on('shown.bs.modal', e => {
-      //this.silckDialog();
+      // this.silckDialog();
     }).on('hidden.bs.modal', e => {
       $('.qty-btn').unbind().off();
     });
