@@ -65,6 +65,7 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ngAfterViewChecked(): void {
     Init.first();
+
     this.products$
       .pipe(delay(100))
       .subscribe(() => {
@@ -90,7 +91,7 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
 
 
   openDialog(product: any): void {
-    this.dialog.product = product;
+    this.dialog.product = of(product);
     this.dialog.open();
   }
 

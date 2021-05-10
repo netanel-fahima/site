@@ -353,7 +353,7 @@ export class Init {
 
   }
 
-  static productGallerySlider() {
+  static productGallerySlider(): void {
     $('.product-gallery-slider').not('.slick-initialized').slick({
       dots: true,
       infinite: true,
@@ -413,6 +413,9 @@ export class Init {
     $('.product-zoom').each((index, e) => {
       const $this = $($('.product-zoom').get(index));
       const $image = images[index];
+      if (!$image?.src) {
+        return;
+      }
       $this.zoom({
         url: $image?.src
       });
@@ -422,20 +425,24 @@ export class Init {
 
   static quickViewModal(): void {
     $('#quickViewModal').on('shown.bs.modal', e => {
-      const $e = $('.product-gallery-slider-quickview');
-      $e.not('.slick-initialized').slick({
-        dots: true,
-        infinite: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        lazyLoad: 'anticipated',
-        prevArrow: '<button class="slick-prev"><i class="ti-angle-left"></i></button>',
-        nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>'
-      });
+      //this.silckDialog();
     }).on('hidden.bs.modal', e => {
       $('.qty-btn').unbind().off();
-      $(e.currentTarget).data('bs.modal', null);
     });
+  }
+
+  static silckDialog(): void {
+    const $e = $('.product-gallery-slider-quickview');
+    $e.not('.slick-initialized').slick({
+      dots: true,
+      lazyLoad: 'ondemand',
+      infinite: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      prevArrow: '<button class="slick-prev"><i class="ti-angle-left"></i></button>',
+      nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>'
+    });
+
   }
 
 }

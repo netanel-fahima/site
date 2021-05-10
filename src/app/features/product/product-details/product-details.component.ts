@@ -73,7 +73,8 @@ export class ProductDetailsComponent implements OnInit, AfterViewChecked {
     Init.galleryPopup(imgs);
   }
 
-  addToCart(): void {
+  addToCart($event: MouseEvent): void {
+    $event.preventDefault();
     this.product.subscribe(product => {
       if (product.attributes.length && !this.options.length) {
         alert(` נא לבחור  ${product.attributes.map(a => a.name).join(' ,')}`);
