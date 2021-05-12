@@ -123,7 +123,9 @@
                     (ngModelChange)="addDelivery($event)"
                     name="deliveryMethod" id="deliveryMethod" class="form-control"
                     [ngClass]="{ 'is-invalid': submitted && f.deliveryMethod.errors }">
-              <option value="25.0">דואר רשום</option>
+
+              <option *ngFor="let shippingMethod of shippingMethods$|async "
+                      [value]="shippingMethod.id">{{shippingMethod.title}}</option>
             </select>
             <div *ngIf="submitted && f.deliveryMethod.errors" class="invalid-feedback">
               <div *ngIf="f.deliveryMethod.errors.required">בחר שיטת משלוח!</div>
@@ -161,7 +163,7 @@
               </tbody>
               <tfoot>
               <tr class="subtotal">
-                <td><span>{{data.delivery$ |async| currency}}</span></td>
+                <td><span>{{(data.delivery$ |async)?.settings?.cost?.value | currency}}</span></td>
                 <th>משלוח</th>
               </tr>
               <tr class="subtotal">

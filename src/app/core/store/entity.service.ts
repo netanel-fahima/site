@@ -46,7 +46,8 @@ export class EntityService {
           return previousValue += Number(currentValue.product.price) * currentValue.quantity;
         }, 0);
         console.log('total', total);
-        return of(total + (+delivery));
+        // @ts-ignore
+        return of(total + (+delivery?.settings?.cost?.value || 0));
       }));
   }
 

@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {DEFAULT_CURRENCY_CODE, NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
@@ -62,6 +62,7 @@ import {CloudinaryModule} from '@cloudinary/angular-5.x';
   ],
   bootstrap: [AppComponent],
   providers: [
+    {provide: DEFAULT_CURRENCY_CODE, useValue: 'ILS'},
     ApiService,
     EntityService,
     WooApi

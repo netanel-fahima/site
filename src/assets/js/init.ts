@@ -106,7 +106,7 @@ export class Init {
     console.log('slider');
     // Home 1 Slider
     // @ts-ignore
-    var $home1Slider = new Swiper('.home1-slider', {
+    const $home1Slider = new Swiper('.home1-slider', {
       loop: true,
       speed: 750,
       effect: 'fade',
@@ -116,6 +116,7 @@ export class Init {
       },
       autoplay: {},
     });
+
   }
 
   static moblieMenu() {
@@ -419,9 +420,6 @@ export class Init {
     $('.product-zoom').each((index, e) => {
       const $this = $($('.product-zoom').get(index));
       const $image = images[index];
-      if (!$image?.src) {
-        return;
-      }
       $this.zoom({
         url: $image?.src
       });

@@ -119,6 +119,15 @@ export function ProductReducer(state = initialState, action: ProductActions): En
         loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, '')
       };
+    case ActionTypes.Load: {
+      console.log('Loading Data');
+      return {
+        ...state,
+        entities: state.entities,
+        loaded: state.loaded.set(action.cmd, true),
+        error: state.error.set(action.cmd, '')
+      };
+    }
     case ActionTypes.Add: {
       console.log(state.entities);
       return {

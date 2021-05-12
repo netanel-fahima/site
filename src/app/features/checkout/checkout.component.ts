@@ -2,7 +2,7 @@ import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Init} from '../../../assets/js/init';
 import {EntityService} from '../../core/store/entity.service';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import * as productActions from '../../core/store/actions';
 import {EntityType} from '../../core/store/actions';
 import {getLocalCart} from '../../core/store/reducer';
@@ -12,6 +12,7 @@ import {getErr, getUser} from '../login/slice/actions';
 import {Observable} from 'rxjs/internal/Observable';
 import {getError, getLoaded} from '../../core/store';
 import {map, switchMap, withLatestFrom} from 'rxjs/operators';
+import * as fromProduct from '../../core/store';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
   orderLoad$: Observable<boolean>;
 
   public payMethod: string;
+  public shippingMethods$: Observable<any[]>;
 
   ngAfterViewChecked(): void {
     Init.select2();
@@ -40,6 +42,8 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
     this.autError$ = this.store.select(getErr);
     this.orderError$ = this.store.select(getError, {cmd: EntityType.Orders});
     this.orderLoad$ = this.store.select(getLoaded, {cmd: EntityType.Orders});
+    this.store.dispatch(new productActions.Load(EntityType.ShippingMethods));
+    this.shippingMethods$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.ShippingMethods}));
   }
 
   ngOnInit(): void {
@@ -164,6 +168,9 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
   }
 
   addDelivery($event): void {
-    this.store.dispatch(new productActions.AddDeliveryVisual(EntityType.Delivery, $event));
+    this.shippingMethods$.subscribe(shippingMethods => {
+      const sm = shippingMethods.find(m => m.id === +$event);
+      this.store.dispatch(new productActions.AddDeliveryVisual(EntityType.Delivery, sm));
+    });
   }
 }

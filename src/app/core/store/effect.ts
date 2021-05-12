@@ -24,20 +24,11 @@ export class ProductEffect {
   loadProduct$: Observable<Action> = this.action$.pipe(
     ofType(actions.ActionTypes.Load),
     mergeMap(({cmd}) => {
-
-      console.log('LOADING DATA', cmd);
-      return this.store.pipe(select(fromProduct.getLoaded, {cmd})).pipe(
-        switchMap(loaded => {
-          if (loaded) {
-            return empty();
-          }
-          return this.service.getEntity(cmd).pipe(
-            map((products) => {
-              return new actions.LoadSuccess(cmd, products);
-            }),
-            catchError(err => of(new actions.LoadFail(cmd, err)))
-          );
-        })
+      return this.service.getEntity(cmd).pipe(
+        map((products) => {
+          return new actions.LoadSuccess(cmd, products);
+        }),
+        catchError(err => of(new actions.LoadFail(cmd, err)))
       );
     })
   );

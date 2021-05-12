@@ -27,6 +27,7 @@ export enum EntityType {
   WishList = 'wishList',
   Customers = 'customers',
   Categories = 'products/categories',
+  ShippingMethods = 'shipping/zones/1/methods',
   Delivery = 'delivery'
 }
 
