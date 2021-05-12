@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/internal/Observable';
-import {catchError, map, mergeMap, switchMap, withLatestFrom} from 'rxjs/operators';
+import {catchError, debounce, debounceTime, map, mergeMap, switchMap, withLatestFrom} from 'rxjs/operators';
 import * as fromProduct from './';
 import {Action, select, Store} from '@ngrx/store';
 import {Actions, Effect, ofType} from '@ngrx/effects';
@@ -23,17 +23,21 @@ export class ProductEffect {
   @Effect()
   loadProduct$: Observable<Action> = this.action$.pipe(
     ofType(actions.ActionTypes.Load),
-    withLatestFrom(this.store.pipe(select(fromProduct.getLoaded))),
-    mergeMap(([{cmd}, loaded]) => {
-      if (loaded) {
-        return empty();
-      }
+    mergeMap(({cmd}) => {
+
       console.log('LOADING DATA', cmd);
-      return this.service.getEntity(cmd).pipe(
-        map((products) => {
-          return new actions.LoadSuccess(cmd, products);
-        }),
-        catchError(err => of(new actions.LoadFail(cmd, err)))
+      return this.store.pipe(select(fromProduct.getLoaded, {cmd})).pipe(
+        switchMap(loaded => {
+          if (loaded) {
+            return empty();
+          }
+          return this.service.getEntity(cmd).pipe(
+            map((products) => {
+              return new actions.LoadSuccess(cmd, products);
+            }),
+            catchError(err => of(new actions.LoadFail(cmd, err)))
+          );
+        })
       );
     })
   );
@@ -41,7 +45,7 @@ export class ProductEffect {
   @Effect()
   addProduct$: Observable<any> = this.action$.pipe(
     ofType(actions.ActionTypes.Add),
-    switchMap(({payload, cmd}) => {
+    mergeMap(({payload, cmd}) => {
       return fromPromise(
         this.service.addEntity(cmd, payload)
           .then(value => {

@@ -5,11 +5,13 @@
       <a [href]="service.navigateToProducts(c)">
         <span class="menu-text">{{c.name}}</span>
       </a>
-      <ng-container *ngFor="let cc of service.categoriesChilds$ | async">
-        <ul class="sub-menu" *ngIf="cc.parent == c.id">
-          <li><a [href]="service.navigateToProducts(cc)"><span class="menu-text">{{cc.name}}</span></a></li>
-        </ul>
-      </ng-container>
+      <ul class="sub-menu" *ngIf="service.hadChildren((service.categoriesChilds$|async),c.id)">
+        <ng-container *ngFor="let cc of service.categoriesChilds$ | async">
+          <li *ngIf="cc.parent === c.id">
+            <a [href]="service.navigateToProducts(cc)"><span class="menu-text">{{cc.name}}</span></a>
+          </li>
+        </ng-container>
+      </ul>
     </li>
     <li><a href="#"><span class="menu-text">מבצעים</span></a></li>
   </ul>

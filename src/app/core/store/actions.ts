@@ -16,6 +16,7 @@ export enum ActionTypes {
   AddVisualWishList = '[WishList] Add Visual',
   RemoveVisualWishList = '[WishList] Remove Visual',
   UpdateVisualWishList = '[WishList] Update Visual',
+  AddDeliveryVisual = '[Delivery] Add Visual Delivery',
 }
 
 export enum EntityType {
@@ -25,7 +26,8 @@ export enum EntityType {
   Carts = 'carts',
   WishList = 'wishList',
   Customers = 'customers',
-  Categories = 'products/categories'
+  Categories = 'products/categories',
+  Delivery = 'delivery'
 }
 
 export abstract class EntityAction implements Action {
@@ -112,6 +114,15 @@ export class AddVisualWishList extends EntityAction {
   }
 }
 
+export class AddDeliveryVisual extends EntityAction {
+  readonly type = ActionTypes.AddDeliveryVisual;
+
+  constructor(public cmd: string, public payload: any) {
+    super(cmd);
+  }
+}
+
+
 export class AddVisual extends EntityAction {
   readonly type = ActionTypes.AddVisualCart;
 
@@ -157,6 +168,7 @@ export type ProductActions = Load
   | RemoveVisualCart
   | UpdateVisualCart
   | AddVisualWishList
+  | AddDeliveryVisual
   | RemoveVisualWishList
   | UpdateVisualWishList;
 ;

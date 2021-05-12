@@ -4,7 +4,7 @@ import * as productActions from './actions';
 import {EntityType} from './actions';
 import * as fromProduct from './';
 import {select, Store} from '@ngrx/store';
-import {filter, switchMap} from 'rxjs/operators';
+import {filter, switchMap, withLatestFrom} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
 import {getUser} from '../../features/login/slice/actions';
 import {Init} from '../../../assets/js/init';
@@ -21,6 +21,7 @@ export class EntityService {
   public products$: Observable<any[]>;
   public categories$: Observable<any[]>;
   public orders$: Observable<any[]>;
+  public delivery$: Observable<any[]>;
 
   constructor(private store: Store) {
     this.store.dispatch(new productActions.Load(EntityType.Customers));
@@ -34,16 +35,18 @@ export class EntityService {
     this.orders$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Orders}));
     this.users$ = this.store.select(getUser);
     this.error$ = this.store.pipe(select(fromProduct.getError));
+    this.delivery$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Delivery}));
   }
 
   public totalCart(): Observable<any> {
     return this.cart$.pipe(
-      switchMap(cart => {
+      withLatestFrom(this.delivery$),
+      switchMap(([cart, delivery]) => {
         const total = cart.reduce((previousValue, currentValue) => {
           return previousValue += Number(currentValue.product.price) * currentValue.quantity;
         }, 0);
         console.log('total', total);
-        return of(total);
+        return of(total + (+delivery));
       }));
   }
 

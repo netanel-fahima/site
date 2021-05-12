@@ -2,7 +2,6 @@ import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Init} from '../../../assets/js/init';
 import {EntityService} from '../../core/store/entity.service';
-import Checkout from './checkout';
 import {Store} from '@ngrx/store';
 import * as productActions from '../../core/store/actions';
 import {EntityType} from '../../core/store/actions';
@@ -11,8 +10,8 @@ import {getLocalUser} from '../../core/localStore/loadStorage';
 import * as actions from '../login/slice/actions';
 import {getErr, getUser} from '../login/slice/actions';
 import {Observable} from 'rxjs/internal/Observable';
-import {getError} from '../../core/store';
-import {map} from 'rxjs/operators';
+import {getError, getLoaded} from '../../core/store';
+import {map, switchMap, withLatestFrom} from 'rxjs/operators';
 
 
 @Component({
@@ -24,11 +23,11 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
   public submitted: boolean;
   @Input() createUser: any;
   form: FormGroup;
-  public model = new Checkout('', '', '', '', '', '', '', '', '', false);
   private user: any;
   autError$: Observable<{ l: string; r: string }>;
   private orderCreated = false;
   orderError$: Observable<any>;
+  orderLoad$: Observable<boolean>;
 
   public payMethod: string;
 
@@ -40,6 +39,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
     this.store.dispatch(new actions.Load(getLocalUser()));
     this.autError$ = this.store.select(getErr);
     this.orderError$ = this.store.select(getError, {cmd: EntityType.Orders});
+    this.orderLoad$ = this.store.select(getLoaded, {cmd: EntityType.Orders});
   }
 
   ngOnInit(): void {
@@ -54,7 +54,8 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
       email: new FormControl('', [Validators.required, Validators.email]),
       phone: new FormControl('', Validators.required),
       note: new FormControl(''),
-      createUser: new FormControl('')
+      createUser: new FormControl(''),
+      deliveryMethod: new FormControl('', [Validators.required, Validators.minLength(1)]),
     });
     this.store.select(getUser).subscribe(value => {
       this.user = value;
@@ -105,11 +106,23 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
       },
       line_items: lineItems
     }));
-    alert('');
+
+    const sub = this.orderLoad$.pipe(
+      withLatestFrom(this.orderError$),
+      map(([loaded, err]) => {
+        return !(loaded || err);
+      })).subscribe(orderDone => {
+      if (orderDone) {
+        alert('עובר לתשלום');
+        sub.unsubscribe();
+      }
+    });
   }
 
 
-  onSubmit(): void {
+  onSubmit($event: any): void {
+
+    this.payMethod = $event.submitter.value;
 
     this.submitted = true;
 
@@ -121,7 +134,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
     if (this.form.valid && this.payMethod) {
       if (!this.user && this.f.createUser.value) {
         this.store.dispatch(new actions.Register({
-          username: this.f.firstName.value,
+          username: this.f.email.value,
           email: this.f.email.value,
           first_name: this.f.firstName.value,
           last_name: this.f.lastName.value,
@@ -150,8 +163,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
 
   }
 
-  setPayMethod(payMethod: string, $event: MouseEvent): void {
-    $event.preventDefault();
-    this.payMethod = payMethod;
+  addDelivery($event): void {
+    this.store.dispatch(new productActions.AddDeliveryVisual(EntityType.Delivery, $event));
   }
 }

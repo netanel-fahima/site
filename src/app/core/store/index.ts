@@ -32,8 +32,8 @@ export const getEntities = createSelector(
 
 export const getLoaded = createSelector(
   getProductFeatureState,
-  state => {
-    return state.loaded;
+  (state, {cmd}) => {
+    return state.loaded.get(cmd);
   }
 );
 

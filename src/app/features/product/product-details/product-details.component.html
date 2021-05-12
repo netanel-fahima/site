@@ -32,9 +32,9 @@
                             <span class="star-rating">
                                 <span class="rating-active" style="width: 100%;">דירוג</span>
                             </span>
-              <a href="#reviews" class="review-link">(<span class="count"
-                                                            *ngIf="(product |async)?.reviews">{{(product |async).categories.length}}</span>
-                תגובות)</a>
+              <a href="#reviews" class="review-link">
+                <span class="count" *ngIf="(product |async)?.reviews">{{(product |async).categories.length}}</span>
+                תגובות</a>
             </div>
             <h3 class="product-title">{{(product |async).name}}</h3>
             <div class="product-price">{{(product |async).price | currency}}</div>
@@ -115,7 +115,7 @@
             </div>
           </div>
         </div>
-        <!-- Product Summery End -->>
+        <!-- Product Summery End -->
 
         <!-- Root element of PhotoSwipe. Must have class pswp. -->
         <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

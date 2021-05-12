@@ -22,7 +22,7 @@
           <h2 class="title">פרטי תשלום</h2>
         </div>-->
     <section class="d-flex flex-row-reverse flex-wrap learts-mb-30">
-      <form action="#" class="anyflexbox" [formGroup]="form" (ngSubmit)="onSubmit()" >
+      <form action="#" class="anyflexbox" [formGroup]="form" (ngSubmit)="onSubmit($event)">
         <div class="row form-group">
           <div class="col-md-6 col-12 learts-mb-20 form-group">
             <label for="firstName">שם פרטי <abbr class="required">*</abbr></label>
@@ -89,7 +89,7 @@
               <div *ngIf="f.phone.errors.required">שדה נדרש</div>
             </div>
           </div>
-          <div class="col-12 learts-mb-40 form-group">
+          <div class="col-12 learts-mb-40 form-group" *ngIf="!(data.users$|async)">
             <div class="form-check">
               <label class="form-check-label" for="createUser">?צור משתמש</label>
               <input style="height: 20px" type="checkbox" name="createUser" class="form-check-input"
@@ -114,53 +114,33 @@
         <div class="m-3 bg-danger text-white" *ngIf="submitted && !payMethod">
           <p>{{ 'בחרי אמצאי תשלום' }}</p>
         </div>
-        <div class="col-lg-12 order-lg-1 learts-mb-10" style="margin-left: auto" dir="rtl">
-          <h3 class="learts-mb-10" style="color: #7e7e7e">פרטי תשלום</h3>
-          <div class="order-payment" >
-            <div class="payment-method">
-              <div class="accordion" id="paymentMethod">
-                <div class="card active">
-                  <div class="card-header">
-                    <button data-toggle="collapse" (click)="setPayMethod('bank',$event)" data-target="#checkPayments">העברה בנקאית</button>
-                  </div>
-                  <div id="checkPayments" class="collapse show" data-parent="#paymentMethod">
-                    <div class="card-body">
-                      <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store
-                        Postcode.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="card-header">
-                    <button data-toggle="collapse" (click)="setPayMethod('credit',$event)" data-target="#cashkPayments">אשראי</button>
-                  </div>
-                  <div id="cashkPayments" class="collapse" data-parent="#paymentMethod">
-                    <div class="card-body">
-                      <p>Pay with cash upon delivery.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="card-header">
-                    <button data-toggle="collapse" (click)="setPayMethod('paypal',$event)" data-target="#payPalPayments">PayPal <img
-                      src="assets/images/others/pay-2.png" alt=""></button>
-                  </div>
-                  <div id="payPalPayments" class="collapse" data-parent="#paymentMethod">
-                    <div class="card-body">
-                      <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="text-center">
-              <p class="payment-note">הנתונים האישיים שלך ישמשו לעיבוד הזמנתך, לתמיכה בחווייתך ברחבי אתר זה ולמטרות אחרות המתוארות במדיניות הפרטיות שלנו.
-              </p>
-
+        <div class="col-lg-12 order-lg-1 learts-mb-10 border-info d-flex flex-column"
+             style="margin-left: auto;margin-bottom: 2rem"
+             dir="rtl">
+          <div class="form-check">
+            <label class="col-form-label-sm" for="deliveryMethod">שיטת משלוח</label>
+            <select formControlName="deliveryMethod"
+                    (ngModelChange)="addDelivery($event)"
+                    name="deliveryMethod" id="deliveryMethod" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.deliveryMethod.errors }">
+              <option value="25.0">דואר רשום</option>
+            </select>
+            <div *ngIf="submitted && f.deliveryMethod.errors" class="invalid-feedback">
+              <div *ngIf="f.deliveryMethod.errors.required">בחר שיטת משלוח!</div>
             </div>
           </div>
         </div>
-        <button class="btn btn-dark btn-outline-hover-dark">לתשלום</button>
+        <div class="d-flex justify-content-sm-around flex-wrap btn-group-lg">
+          <button class="btn btn-info btn-outline-hover-dark" value="bit">תשלום בביט</button>
+          <button class="btn bg-primary3 btn-outline-hover-dark btn-hover-light" value="phonePayment">תשלום טלפוני
+          </button>
+          <button class="btn btn-secondary btn-outline-hover-dark" value="credit">תשלום באשראי</button>
+        </div>
+        <div class="pay-icons"></div>
+        <div class="m-3 bg-info text-white text-center" *ngIf="(orderLoad$ | async)">
+          <p>טוען הזמנה!</p>
+        </div>
+
       </form>
 
       <aside class="sidebar">
@@ -181,7 +161,10 @@
               </tbody>
               <tfoot>
               <tr class="subtotal">
-
+                <td><span>{{data.delivery$ |async| currency}}</span></td>
+                <th>משלוח</th>
+              </tr>
+              <tr class="subtotal">
                 <td><span>{{data.totalCart() |async| currency}}</span></td>
                 <th>מחיר</th>
               </tr>
@@ -200,6 +183,5 @@
         </div>
       </aside>
     </section>
-
   </div>
 </div>

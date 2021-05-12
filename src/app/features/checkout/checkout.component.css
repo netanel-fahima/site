@@ -74,3 +74,30 @@
 .ng-invalid:not(form) {
   border-left: 5px solid #a94442; /* red */
 }
+
+.pay-icons {
+  background: url(https://konimboimages.s3.amazonaws.com/system/photos/381863/medium/bd58d0a….png?1573478948) center no-repeat;
+  width: 95%;
+}
+
+label.col-form-label-sm {
+  right: 0px !important;
+  padding: 0 !important;
+  position: relative !important;
+}
+
+
+@media (max-width: 575px) {
+  .btn-group-lg {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .btn-group-lg button{
+    width: 70%;
+    margin: 1rem 0;
+  }
+}
+
+

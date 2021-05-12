@@ -4,11 +4,11 @@
 
 export const environment = {
   production: true,
-  origin: 'https://mitpahat.000webhostapp.com/wordpress',
+  origin: 'http://shelys.store/wordpress',
   wcEndpoint: 'wp-json/wc/v3',
   woocommerce: {
-    consumer_key: 'ck_a86bf2fb1aa67effab4a3d6bf091a0af0592d8c3',
-    consumer_secret: 'cs_94c40443ab7831704985934473d10cb87bf0b997'
+    consumer_key: 'ck_20b4aca3e4b9619ad55f836f65e63ebec9d1c850',
+    consumer_secret: 'cs_96bd8d9f7a8ab8084aef227e03e77e0a1b290895'
   }
 };
 

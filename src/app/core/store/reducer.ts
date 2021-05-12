@@ -89,7 +89,7 @@ const addProductToLocal = (type, localCart, {product, quantity, options = []}): 
 export interface EntityState {
   toggleCheckBox: boolean;
   entities: Map<string, any[]>;
-  loaded: boolean;
+  loaded: Map<string, boolean>;
   error: Map<string, any>;
 }
 
@@ -99,8 +99,13 @@ const initialState: EntityState = {
     .set(EntityType.Carts, getLocalCart())
     .set(EntityType.WishList, getLocalWishList())
     .set(EntityType.Customers, [])
-    .set(EntityType.Orders, []),
-  loaded: false,
+    .set(EntityType.Orders, [])
+    .set(EntityType.Delivery, null),
+  loaded: new Map<string, boolean>()
+    .set(EntityType.Carts, false)
+    .set(EntityType.WishList, false)
+    .set(EntityType.Customers, false)
+    .set(EntityType.Orders, false),
   error: new Map<string, any>()
 };
 
@@ -111,15 +116,24 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       return {
         ...state,
         entities: state.entities.set(action.cmd, [...action.payload]),
-        loaded: false,
+        loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, '')
       };
+    case ActionTypes.Add: {
+      console.log(state.entities);
+      return {
+        ...state,
+        entities: state.entities,
+        loaded: state.loaded.set(action.cmd, true),
+        error: state.error.set(action.cmd, '')
+      };
+    }
     case ActionTypes.Added: {
       console.log(state.entities);
       return {
         ...state,
         entities: state.entities.set(action.cmd, [...state.entities.get(action.cmd), action.payload]),
-        loaded: false,
+        loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, '')
       };
     }
@@ -128,7 +142,7 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       return {
         ...state,
         entities: state.entities.set(action.cmd, addToCart(getLocalCart(), action.payload)),
-        loaded: false,
+        loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, '')
       };
     }
@@ -137,7 +151,7 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       return {
         ...state,
         entities: state.entities.set(action.cmd, removeFromLocalCart(getLocalCart(), action.payload)),
-        loaded: false,
+        loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, '')
       };
     }
@@ -146,7 +160,7 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       return {
         ...state,
         entities: state.entities.set(action.cmd, updateFromLocalCart(getLocalCart(), action.payload)),
-        loaded: false,
+        loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, '')
       };
     }
@@ -155,7 +169,15 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       return {
         ...state,
         entities: state.entities.set(action.cmd, addToWishList(getLocalWishList(), action.payload)),
-        loaded: false,
+        loaded: state.loaded.set(action.cmd, false),
+        error: state.error.set(action.cmd, '')
+      };
+    }
+    case ActionTypes.AddDeliveryVisual: {
+      return {
+        ...state,
+        entities: state.entities.set(action.cmd, action.payload),
+        loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, '')
       };
     }
@@ -164,7 +186,7 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       return {
         ...state,
         entities: state.entities.set(action.cmd, removeProductFromWishList(getLocalWishList(), action.payload)),
-        loaded: false,
+        loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, '')
       };
     }
@@ -173,7 +195,7 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       return {
         ...state,
         entities: state.entities.set(action.cmd, updateFromLocalWishList(getLocalWishList(), action.payload)),
-        loaded: false,
+        loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, '')
       };
     }
@@ -181,7 +203,7 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       return {
         ...state,
         entities: state.entities.set(action.cmd, [...state.entities.get(action.cmd).filter(value => value.id !== action.payload)]),
-        loaded: false,
+        loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, '')
       };
     }
@@ -189,7 +211,7 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       return {
         ...state,
         entities: state.entities,
-        loaded: false,
+        loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, action.payload)
       };
     }
