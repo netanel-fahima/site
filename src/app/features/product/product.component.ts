@@ -24,6 +24,7 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
   category = null;
 
   constructor(private store: Store, public data: EntityService, public route: ActivatedRoute, public router: Router) {
+
     this.products$ = this.route.queryParams.pipe(
       switchMap(params => {
         const filters = {

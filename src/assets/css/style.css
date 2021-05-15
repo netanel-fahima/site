@@ -3258,8 +3258,8 @@ body.offside-header-left {
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .header-logo a {
@@ -3267,6 +3267,10 @@ body.offside-header-left {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+}
+
+.header-logo image {
+  max-width: 10rem;
 }
 
 /* Header Language & Currency */
@@ -3537,10 +3541,9 @@ body.offside-header-left {
   position: relative;
 }
 
-.site-main-menu > ul > li > a > .menu-text::after {
+.site-main-menu > ul > li > a > .menu-text::after,
+.site-main-menu > ul > li > a > .menu-text::before {
   position: absolute;
-  bottom: -3px;
-  left: 0;
   width: 100%;
   height: 1px;
   content: "";
@@ -3555,6 +3558,25 @@ body.offside-header-left {
   -ms-transform-origin: 100% 50%;
   transform-origin: 100% 50%;
   background-color: #333333;
+}
+
+.site-main-menu > ul > li > a > .menu-text::after {
+  bottom: -3px;
+  left: 0;
+}
+
+.site-main-menu > ul > li > a > .menu-text::before {
+  top: -2px;
+  left: 0;
+}
+
+.site-main-menu > ul > li:hover > a > .menu-text::after,
+.site-main-menu > ul > li:hover > a > .menu-text::before {
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+  -webkit-transform-origin: 0 50%;
+  -ms-transform-origin: 0 50%;
+  transform-origin: 0 50%;
 }
 
 .site-main-menu > ul > li.has-children > a::before {
@@ -3579,13 +3601,6 @@ body.offside-header-left {
   color: #333333;
 }
 
-.site-main-menu > ul > li:hover > a > .menu-text::after {
-  -webkit-transform: scale3d(1, 1, 1);
-  transform: scale3d(1, 1, 1);
-  -webkit-transform-origin: 0 50%;
-  -ms-transform-origin: 0 50%;
-  transform-origin: 0 50%;
-}
 
 .site-main-menu > ul > li:hover > .sub-menu {
   z-index: 99;
@@ -15442,7 +15457,7 @@ body.offcanvas-open .sticky-header {
 /*----------------------------------------*/
 /* Footer Style One */
 .footer1-section {
-  background-color: #F4EDE7;
+  background-color: rgb(242, 242, 242);
 }
 
 /* Footer Style One Logo */
@@ -16925,5 +16940,27 @@ body.offcanvas-open .sticky-header {
   .product-details {
     flex-direction: column-reverse !important;
     margin-right: 0px;
+  }
+}
+
+.offcanvas-toggle {
+  transition: all 0.2s ease-out 0s;
+  transform: scale(1);
+}
+
+.offcanvas-toggle:hover {
+  transform: scale(1.1) skewY(5deg);
+}
+
+@media only screen and (min-width: 768px) {
+  .f-base {
+    padding: 0 5rem 10rem;
+  }
+}
+
+
+@media only screen and (max-width: 360px) {
+  .f-base {
+    padding: 0 5rem;
   }
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {scrollToTop} from '../../../utils/layoytUtils';
 
 @Component({
   selector: 'smart-page-footer',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageFooterComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
+  scrollToTop(): void {
+    scrollToTop();
+  }
 }

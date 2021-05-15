@@ -13,6 +13,7 @@ import {Observable} from 'rxjs/internal/Observable';
 import {getError, getLoaded} from '../../core/store';
 import {map, switchMap, withLatestFrom} from 'rxjs/operators';
 import * as fromProduct from '../../core/store';
+import {scrollToTop} from '../../shared/utils/layoytUtils';
 
 
 @Component({
@@ -158,12 +159,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
       return;
     }
 
-    const interval = setInterval(() => {
-      window.scrollTo(window.scrollX - 10, window.scrollY - 10);
-      if (!window.scrollX && !window.scrollY) {
-        clearInterval(interval);
-      }
-    }, 1);
+    scrollToTop();
 
   }
 

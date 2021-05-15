@@ -24,12 +24,10 @@ export class ProductDetailsComponent implements OnInit, AfterViewChecked {
   public quantity: any = 1;
 
   constructor(private route: ActivatedRoute, public data: EntityService, private store: Store, private cloudinary: Cloudinary) {
-
   }
 
   ngOnInit(): void {
     this.setImges([]);
-
     this.product = this.route.queryParams.pipe(
       switchMap(params => {
         const p = {

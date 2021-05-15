@@ -1,20 +1,20 @@
 <app-page-title-section></app-page-title-section>
 
 <!-- Single Products Section Start -->
-<ng-container *ngIf="product">
+<ng-container *ngIf="product|async">
   <div class="section section-padding border-bottom">
     <div class="container">
       <div class="row learts-mb-n40 product-details">
 
         <!-- Product Images Start -->
-        <div class="col-lg-6 col-12 learts-mb-40">
+        <div class="col-lg-6 col-12 learts-mb-40 f-base">
           <div class="product-images">
             <button class="product-gallery-popup hintT-left" data-hint="לחץ להגדלה"
                     data-images="">
               <i class="far fa-expand"></i></button>
             <div class="product-gallery-slider">
               <div *ngFor="let image of (product |async).images" class="product-zoom">
-                <img src="{{getImage(image.src,{height: 760, width: 570, crop: 'fill'})}}" alt="{{image.name}}">
+                <img src="{{getImage(image.src,{height: 540, width: 400, crop: 'fill'})}}" alt="{{image.name}}">
               </div>
             </div>
             <div class="product-thumb-slider">
