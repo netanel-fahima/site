@@ -25,6 +25,7 @@
     "@ngrx/schematics": "^8.0.1",
     "@ngrx/store": "^10.0.0",
     "@ngrx/store-devtools": "^8.0.1",
+    "animate.css": "^4.1.1",
     "clone": "latest",
     "cloudinary-core": "^2.11.3",
     "crypto": "^1.0.1",

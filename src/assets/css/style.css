@@ -82,6 +82,16 @@
 /*  01. Template default CSS
 /*----------------------------------------*/
 /* Common Style */
+
+@font-face {
+  font-family: varela;
+  src: url('../fonts/varela/VarelaRound-Regular.ttf');
+}
+@font-face {
+  font-family: dana;
+  src: url('../fonts/varela/DanaYadAlefAlefAlef-Normal.otf');
+}
+
 *,
 *::after,
 *::before {
@@ -96,7 +106,7 @@ body,
 }
 
 body {
-  font-family: "Futura", Arial, Helvetica, sans-serif;
+  font-family: varela;
   font-size: 18px;
   font-weight: 300;
   font-style: normal;
@@ -115,7 +125,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Marcellus", Arial, Helvetica, sans-serif;
+  font-family: varela;
   font-weight: 600;
   line-height: 1.2;
   margin-top: 0;
@@ -216,6 +226,8 @@ hr {
   float: left;
   width: 100%;
 }
+
+
 
 @media only screen and (min-width: 1500px) {
   .section-fluid {
@@ -596,8 +608,8 @@ body.homepage-bg1.offcanvas-open {
 /*----------------------------------------*/
 /* Section Spacing */
 .section-padding {
-  padding-top: 100px;
-  padding-bottom: 100px;
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -3261,7 +3273,10 @@ body.offside-header-left {
   padding-top: 7px;
   padding-bottom: 7px;
 }
-
+.logo-animation{
+  animation: flip;
+  animation-duration: 2s;
+}
 .header-logo a {
   display: -webkit-box;
   display: -webkit-flex;
@@ -3495,7 +3510,7 @@ body.offside-header-left {
 
 /* Site Menu Section */
 .site-menu-section {
-  border-top: 1px dashed #DEDEDE;
+
 }
 
 /* Site Main Menu */
@@ -5118,9 +5133,9 @@ body.offcanvas-open .sticky-header {
 }
 
 .home1-slide1-content .title {
-  font-family: "Modesty";
-  font-size: 80px;
-  font-weight: 300;
+  font-family: dana;
+  font-size: 60px;
+  font-weight: 700;
   line-height: 1;
   margin-bottom: 11px;
   -webkit-transform: translateY(30px);
@@ -16946,10 +16961,13 @@ body.offcanvas-open .sticky-header {
 .offcanvas-toggle {
   transition: all 0.2s ease-out 0s;
   transform: scale(1);
+  animation: zoomInUp ;
+  animation-duration: 2s;
 }
 
 .offcanvas-toggle:hover {
   transform: scale(1.1) skewY(5deg);
+
 }
 
 @media only screen and (min-width: 768px) {

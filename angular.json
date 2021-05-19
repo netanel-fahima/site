@@ -45,6 +45,7 @@
               "src/assets/css/plugins/photoswipe-default-skin.css",
               "src/assets/css/plugins/magnific-popup.css",
               "src/assets/css/plugins/slick.css",
+              "node_modules/animate.css/animate.min.css",
               "src/assets/css/style.css",
               "src/assets/css/custom.css"
             ],
@@ -59,7 +60,6 @@
               "src/assets/js/plugins/swiper.min.js",
               "src/assets/js/plugins/slick.min.js",
               "src/assets/js/plugins/mo.min.js",
-
               "src/assets/js/plugins/jquery.ajaxchimp.min.js",
               "src/assets/js/plugins/jquery.countdown.min.js",
               "src/assets/js/plugins/imagesloaded.pkgd.min.js",
@@ -80,7 +80,6 @@
             ]
           },
           "configurations": {
-
             "production": {
               "fileReplacements": [
                 {
