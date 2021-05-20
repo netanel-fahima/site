@@ -70,11 +70,11 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.products$
       .pipe(delay(100))
       .subscribe(() => {
-        // Init.filterToggle();
-        // Init.isotopeFilter();
+        Init.filterToggle();
+        Init.isotopeFilter();
         Init.isotopeGrid();
-        // Init.columnToggle();
-        // Init.addWishList();
+        Init.columnToggle();
+        Init.addWishList();
         // Init.quickViewModal();
       });
   }

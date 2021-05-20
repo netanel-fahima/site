@@ -1,4 +1,3 @@
-<app-product-title></app-product-title>
 <!-- Shop Products Section Start -->
 
 <div class="section section-padding pt-0">
@@ -26,11 +25,11 @@
                         </li>-->
             <li>
               <div class="product-column-toggle d-none d-xl-flex">
-                <button class="toggle active hintT-top" data-hint="5 Column" data-column="5"><i
+                <button class="toggle active hintT-top" data-hint="קטן" data-column="5"><i
                   class="ti-layout-grid4-alt"></i></button>
-                <button class="toggle hintT-top" data-hint="4 Column" data-column="4"><i
+                <button class="toggle hintT-top" data-hint="בינוני" data-column="4"><i
                   class="ti-layout-grid3-alt"></i></button>
-                <button class="toggle hintT-top" data-hint="3 Column" data-column="3"><i
+                <button class="toggle hintT-top" data-hint="גדול" data-column="3"><i
                   class="ti-layout-grid2-alt"></i></button>
               </div>
             </li>
@@ -72,7 +71,10 @@
         <div class="grid-item col featured" *ngFor="let p of products$ | async">
           <div class="product">
             <div class="product-thumb">
-              <a (click)="router.navigateByUrl('product-details?id='+p.id).then()" class="image" >
+              <span class="product-badges" *ngIf="p.stock_status === 'outofstock' ">
+               <span class="hot">אזל</span>
+               </span>
+              <a (click)="router.navigateByUrl('product-details?id='+p.id).then()" class="image">
                 <cl-image public-id="{{getImage(p)}}" alt="{{p.name}}" class="d-flex">
                   <cl-transformation height="437" width="328" crop="fill">
                   </cl-transformation>
@@ -87,7 +89,10 @@
             </div>
             <div class="product-info">
               <h6 class="title"><a routerLink="product-details?id={{p.id}}">{{p.name}}</a></h6>
-              <span class="price">{{p.price | currency}}</span>
+              <span class="price">
+                <span >{{p.price | currency}}</span>
+                <s class="regular-price" *ngIf="p.sale_price && p.regular_price !== p.sale_price" >{{p.regular_price | currency}}</s>
+              </span>
               <div class="product-buttons">
                 <a href="#quickViewModal" (click)="openDialog(p)" data-toggle="modal" class="product-button hintT-top"
                    data-hint="תצוגה"><i class="fal fa-search"></i></a>

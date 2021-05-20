@@ -76,41 +76,51 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
 
   createOrder(): void {
 
-    const lineItems = getLocalCart().map(item => {
-      return {
-        product_id: item.product.id,
-        quantity: item.quantity,
-        meta_data: item.options
-      };
+    this.data.delivery$.subscribe((delivery: any) => {
+
+      const lineItems = getLocalCart().map(item => {
+        return {
+          product_id: item.product.id,
+          quantity: item.quantity,
+          meta_data: item.options
+        };
+      });
+
+      this.store.dispatch(new productActions.Add(EntityType.Orders, {
+        customer_id: this.user?.id || 0,
+        customer_note: this.f.note.value,
+        billing: {
+          first_name: this.f.firstName.value,
+          last_name: this.f.lastName.value,
+          address_1: this.f.bdAddress1.value,
+          address_2: this.f.bdAddress2.value,
+          city: this.f.city.value,
+          state: 'ISRAEL',
+          postcode: this.f.postal.value,
+          country: '',
+          email: this.f.email.value,
+          phone: this.f.phone.value
+        },
+        shipping: {
+          first_name: this.f.firstName.value,
+          last_name: this.f.lastName.value,
+          address_1: this.f.bdAddress1.value,
+          address_2: this.f.bdAddress2.value,
+          city: this.f.city.value,
+          state: 'ISRAEL',
+          postcode: this.f.postal.value,
+          country: ''
+        },
+        line_items: lineItems,
+        shipping_lines: [{
+          method_id: delivery.id,
+          method_title: delivery.title,
+          total: delivery?.settings?.cost?.value
+        }]
+      }));
+
     });
 
-    this.store.dispatch(new productActions.Add(EntityType.Orders, {
-      customer_id: this.user?.id || 0,
-      customer_note: this.f.note.value,
-      billing: {
-        first_name: this.f.firstName.value,
-        last_name: this.f.lastName.value,
-        address_1: this.f.bdAddress1.value,
-        address_2: this.f.bdAddress2.value,
-        city: this.f.city.value,
-        state: 'ISRAEL',
-        postcode: this.f.postal.value,
-        country: '',
-        email: this.f.email.value,
-        phone: this.f.phone.value
-      },
-      shipping: {
-        first_name: this.f.firstName.value,
-        last_name: this.f.lastName.value,
-        address_1: this.f.bdAddress1.value,
-        address_2: this.f.bdAddress2.value,
-        city: this.f.city.value,
-        state: 'ISRAEL',
-        postcode: this.f.postal.value,
-        country: ''
-      },
-      line_items: lineItems
-    }));
 
     const sub = this.orderLoad$.pipe(
       withLatestFrom(this.orderError$),

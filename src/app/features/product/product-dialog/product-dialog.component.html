@@ -34,11 +34,11 @@
             <div class="product-variations">
               <table>
                 <tbody>
-                <tr *ngFor="let option of []">
-                  <td class="label"><span>{{option.type}}</span></td>
+                <tr *ngFor="let option of (product |async).attributes">
+                  <td class="label"><span>{{option.name}}</span></td>
                   <td class="value">
                     <div class="product-sizes">
-                      <a href="#" *ngFor="let item of option.items"> {{item}} </a>
+                      <a *ngFor="let item of option.options"> {{item}} </a>
                     </div>
                   </td>
                 </tr>

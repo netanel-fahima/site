@@ -5330,7 +5330,7 @@ body.offcanvas-open .sticky-header {
 
 .home1-slide2-content .title {
   font-family: "Modesty";
-  font-size: 80px;
+  font-size: 70px;
   font-weight: 300;
   line-height: 1;
   margin-bottom: 11px;
@@ -5341,7 +5341,7 @@ body.offcanvas-open .sticky-header {
 }
 
 .home1-slide2-content .sub-title {
-  font-size: 56px;
+  font-size: 46px;
   font-weight: 400;
   line-height: 1.1;
   margin-bottom: 25px;
@@ -5380,12 +5380,12 @@ body.offcanvas-open .sticky-header {
   }
 
   .home1-slide2-content .title {
-    font-size: 50px;
+    font-size: 35px;
     margin-bottom: 20px;
   }
 
   .home1-slide2-content .sub-title {
-    font-size: 26px;
+    font-size: 23px;
     margin-bottom: 20px;
   }
 
@@ -5401,11 +5401,11 @@ body.offcanvas-open .sticky-header {
   }
 
   .home1-slide2-content .title {
-    font-size: 46px;
+    font-size: 35px;
   }
 
   .home1-slide2-content .sub-title {
-    font-size: 22px;
+    font-size: 18px;
   }
 }
 
@@ -5420,7 +5420,7 @@ body.offcanvas-open .sticky-header {
   }
 
   .home1-slide2-content .title {
-    font-size: 38px;
+    font-size: 28px;
   }
 
   .home1-slide2-content .sub-title {
@@ -5449,7 +5449,7 @@ body.offcanvas-open .sticky-header {
 
 .home1-slide3-content .title {
   font-family: "Modesty";
-  font-size: 76px;
+  font-size: 50px;
   font-weight: 300;
   line-height: 1;
   margin-bottom: 20px;
@@ -5460,7 +5460,7 @@ body.offcanvas-open .sticky-header {
 }
 
 .home1-slide3-content .sub-title {
-  font-size: 56px;
+  font-size: 40px;
   font-weight: 400;
   line-height: 1.1;
   position: relative;
@@ -5534,12 +5534,12 @@ body.offcanvas-open .sticky-header {
   }
 
   .home1-slide3-content .title {
-    font-size: 70px;
+    font-size: 40px;
     margin-bottom: 20px;
   }
 
   .home1-slide3-content .sub-title {
-    font-size: 36px;
+    font-size: 26px;
     margin-bottom: 25px;
   }
 
@@ -5554,11 +5554,11 @@ body.offcanvas-open .sticky-header {
   }
 
   .home1-slide3-content .title {
-    font-size: 54px;
+    font-size: 35px;
   }
 
   .home1-slide3-content .sub-title {
-    font-size: 30px;
+    font-size: 20px;
     margin-bottom: 20px;
     padding: 0 50px;
   }
@@ -5571,11 +5571,11 @@ body.offcanvas-open .sticky-header {
 
 @media only screen and (max-width: 479px) {
   .home1-slide3-content .title {
-    font-size: 40px;
+    font-size: 30px;
   }
 
   .home1-slide3-content .sub-title {
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 15px;
   }
 

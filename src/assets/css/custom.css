@@ -1,21 +1,26 @@
-font-family: varela;
+a {
+  font-family: varela;
 }
-.site-menu-section{
+
+.site-menu-section {
   background-color: rgb(255 185 229);
 }
 
 .form-check-input {
-  margin-left: 0!important;
+  margin-left: 0 !important;
 }
 
-input[type="email"]{
+input[type="email"] {
   text-align: left;
 }
 
 
-input{
+input {
   text-align: right;
 }
 
 
-
+.regular-price {
+  margin: 0 5px;
+  color: #9f9f9f;
+}
