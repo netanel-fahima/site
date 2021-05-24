@@ -12,7 +12,8 @@ import {ProductDialogComponent} from './product/product-dialog/product-dialog.co
 import {LayoutModule} from '../shared/layout/arts/layout.module';
 import {CloudinaryModule} from '@cloudinary/angular-5.x';
 import {FormsModule} from '@angular/forms';
-import { HighLightDirective } from './product/product-details/high-light.directive';
+import {HighLightDirective} from './product/product-details/high-light.directive';
+import {EntityService} from '../core/store/entity.service';
 
 
 @NgModule({

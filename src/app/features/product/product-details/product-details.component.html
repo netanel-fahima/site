@@ -1,5 +1,5 @@
 <!-- Single Products Section Start -->
-<ng-container *ngIf="product|async">
+<ng-container *ngIf="product.product|async">
   <div class="section section-padding border-bottom">
     <div class="container">
       <div class="row learts-mb-n40 product-details">
@@ -10,13 +10,13 @@
                     data-images="">
               <i class="far fa-expand"></i></button>
             <div class="product-gallery-slider">
-              <div *ngFor="let image of getImages((product |async))" class="product-zoom">
-                <img src="{{getImage(image.src,{height: 540, width: 400, crop: 'fill'})}}" alt="{{image.name}}">
+              <div *ngFor="let image of product.getImages((product.product |async))" class="product-zoom">
+                <img src="{{product.getImage(image.name,{height: 540, width: 400, crop: 'fill'})}}" alt="{{image.name}}">
               </div>
             </div>
               <div class="product-thumb-slider">
-                <div class="item" *ngFor="let image of getImagesLength((product |async))">
-                  <img src="{{getImage(image.src,{height: 150, width: 120, crop: 'fill'})}}" alt="{{image.name}}">
+                <div class="item" *ngFor="let image of product.getImagesLength((product.product |async))">
+                  <img src="{{product.getImage(image.name,{height: 150, width: 120, crop: 'fill'})}}" alt="{{image.name}}">
                 </div>
               </div>
           </div>
@@ -30,34 +30,34 @@
                                 <span class="rating-active" style="width: 100%;">דירוג</span>
                             </span>
               <a href="#reviews" class="review-link">
-                <span class="count" *ngIf="(product |async)?.reviews">{{(product |async).categories.length}}</span>
+                <span class="count" *ngIf="(product.product |async)?.reviews">{{(product.product |async).categories.length}}</span>
                 תגובות</a>
             </div>
-            <h3 class="product-title">{{(product |async).name}}</h3>
-            <div class="product-price">{{(product |async).price | currency}}</div>
+            <h3 class="product-title">{{(product.product |async).name}}</h3>
+            <div class="product-price">{{(product.product |async).price | currency}}</div>
             <div class="product-description">
-              <p>{{(product |async).name}}</p>
+              <p>{{(product.product |async).name}}</p>
             </div>
             <div class="product-variations">
               <table>
                 <tbody>
-                <tr *ngFor="let attribute of (mainProduct |async).attributes">
+                <tr *ngFor="let attribute of (product.mainProduct |async).attributes">
                   <td class="label"><span>{{attribute.name}}</span></td>
                   <td class="value">
                     <div class="product-sizes " appHighLight
                          defaultColor="lightpink">
                       <a *ngFor="let option of attribute.options"
-                         (click)="setOption(attribute.name,option)"> {{option}} </a>
+                         (click)="product.setOption(attribute.name,option)"> {{option}} </a>
                     </div>
                   </td>
                 </tr>
-                <tr *ngIf="withQuntity((product|async))">
+                <tr *ngIf="product.withQuntity((product.product|async))">
                   <td class="label"><span>כמות</span></td>
                   <td class="value">
                     <div class="product-quantity">
-                      <span class="qty-btn plus" (click)="quantity=quantity+1;"><i class="ti-plus"></i></span>
-                      <input type="text" class="input-qty" [(ngModel)]="quantity">
-                      <span class="qty-btn minus" (click)="quantity > 0 ? quantity=quantity-1 : null"><i
+                      <span class="qty-btn plus" (click)="product.quantity=product.quantity+1;"><i class="ti-plus"></i></span>
+                      <input type="text" class="input-qty" [(ngModel)]="product.quantity">
+                      <span class="qty-btn minus" (click)="product.quantity > 0 ? product.quantity=product.quantity-1 : null"><i
                         class="ti-minus"></i></span>
                     </div>
                   </td>
@@ -66,10 +66,10 @@
               </table>
             </div>
             <div class="product-buttons">
-              <a (click)="addToWithList()"
+              <a (click)="product.addToWithList()"
                  class="btn btn-icon btn-outline-body btn-hover-dark hintT-top" data-hint="Add to Wishlist"><i
                 class="fal fa-heart"></i></a>
-              <a (click)="addToCart($event)" href="#" class="btn btn-dark btn-outline-hover-dark"><i
+              <a (click)="product.addToCart($event)" href="#" class="btn btn-dark btn-outline-hover-dark"><i
                 class="fal fa-shopping-cart"></i> הוסיפי לעגלה</a>
             </div>
             <div class="product-meta">
@@ -77,13 +77,13 @@
                 <tbody>
                 <tr>
                   <td class="label"><span>מק"ט</span></td>
-                  <td class="value">{{(product |async).sku}}</td>
+                  <td class="value">{{(product.product |async).sku}}</td>
                 </tr>
                 <tr>
                   <td class="label"><span>קטגוריה</span></td>
                   <td class="value">
                     <ul class="product-category">
-                      <li *ngFor="let category of (product |async).categories"><a href="#">{{category.title}}</a></li>
+                      <li *ngFor="let category of (product.product |async).categories"><a href="#">{{category.title}}</a></li>
                     </ul>
                   </td>
                 </tr>
@@ -91,7 +91,7 @@
                   <td class="label"><span>תגית</span></td>
                   <td class="value">
                     <ul class="product-tags">
-                      <li *ngFor="let tag of (product |async).tags"><a href="#">{{tag.name}}</a></li>
+                      <li *ngFor="let tag of (product.product |async).tags"><a href="#">{{tag.name}}</a></li>
                     </ul>
                   </td>
                 </tr>
@@ -189,14 +189,14 @@
       <div class="container">
 
         <ul class="nav product-info-tab-list">
-          <li><a data-toggle="tab" href="#tab-reviews"> תגובות {{(product |async)?.reviews?.length}}   </a></li>
+          <li><a data-toggle="tab" href="#tab-reviews"> תגובות {{(product.product |async)?.reviews?.length}}   </a></li>
           <li><a data-toggle="tab" href="#tab-additional_information">מפרט</a></li>
           <li><a class="active" data-toggle="tab" href="#tab-description">תאור מוצר</a></li>
         </ul>
         <div class="tab-content product-infor-tab-content">
           <div class="tab-pane fade show active" id="tab-description">
             <div class="row">
-              <div class="col-lg-10 col-12 mx-auto" [innerHTML]="(product |async).description">
+              <div class="col-lg-10 col-12 mx-auto" [innerHTML]="(product.product |async).description">
 
               </div>
             </div>
@@ -207,7 +207,7 @@
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <tbody>
-                    <tr *ngFor="let option of (mainProduct |async).attributes">
+                    <tr *ngFor="let option of (product.mainProduct |async).attributes">
                       <td class="label"><span>{{option.name}}</span></td>
                       <td class="value">
                         <div class="product-sizes">
@@ -223,9 +223,9 @@
           </div>
           <div class="tab-pane fade" id="tab-reviews">
             <div class="product-review-wrapper">
-              <span class="title"> תגובות {{(product |async)?.reviews?.length}}</span>
+              <span class="title"> תגובות {{(product.product |async)?.reviews?.length}}</span>
               <ul class="product-review-list">
-                <li *ngFor="let option of (product |async)?.reviews||[]">
+                <li *ngFor="let option of (product.product |async)?.reviews||[]">
                   <div class="product-review">
                     <div class="thumb"><img src="assets/images/review/review-1.jpeg" alt=""></div>
                     <div class="content">
@@ -272,6 +272,6 @@
 
       </div>
     </div>
-    {{loads(product |async)}}
+    {{loads(product.product |async)}}
   </div>
 </ng-container>

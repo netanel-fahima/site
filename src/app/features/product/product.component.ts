@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {Init} from '../../../assets/js/init';
 import {ProductDialogComponent} from './product-dialog/product-dialog.component';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
@@ -10,6 +10,7 @@ import {delay, filter, map, switchMap, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs/internal/Observable';
 import {getImageName} from './utils/productUtil';
 import {of} from 'rxjs/internal/observable/of';
+import {ProductDetails} from './product-details.service';
 
 @Component({
   selector: 'app-product',
@@ -20,11 +21,12 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   @ViewChild('dialog', {static: true}) dialog: ProductDialogComponent;
 
+
   public products$: Observable<any>;
   category = null;
 
-  constructor(private store: Store, public data: EntityService, public route: ActivatedRoute, public router: Router) {
-
+  constructor(private store: Store, public data: EntityService, public route: ActivatedRoute, public router: Router,
+              private detail: ProductDetails) {
     this.products$ = this.route.queryParams.pipe(
       switchMap(params => {
         const filters = {
@@ -75,7 +77,7 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
         Init.isotopeGrid();
         Init.columnToggle();
         Init.addWishList();
-        // Init.quickViewModal();
+        Init.quickViewModal(this.detail.emitter);
       });
   }
 
@@ -92,8 +94,7 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
 
 
   openDialog(product: any): void {
-    this.dialog.product = of(product);
-    this.dialog.open();
+    this.dialog.open(of(product));
   }
 
   ngOnDestroy(): void {

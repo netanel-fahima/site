@@ -1,3 +1,5 @@
+import {EventEmitter} from '@angular/core';
+
 declare function Swiper(): any;
 
 declare function PerfectScrollbar(): any;
@@ -427,11 +429,12 @@ export class Init {
   }
 
 
-  static quickViewModal(): void {
+  static quickViewModal(emitter: EventEmitter<any>): void {
     $('#quickViewModal').on('shown.bs.modal', e => {
       // this.silckDialog();
     }).on('hidden.bs.modal', e => {
       $('.qty-btn').unbind().off();
+      emitter.emit('closeModel');
     });
   }
 
@@ -446,7 +449,6 @@ export class Init {
       prevArrow: '<button class="slick-prev"><i class="ti-angle-left"></i></button>',
       nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>'
     });
-
   }
 
 }
