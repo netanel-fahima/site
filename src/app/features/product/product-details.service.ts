@@ -61,7 +61,8 @@ export class ProductDetails implements OnDestroy {
     this.product = this.data.productsVariations$.pipe(
       withLatestFrom(this.mainProduct),
       switchMap(([variations, product]) => {
-        const variation = variations.find(v => !!this.options.find(o => o.value === v.attributes?.[0].option));
+        const variation = variations.sort((v1, v2) => v1.price > v2.price ? -1 : 1).find(
+          v => !!this.options.find(o => o.value === v.attributes?.[0].option));
         if (variation) {
           return of({...product, ...variation});
         }
@@ -72,10 +73,10 @@ export class ProductDetails implements OnDestroy {
 
   addToCart($event: MouseEvent): void {
     $event.preventDefault();
-    this.mainProduct
-      .pipe(withLatestFrom(this.data.productsVariations$))
-      .subscribe(([product, variations]) => {
-        const attributes = [...product.attributes];
+    this.product
+      .pipe(withLatestFrom(this.mainProduct))
+      .subscribe(([product, mainProduct]) => {
+        const attributes = [...mainProduct.attributes];
         if (attributes.length !== this.options?.length) {
           alert(` נא לבחור  ${attributes.map(a => a.name).join(' ,')}`);
           return;
