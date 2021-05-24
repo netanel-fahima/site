@@ -15,7 +15,7 @@
             <input type="text" placeholder=" .... חפשי מוצר " [(ngModel)]="name" name="name">
 
           </label></div>
-          <div class="section learts-mt-40" style="overflow: auto">
+          <div class="section learts-mt-40">
             <div class="container">
               <!-- Products Start -->
               <div id="shop-products"
@@ -26,16 +26,26 @@
                 <div class="grid-item col featured" *ngFor="let p of (data.products$ | async | productFilter : name ) ">
                   <div class="product">
                     <div class="product-thumb">
+              <span class="product-badges" *ngIf="p.stock_status === 'outofstock' ">
+               <span class="hot">אזל</span>
+               </span>
                       <a (click)="router.navigateByUrl('product-details?id='+p.id).then()" class="image">
-                        <img src="{{getImage(p.id)}}" alt="Product Image">
-                        <img class="image-hover " src="{{getImage(p.id)}}" alt="Product Image">
+                        <cl-image public-id="{{getImage(p)}}" alt="{{p.name}}" class="d-flex">
+                          <cl-transformation height="437" width="328" crop="fill">
+                          </cl-transformation>
+                        </cl-image>
+                        <cl-image class="image-hover " public-id="{{getImage(p)}}" alt="{{p.name}}">
+                          <cl-transformation height="437" width="328" crop="fill">
+                          </cl-transformation>
+                        </cl-image>
                       </a>
+
                     </div>
                     <div class="product-info">
                       <h6 class="title"><a routerLink="product-details?id={{p.id}}">{{p.name}}</a></h6>
-                      <span class="price">{{p.price | currency}}</span>
                     </div>
                   </div>
+
                 </div>
 
 

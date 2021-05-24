@@ -34,11 +34,13 @@
             <div class="product-variations">
               <table>
                 <tbody>
-                <tr *ngFor="let option of (product |async).attributes">
-                  <td class="label"><span>{{option.name}}</span></td>
+                <tr *ngFor="let attribute of (product |async).attributes">
+                  <td class="label"><span>{{attribute.name}}</span></td>
                   <td class="value">
-                    <div class="product-sizes">
-                      <a *ngFor="let item of option.options"> {{item}} </a>
+                    <div class="product-sizes " appHighLight
+                         defaultColor="lightpink">
+                      <a *ngFor="let option of attribute.options"
+                         (click)="setOption(attribute.name,option)"> {{option}} </a>
                     </div>
                   </td>
                 </tr>
@@ -46,9 +48,10 @@
                   <td class="label"><span>כמות</span></td>
                   <td class="value">
                     <div class="product-quantity">
-                      <span class="qty-btn plus"><i class="ti-plus"></i></span>
-                      <input type="text" class="input-qty" value="1">
-                      <span class="qty-btn minus"><i class="ti-minus"></i></span>
+                      <span class="qty-btn plus" (click)="quantity=quantity+1;"><i class="ti-plus"></i></span>
+                      <input type="text" class="input-qty" [(ngModel)]="quantity">
+                      <span class="qty-btn minus" (click)="quantity > 0 ? quantity=quantity-1 : null"><i
+                        class="ti-minus"></i></span>
                     </div>
                   </td>
                 </tr>
@@ -56,9 +59,9 @@
               </table>
             </div>
             <div class="product-buttons">
-              <a (click)="addToWithList()" class="btn btn-icon btn-outline-body btn-hover-dark"><i
+              <a  data-dismiss="modal" (click)="addToWithList()" class="btn btn-icon btn-outline-body btn-hover-dark"><i
                 class="fal fa-heart"></i></a>
-              <a routerLink="shopping-cart" (click)="addToCart()"
+              <a routerLink="shopping-cart" data-dismiss="modal" (click)="addToCart($event)"
                  class="btn btn-dark btn-outline-hover-dark"><i class="fal fa-shopping-cart"></i> הוסיפי לעגלה</a>
               <!--          <a href="#" class="btn btn-icon btn-outline-body btn-hover-dark"><i class="fal fa-random"></i></a>-->
             </div>

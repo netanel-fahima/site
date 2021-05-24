@@ -3,6 +3,7 @@ import {Init} from '../../../../../assets/js/init';
 import {Router} from '@angular/router';
 import {EntityService} from '../../../../core/store/entity.service';
 import {ImageServiceService} from '../../../../core/utils/image-service.service';
+import {getImageName} from '../../../../features/product/utils/productUtil';
 
 @Component({
   selector: 'app-offcanvas-search',
@@ -23,7 +24,9 @@ export class OffcanvasSearchComponent implements OnInit, AfterViewChecked {
     Init.select2();
   }
 
-  getImage(id: any) {
-    return 'assets/images/product/s328/product-17.jpg';
+  getImage(product: any): string {
+    const src = product.images?.[0]?.src ? getImageName(product.images?.[0].src) : 'sample';
+    console.log(src);
+    return src;
   }
 }

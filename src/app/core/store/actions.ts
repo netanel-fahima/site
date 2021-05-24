@@ -6,6 +6,7 @@ export enum ActionTypes {
   LoadSuccess = '[Product] Load Success',
   LoadFail = '[Product] Load Fail',
   Add = '[Product] Add',
+  Read = '[Product] Read',
   Added = '[Product] Added',
   Remove = '[Product] Remove',
   Update = '[Product] Update',
@@ -17,12 +18,14 @@ export enum ActionTypes {
   RemoveVisualWishList = '[WishList] Remove Visual',
   UpdateVisualWishList = '[WishList] Update Visual',
   AddDeliveryVisual = '[Delivery] Add Visual Delivery',
+
 }
 
 export enum EntityType {
   OrdersNote = 'orders',
   Orders = 'orders',
   Products = 'products',
+  ProductsVariations = 'products/<id>/variations',
   Carts = 'carts',
   WishList = 'wishList',
   Customers = 'customers',
@@ -140,6 +143,15 @@ export class Load extends EntityAction {
   }
 }
 
+
+export class Read extends EntityAction {
+  readonly type = ActionTypes.Read;
+
+  constructor(public cmd: string, public payload: object) {
+    super(cmd);
+  }
+}
+
 export class LoadSuccess extends EntityAction {
   readonly type = ActionTypes.LoadSuccess;
 
@@ -171,7 +183,8 @@ export type ProductActions = Load
   | AddVisualWishList
   | AddDeliveryVisual
   | RemoveVisualWishList
-  | UpdateVisualWishList;
-;
+  | UpdateVisualWishList
+  | Read
+  ;
 
 

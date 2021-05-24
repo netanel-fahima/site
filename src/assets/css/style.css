@@ -13484,7 +13484,7 @@ body.offcanvas-open .sticky-header {
 
 /* 09.04. Quick View CSS */
 .quickViewModal .modal-dialog {
-  width: calc(100% - 30px);
+  width: calc(100% - 18px);
   max-width: 1200px;
 }
 

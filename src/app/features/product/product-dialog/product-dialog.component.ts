@@ -19,6 +19,8 @@ export class ProductDialogComponent implements OnInit, AfterViewChecked, OnDestr
 
 
   @Input() product: Observable<any>;
+  private options: any = [];
+  public quantity: any = 1;
 
   constructor(private store: Store, private cloudinary: Cloudinary, private data: EntityService) {
   }
@@ -74,9 +76,25 @@ export class ProductDialogComponent implements OnInit, AfterViewChecked, OnDestr
   ngOnDestroy(): void {
   }
 
-  addToCart(): void {
+  addToCart($event: MouseEvent): void {
+    $event.preventDefault();
     this.product.subscribe(product => {
-      this.data.addToCart(product);
+      if (product.attributes.length && !this.options.length) {
+        alert(` נא לבחור  ${product.attributes.map(a => a.name).join(' ,')}`);
+        return;
+      }
+      this.store.dispatch(new productActions.AddVisual(EntityType.Carts, {
+        product,
+        quantity: this.quantity,
+        options: this.options
+      }));
+
+      Init.offcanvasOpen();
     });
+  }
+
+  setOption(name: string, option: any): void {
+    this.options = this.options.filter(o => o.key !== name);
+    this.options.push({key: name, value: option});
   }
 }

@@ -22,6 +22,7 @@ export class EntityService {
   public categories$: Observable<any[]>;
   public orders$: Observable<any[]>;
   public delivery$: Observable<any[]>;
+  productsVariations$: Observable<any>;
 
   constructor(private store: Store) {
     this.store.dispatch(new productActions.Load(EntityType.Customers));
@@ -29,15 +30,17 @@ export class EntityService {
     this.store.dispatch(new productActions.Load(EntityType.Products));
     this.categories$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Categories}));
     this.products$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Products}));
+    this.productsVariations$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.ProductsVariations}));
     this.cart$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Carts}));
     this.wishlist$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.WishList}));
     this.orders$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Orders}));
     this.users$ = this.store.select(getUser);
     this.error$ = this.store.pipe(select(fromProduct.getError));
     this.delivery$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Delivery}));
+    this.store.dispatch(new productActions.AddDeliveryVisual(EntityType.Delivery, null));
   }
 
-  public totalCart(): Observable<any> {
+  public totalCart(withDelivery: boolean = false): Observable<any> {
     return this.cart$.pipe(
       withLatestFrom(this.delivery$),
       switchMap(([cart, delivery]) => {
@@ -45,8 +48,11 @@ export class EntityService {
           return previousValue += Number(currentValue.product.price) * currentValue.quantity;
         }, 0);
         console.log('total', total);
-        // @ts-ignore
-        return of(total + (+delivery?.settings?.cost?.value || 0));
+        if (withDelivery) {
+          // @ts-ignore
+          return of(total + (+delivery?.settings?.cost?.value || 0));
+        }
+        return of(total);
       }));
   }
 

@@ -24,3 +24,23 @@ input {
   margin: 0 5px;
   color: #9f9f9f;
 }
+
+@media only screen and (max-width: 480px) {
+  .product-thumb .add-to-wishlist {
+    top: 0;
+  }
+
+  .product-badges {
+    left: 0 !important;
+  }
+
+  .quickViewModal .modal-dialog .modal-content .close {
+    top: -10px;
+    right: -10px;
+  }
+
+  .c-revert{
+    flex-direction: column-reverse;
+  }
+
+}

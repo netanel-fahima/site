@@ -1,10 +1,8 @@
-
 <!-- Single Products Section Start -->
 <ng-container *ngIf="product|async">
   <div class="section section-padding border-bottom">
     <div class="container">
       <div class="row learts-mb-n40 product-details">
-
         <!-- Product Images Start -->
         <div class="col-lg-6 col-12 learts-mb-40 f-base">
           <div class="product-images">
@@ -12,15 +10,15 @@
                     data-images="">
               <i class="far fa-expand"></i></button>
             <div class="product-gallery-slider">
-              <div *ngFor="let image of (product |async).images" class="product-zoom">
+              <div *ngFor="let image of getImages((product |async))" class="product-zoom">
                 <img src="{{getImage(image.src,{height: 540, width: 400, crop: 'fill'})}}" alt="{{image.name}}">
               </div>
             </div>
-            <div class="product-thumb-slider">
-              <div class="item" *ngFor="let image of (product |async).images">
-                <img src="{{getImage(image.src,{height: 150, width: 120, crop: 'fill'})}}" alt="{{image.name}}">
+              <div class="product-thumb-slider">
+                <div class="item" *ngFor="let image of getImagesLength((product |async))">
+                  <img src="{{getImage(image.src,{height: 150, width: 120, crop: 'fill'})}}" alt="{{image.name}}">
+                </div>
               </div>
-            </div>
           </div>
         </div>
         <!-- Product Images End -->
@@ -43,7 +41,7 @@
             <div class="product-variations">
               <table>
                 <tbody>
-                <tr *ngFor="let attribute of (product |async).attributes">
+                <tr *ngFor="let attribute of (mainProduct |async).attributes">
                   <td class="label"><span>{{attribute.name}}</span></td>
                   <td class="value">
                     <div class="product-sizes " appHighLight
@@ -53,7 +51,7 @@
                     </div>
                   </td>
                 </tr>
-                <tr>
+                <tr *ngIf="withQuntity((product|async))">
                   <td class="label"><span>כמות</span></td>
                   <td class="value">
                     <div class="product-quantity">
@@ -209,7 +207,7 @@
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <tbody>
-                    <tr *ngFor="let option of (product |async).attributes">
+                    <tr *ngFor="let option of (mainProduct |async).attributes">
                       <td class="label"><span>{{option.name}}</span></td>
                       <td class="value">
                         <div class="product-sizes">

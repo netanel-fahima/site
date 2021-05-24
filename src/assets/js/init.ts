@@ -227,7 +227,7 @@ export class Init {
 
 
   static isotopeGrid(): void {
-    const $isotopeGrid = $('.isotope-grid');
+    const $isotopeGrid = $('.isotope-grid').off();
     $isotopeGrid.imagesLoaded((e) => {
       $isotopeGrid.isotope({
         itemSelector: '.grid-item',
@@ -236,7 +236,7 @@ export class Init {
         }
       });
     });
-    $('.isotope-grid .product').matchHeight();
+    $('.isotope-grid .product').off().matchHeight();
   }
 
   static isotopeFilter() {

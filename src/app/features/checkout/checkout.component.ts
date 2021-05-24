@@ -113,7 +113,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
         },
         line_items: lineItems,
         shipping_lines: [{
-          method_id: delivery.id,
+          method_id: delivery.instance_id,
           method_title: delivery.title,
           total: delivery?.settings?.cost?.value
         }]

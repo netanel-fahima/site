@@ -34,6 +34,20 @@ export class ProductEffect {
   );
 
   @Effect()
+  readProduct$: Observable<Action> = this.action$.pipe(
+    ofType(actions.ActionTypes.Read),
+    mergeMap(({cmd, payload}) => {
+      // @ts-ignore
+      return this.service.getEntity(cmd.replace('<id>', payload.id)).pipe(
+        map((products) => {
+          return new actions.LoadSuccess(cmd, products);
+        }),
+        catchError(err => of(new actions.LoadFail(cmd, err)))
+      );
+    })
+  );
+
+  @Effect()
   addProduct$: Observable<any> = this.action$.pipe(
     ofType(actions.ActionTypes.Add),
     mergeMap(({payload, cmd}) => {

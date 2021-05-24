@@ -19,6 +19,7 @@ import {PageTitleSectionComponent} from './page-title-section/page-title-section
 import {ProductPipe} from '../../../core/pipe/product.pipe';
 import {FormsModule} from '@angular/forms';
 import { HeaderNavComponent } from './header-nav/header-nav.component';
+import {CloudinaryModule} from '@cloudinary/angular-5.x';
 
 @NgModule({
   declarations:
@@ -42,7 +43,8 @@ import { HeaderNavComponent } from './header-nav/header-nav.component';
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    CloudinaryModule
   ],
   exports: [MainComponent, SectionPaddingComponent, PageFooterComponent, PageTitleSectionComponent, ProductPipe],
   entryComponents: []

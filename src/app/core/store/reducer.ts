@@ -100,12 +100,14 @@ const initialState: EntityState = {
     .set(EntityType.WishList, getLocalWishList())
     .set(EntityType.Customers, [])
     .set(EntityType.Orders, [])
-    .set(EntityType.Delivery, null),
+    .set(EntityType.Delivery, null)
+    .set(EntityType.ProductsVariations, null),
   loaded: new Map<string, boolean>()
     .set(EntityType.Carts, false)
     .set(EntityType.WishList, false)
     .set(EntityType.Customers, false)
-    .set(EntityType.Orders, false),
+    .set(EntityType.Orders, false)
+    .set(EntityType.ProductsVariations, false),
   error: new Map<string, any>()
 };
 

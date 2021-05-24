@@ -7,6 +7,9 @@
     </div>
     <div class="body customScroll">
       <ul class="minicart-product-list" style="overflow-y: hidden">
+        <li *ngIf="!(data.cart$ |async).length">
+          <span class="m-auto"> !העגלה ריקה , פנקי את עצמך </span>
+        </li>
         <li *ngFor="let c of data.cart$ |async ">
           <a (click)="closeCart()" routerLink="product-details" [queryParams]="{id:c.product.id}" class="image">
             <img [src]="getImages(c.product)" alt="{{c.product.name}} תמונה ">

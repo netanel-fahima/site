@@ -22,6 +22,7 @@
           <h2 class="title">פרטי תשלום</h2>
         </div>-->
     <section class="d-flex flex-row-reverse flex-wrap learts-mb-30">
+      <div class="text-right text-info mb-4 w-100"><p>פרטי משלוח ותשלום</p></div>
       <form action="#" class="anyflexbox" [formGroup]="form" (ngSubmit)="onSubmit($event)">
         <div class="row form-group">
           <div class="col-md-6 col-12 learts-mb-20 form-group">
@@ -172,7 +173,7 @@
               </tr>
               <tr class="total">
 
-                <td><strong><span>{{data.totalCart() |async | currency}}</span></strong></td>
+                <td><strong><span>{{data.totalCart(true) |async | currency}}</span></strong></td>
                 <th>סה"כ</th>
               </tr>
               </tfoot>
