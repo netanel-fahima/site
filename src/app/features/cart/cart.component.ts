@@ -43,7 +43,7 @@ export class CartComponent implements OnInit, AfterViewChecked {
 
 
   removeCart(cart: any) {
-    this.store.dispatch(new productActions.RemoveVisualCart(EntityType.Carts, cart.product.parentId));
+    this.store.dispatch(new productActions.RemoveVisualCart(EntityType.Carts, cart.product.id));
   }
 
   getImage(imgs: any): string {

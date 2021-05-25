@@ -22,6 +22,20 @@ import {scrollToTop} from '../../shared/utils/layoytUtils';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit, AfterViewChecked {
+
+  constructor(public data: EntityService, public store: Store, private formBuilder: FormBuilder) {
+    this.store.dispatch(new actions.Load(getLocalUser()));
+    this.autError$ = this.store.select(getErr);
+    this.orderError$ = this.store.select(getError, {cmd: EntityType.Orders});
+    this.orderLoad$ = this.store.select(getLoaded, {cmd: EntityType.Orders});
+    this.store.dispatch(new productActions.Load(EntityType.ShippingMethods));
+    this.shippingMethods$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.ShippingMethods}));
+  }
+
+  get f(): { [p: string]: AbstractControl } {
+    return this.form.controls;
+  }
+
   public submitted: boolean;
   @Input() createUser: any;
   form: FormGroup;
@@ -34,17 +48,14 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
   public payMethod: string;
   public shippingMethods$: Observable<any[]>;
 
+  public coupons = [];
+
+  // convenience getter for easy access to form fields
+  // tslint:disable-next-line:typedef
+  public couponModel = '';
+
   ngAfterViewChecked(): void {
     Init.select2();
-  }
-
-  constructor(public data: EntityService, public store: Store, private formBuilder: FormBuilder) {
-    this.store.dispatch(new actions.Load(getLocalUser()));
-    this.autError$ = this.store.select(getErr);
-    this.orderError$ = this.store.select(getError, {cmd: EntityType.Orders});
-    this.orderLoad$ = this.store.select(getLoaded, {cmd: EntityType.Orders});
-    this.store.dispatch(new productActions.Load(EntityType.ShippingMethods));
-    this.shippingMethods$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.ShippingMethods}));
   }
 
   ngOnInit(): void {
@@ -67,16 +78,9 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  // convenience getter for easy access to form fields
-  // tslint:disable-next-line:typedef
-
-  get f(): { [p: string]: AbstractControl } {
-    return this.form.controls;
-  }
-
   createOrder(): void {
 
-    this.data.delivery$.subscribe((delivery: any) => {
+    const subOrder = this.data.delivery$.subscribe((delivery: any) => {
 
       const lineItems = getLocalCart().map(item => {
         return {
@@ -85,7 +89,6 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
           meta_data: item.options
         };
       });
-
       this.store.dispatch(new productActions.Add(EntityType.Orders, {
         customer_id: this.user?.id || 0,
         customer_note: this.f.note.value,
@@ -112,13 +115,14 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
           country: ''
         },
         line_items: lineItems,
+        coupon_lines: this.coupons,
         shipping_lines: [{
           method_id: delivery.instance_id,
           method_title: delivery.title,
           total: delivery?.settings?.cost?.value
         }]
       }));
-
+      subOrder.unsubscribe();
     });
 
 
@@ -177,6 +181,12 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
     this.shippingMethods$.subscribe(shippingMethods => {
       const sm = shippingMethods.find(m => m.id === +$event);
       this.store.dispatch(new productActions.AddDeliveryVisual(EntityType.Delivery, sm));
+    });
+  }
+
+  addCoupon(): void {
+    this.coupons.push({
+      code: this.couponModel
     });
   }
 }
