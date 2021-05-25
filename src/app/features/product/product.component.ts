@@ -88,7 +88,12 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   addToCart(product: any): void {
-    this.store.dispatch(new productActions.AddVisual(EntityType.Carts, {product, quantity: 1}));
+    if (!!product.attributes.length) {
+      alert('כנסי למוצר ובחרי מאפייני מוצר');
+      return;
+    }
+
+    this.store.dispatch(new productActions.AddVisual(EntityType.Carts, {product: {...product, parentId: product.id}, quantity: 1}));
     Init.offcanvasOpen();
   }
 

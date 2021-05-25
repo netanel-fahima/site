@@ -27,7 +27,7 @@ export class OffcanvasCartComponent implements OnInit, AfterViewInit {
   }
 
   removeCart(cart): void {
-    this.store.dispatch(new productActions.RemoveVisualCart(EntityType.Carts, cart.product.id));
+    this.store.dispatch(new productActions.RemoveVisualCart(EntityType.Carts, cart.product.parentId));
   }
 
 

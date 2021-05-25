@@ -1,15 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Init} from '../../../../assets/js/init';
 import {ActivatedRoute} from '@angular/router';
-import {EntityService} from '../../../core/store/entity.service';
-import {filter, switchMap, withLatestFrom} from 'rxjs/operators';
-import {getImageName} from '../utils/productUtil';
-import * as productActions from '../../../core/store/actions';
-import {EntityType} from '../../../core/store/actions';
-import {Store} from '@ngrx/store';
-import {Cloudinary} from '@cloudinary/angular-5.x';
+import {filter, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
-import {Observable} from 'rxjs/internal/Observable';
 import {ProductDetails} from '../product-details.service';
 
 @Component({
@@ -56,7 +49,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       return {src: this.product.getImage(img.name, {height: 1100, width: 700, crop: 'fill'})};
     }));
     if (this.product.getImages(product).length > 1) {
-      Init.productGallerySlider();
+        Init.productGallerySlider();
     }
   }
 
@@ -68,7 +61,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.product.ngOnDestroy();
   }
 
 

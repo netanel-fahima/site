@@ -23,7 +23,7 @@ export class ProductDetails implements OnDestroy {
 
   constructor(public data: EntityService, public store: Store, private cloudinary: Cloudinary) {
     this.emitter.subscribe(_ => {
-      this.product = this.mainProduct = null;
+
     });
   }
 
@@ -53,16 +53,25 @@ export class ProductDetails implements OnDestroy {
     });
   }
 
-  setOption(name: string, option: any): void {
+  setOption(attribute: any, option: any): void {
 
-    this.options = this.options.filter(o => o.key !== name);
-    this.options.push({key: name, value: option});
+    this.options = this.options.filter(o => o.key !== attribute.name);
+    this.options.push({key: attribute.name, value: option, variation: attribute.variation});
 
     this.product = this.data.productsVariations$.pipe(
       withLatestFrom(this.mainProduct),
       switchMap(([variations, product]) => {
-        const variation = variations.sort((v1, v2) => v1.price > v2.price ? -1 : 1).find(
-          v => !!this.options.find(o => o.value === v.attributes?.[0].option));
+        const selectedVariation = this.options.filter(o => o.variation);
+        const variation = variations
+          ?.find(vars => {
+              const selected = selectedVariation
+                .filter(a => !!vars.attributes.find(o => o.name === a.key));
+
+              return selected.filter(o => {
+                return vars.attributes.find(v => v.option === o.value);
+              }).length === selected.length;
+            }
+          );
         if (variation) {
           return of({...product, ...variation});
         }
@@ -76,13 +85,35 @@ export class ProductDetails implements OnDestroy {
     this.product
       .pipe(withLatestFrom(this.mainProduct))
       .subscribe(([product, mainProduct]) => {
+
         const attributes = [...mainProduct.attributes];
         if (attributes.length !== this.options?.length) {
           alert(` נא לבחור  ${attributes.map(a => a.name).join(' ,')}`);
           return;
         }
+        if (product.stock_status === 'outofstock') {
+          alert(`אזל מהמלאי`);
+          return;
+        }
+
+        const mainVariation = product.attributes;
+        const selectedVariation =
+          this.options.filter(o => o.variation)
+            .filter(a => !!mainVariation.find(o => o.name === a.key));
+
+        const matchVariation =
+          mainVariation
+            .filter(o => !o?.options)
+            .filter(a => {
+              return selectedVariation.find(o => o.value === a.option);
+            });
+
+        if (matchVariation.length !== selectedVariation.length) {
+          alert(`אזל מהמלאי`);
+          return;
+        }
         this.store.dispatch(new productActions.AddVisual(EntityType.Carts, {
-          product,
+          product: {...product, parentId: mainProduct.id},
           quantity: this.quantity,
           options: this.options
         }));
@@ -110,7 +141,7 @@ export class ProductDetails implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.options = [];
+
   }
 
 }

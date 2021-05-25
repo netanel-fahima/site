@@ -47,7 +47,7 @@
                     <div class="product-sizes " appHighLight
                          defaultColor="lightpink">
                       <a *ngFor="let option of attribute.options"
-                         (click)="product.setOption(attribute.name,option)"> {{option}} </a>
+                         (click)="product.setOption(attribute,option)"> {{option}} </a>
                     </div>
                   </td>
                 </tr>

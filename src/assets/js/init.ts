@@ -370,7 +370,8 @@ export class Init {
       slidesToScroll: 1,
       asNavFor: '.product-thumb-slider, .product-thumb-slider-vertical',
       prevArrow: '<button class="slick-prev"><i class="ti-angle-left"></i></button>',
-      nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>'
+      nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>',
+      settings: 'unslick' // destroys slick
     });
 
     $('.product-thumb-slider').not('.slick-initialized').slick({
@@ -380,7 +381,8 @@ export class Init {
       focusOnSelect: true,
       asNavFor: '.product-gallery-slider',
       prevArrow: '<button class="slick-prev"><i class="ti-angle-left"></i></button>',
-      nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>'
+      nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>',
+      settings: 'unslick' // destroys slick
     });
 
     $('.product-thumb-slider-vertical').not('.slick-initialized').slick({
@@ -391,7 +393,8 @@ export class Init {
       focusOnSelect: true,
       asNavFor: '.product-gallery-slider',
       prevArrow: '<button class="slick-prev"><i class="ti-angle-up"></i></button>',
-      nextArrow: '<button class="slick-next"><i class="ti-angle-down"></i></button>'
+      nextArrow: '<button class="slick-next"><i class="ti-angle-down"></i></button>',
+      settings: 'unslick' // destroys slick
     });
 
   }

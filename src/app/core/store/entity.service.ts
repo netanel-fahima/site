@@ -56,12 +56,5 @@ export class EntityService {
       }));
   }
 
-  addToCart(product: any): void {
-    this.store.dispatch(new productActions.AddVisual(EntityType.Carts, {product, quantity: 1}));
-    const sub = this.cart$.subscribe(() => {
-      sub.unsubscribe();
-      Init.offcanvasOpen();
-    });
-  }
 }
 
