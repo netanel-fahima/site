@@ -77,7 +77,7 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
         Init.isotopeGrid();
         Init.columnToggle();
         Init.addWishList();
-        Init.quickViewModal(this.detail.emitter);
+        /*Init.quickViewModal(this.detail.emitter);*/
       });
   }
 

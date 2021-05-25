@@ -8,6 +8,7 @@ import {Cloudinary} from '@cloudinary/angular-5.x';
 import {switchMap, withLatestFrom} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
 import {Init} from '../../../assets/js/init';
+import {Subscriber, Subscription} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ import {Init} from '../../../assets/js/init';
 export class ProductDetails implements OnDestroy {
 
   @Output() emitter = new EventEmitter();
-
+  public sub: Subscription;
   public mainProduct: Observable<any>;
   public product: Observable<any>;
   public options: any = [];
@@ -82,7 +83,7 @@ export class ProductDetails implements OnDestroy {
 
   addToCart($event: MouseEvent): void {
     $event.preventDefault();
-    this.product
+    this.sub = this.product
       .pipe(withLatestFrom(this.mainProduct))
       .subscribe(([product, mainProduct]) => {
 

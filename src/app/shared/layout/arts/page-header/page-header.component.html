@@ -22,7 +22,7 @@
         <div class="header-tools justify-content-end">
           <div class="header-login">
             <div class="row-cols-1">
-              <a [routerLink]="'GUEST' !== 'GUEST' ? 'account' : 'login'">
+              <a [routerLink]="'login'">
                 <a style="padding-right:7px">{{(data.users$|async)?.username || ''}}</a>
                 <i class="fal fa-user"></i>
               </a>

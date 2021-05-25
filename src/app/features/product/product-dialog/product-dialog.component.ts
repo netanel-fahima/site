@@ -20,6 +20,7 @@ export class ProductDialogComponent {
 
   public open(product: Observable<object>): void {
 
+    this.product?.sub?.unsubscribe();
     this.product.product =
       this.product.mainProduct = product;
 
@@ -36,8 +37,8 @@ export class ProductDialogComponent {
             return null;
           }));
         // Init.silckDialog();
+        this.product.setVariations();
       });
-    this.product.setVariations();
   }
 
 
