@@ -36,7 +36,7 @@
             <h3 class="product-title">{{(product.product |async).name}}</h3>
             <div class="product-price">{{(product.product |async).price | currency}}</div>
             <div class="product-description">
-              <p>{{(product.product |async).name}}</p>
+              <p [innerHTML]="(product.product|async).short_description"></p>
             </div>
             <div class="product-variations">
               <table>
