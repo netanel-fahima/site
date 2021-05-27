@@ -3,7 +3,7 @@ a {
 }
 
 .site-menu-section {
-  background-image: linear-gradient(to right bottom, rgba(254,224,243, 1) 50% , rgba(254,224,243, 0.5));
+  background-image: linear-gradient(to right bottom, rgba(254, 224, 243, 1) 50%, rgba(254, 224, 243, 0.5));
 }
 
 .form-check-input {
@@ -43,4 +43,70 @@ input {
     flex-direction: column-reverse;
   }
 
+}
+
+
+.img-bg-0 {
+  background-image: url("src/assets/images/product-bg/b0.jpg");
+}
+.img-bg-1 {
+  background-image: url("src/assets/images/product-bg/b1.jpg");
+}
+
+.img-bg-2 {
+  background-image: url("src/assets/images/product-bg/b2.jpg");
+}
+.img-bg-3 {
+  background-image: url("src/assets/images/product-bg/b3.jpg");
+}
+.img-bg-4 {
+  background-image: url("src/assets/images/product-bg/b4.jpg");
+}
+.img-bg-5 {
+  background-image: url("src/assets/images/product-bg/b5.jpg");
+}
+
+.img-bg-6 {
+  background-image: url("src/assets/images/product-bg/b6.jpg");
+}
+.img-bg-7 {
+  background-image: url("src/assets/images/product-bg/b7.jpg");
+}
+.img-bg-8 {
+  background-image: url("src/assets/images/product-bg/b8.jpg");
+}
+
+.img-bg-9 {
+  background-image: url("src/assets/images/product-bg/b9.jpg");
+}
+.img-bg-10 {
+  background-image: url("src/assets/images/product-bg/b10.jpg");
+}
+.img-bg-11 {
+  background-image: url("src/assets/images/product-bg/b11.jpg");
+}
+
+.img-bg-12 {
+  background-image: url("src/assets/images/product-bg/b12.png");
+}
+.img-bg-13 {
+  background-image: url("src/assets/images/product-bg/b13.png");
+}
+.img-bg-14 {
+  background-image: url("src/assets/images/product-bg/b14.jpg");
+}
+.img-bg-15 {
+  background-image: url("src/assets/images/product-bg/b15.png");
+}
+
+.img-bg-16 {
+  background-image: url("src/assets/images/product-bg/b16.jpg");
+}
+
+.img-bg-17 {
+  background-image: url("src/assets/images/product-bg/b17.jpg");
+}
+
+.img-bg-18 {
+  background-image: url("src/assets/images/product-bg/b18.jpg");
 }

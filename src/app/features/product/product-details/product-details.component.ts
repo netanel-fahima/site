@@ -49,7 +49,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       return {src: this.product.getImage(img.name, {height: 1100, width: 700, crop: 'fill'})};
     }));
     if (this.product.getImages(product).length > 1) {
-        Init.productGallerySlider();
+      Init.productGallerySlider();
     }
   }
 
@@ -64,4 +64,11 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
 
+  randomIntFromInterval(min, max) { // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  randomImg() {
+    return 'img-bg-' + this.randomIntFromInterval(0, 18);
+  }
 }
