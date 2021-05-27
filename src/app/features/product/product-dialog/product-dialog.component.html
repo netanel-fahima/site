@@ -8,9 +8,11 @@
         <div class="col-lg-6 col-12 learts-mb-30">
           <div class="product-images">
             <div class="{{'product-gallery-slider-quickview'}}">
-              <div class="product-zoom" *ngIf="(product.product|async)?.images.length">
-                <img src="{{product.getImage((product.product|async)?.images[0].name,{height: 760, width: 570, crop: 'fill'})}}"
-                     alt="{{(product.product|async)?.images[0].name}}">
+              <div class="product-zoom" *ngIf="(product.product|async)?.images.length"
+                   [className]="product.imgService.randomImg()">
+                <img
+                  src="{{product.getImage((product.product|async)?.images[0].name,{height: 760, width: 570, crop: 'fill'})}}"
+                  alt="{{(product.product|async)?.images[0].name}}">
               </div>
             </div>
           </div>
@@ -50,7 +52,8 @@
                     <div class="product-quantity">
                       <span class="qty-btn plus" (click)="product.quantity=product.quantity+1;"><i class="ti-plus"></i></span>
                       <input type="text" class="input-qty" [(ngModel)]="product.quantity">
-                      <span class="qty-btn minus" (click)="product.quantity > 0 ? product.quantity=product.quantity-1 : null"><i
+                      <span class="qty-btn minus"
+                            (click)="product.quantity > 0 ? product.quantity=product.quantity-1 : null"><i
                         class="ti-minus"></i></span>
                     </div>
                   </td>
@@ -59,7 +62,8 @@
               </table>
             </div>
             <div class="product-buttons">
-              <a  data-dismiss="modal" (click)="product.addToWithList()" class="btn btn-icon btn-outline-body btn-hover-dark"><i
+              <a data-dismiss="modal" (click)="product.addToWithList()"
+                 class="btn btn-icon btn-outline-body btn-hover-dark"><i
                 class="fal fa-heart"></i></a>
               <a routerLink="shopping-cart" data-dismiss="modal" (click)="product.addToCart($event)"
                  class="btn btn-dark btn-outline-hover-dark"><i class="fal fa-shopping-cart"></i> הוסיפי לעגלה</a>
@@ -83,7 +87,8 @@
                   <td class="label"><span>קטגוריה</span></td>
                   <td class="value">
                     <ul class="product-category">
-                      <li *ngFor="let category of (product.product|async).categories"><a href="#">{{category.name}}</a></li>
+                      <li *ngFor="let category of (product.product|async).categories"><a href="#">{{category.name}}</a>
+                      </li>
                     </ul>
                   </td>
                 </tr>

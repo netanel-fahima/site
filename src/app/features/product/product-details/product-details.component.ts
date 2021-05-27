@@ -64,11 +64,5 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
 
-  randomIntFromInterval(min, max) { // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
 
-  randomImg() {
-    return 'img-bg-' + this.randomIntFromInterval(0, 18);
-  }
 }

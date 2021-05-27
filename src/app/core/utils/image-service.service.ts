@@ -30,4 +30,12 @@ export class ImageServiceService {
     return img;
   }
 
+
+  private randomIntFromInterval(min, max): number { // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  public randomImg(): string {
+    return 'img-bg-' + this.randomIntFromInterval(0, 18);
+  }
 }

@@ -11,7 +11,7 @@
               <i class="far fa-expand"></i></button>
             <div class="product-gallery-slider">
               <div *ngFor="let image of product.getImages((product.product |async));let i = index"
-                   [className]="randomImg()" class="product-zoom">
+                   [className]="product.imgService.randomImg()" class="product-zoom">
                 <img src="{{product.getImage(image.name,{height: 540, width: 400, crop: 'fill'})}}"
                      alt="{{image.name}}">
               </div>

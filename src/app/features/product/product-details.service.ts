@@ -9,6 +9,7 @@ import {switchMap, withLatestFrom} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
 import {Init} from '../../../assets/js/init';
 import {Subscriber, Subscription} from 'rxjs';
+import {ImageServiceService} from '../../core/utils/image-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class ProductDetails implements OnDestroy {
   public options: any = [];
   public quantity: any = 1;
 
-  constructor(public data: EntityService, public store: Store, private cloudinary: Cloudinary) {
+  constructor(public data: EntityService, public store: Store, private cloudinary: Cloudinary, public imgService: ImageServiceService) {
     this.emitter.subscribe(_ => {
 
     });
