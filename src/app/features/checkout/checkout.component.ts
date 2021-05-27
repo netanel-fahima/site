@@ -10,9 +10,9 @@ import {getLocalUser} from '../../core/localStore/loadStorage';
 import * as actions from '../login/slice/actions';
 import {getErr, getUser} from '../login/slice/actions';
 import {Observable} from 'rxjs/internal/Observable';
-import {getError, getLoaded} from '../../core/store';
-import {map, switchMap, withLatestFrom} from 'rxjs/operators';
 import * as fromProduct from '../../core/store';
+import {getError, getLoaded} from '../../core/store';
+import {map, withLatestFrom} from 'rxjs/operators';
 import {scrollToTop} from '../../shared/utils/layoytUtils';
 
 
@@ -42,16 +42,15 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
   private user: any;
   autError$: Observable<{ l: string; r: string }>;
   private orderCreated = false;
+  public order: any;
   orderError$: Observable<any>;
   orderLoad$: Observable<boolean>;
 
   public payMethod: string;
   public shippingMethods$: Observable<any[]>;
 
-  public coupons = [];
+  public coupons: any[] = [];
 
-  // convenience getter for easy access to form fields
-  // tslint:disable-next-line:typedef
   public couponModel = '';
 
   ngAfterViewChecked(): void {
@@ -75,6 +74,11 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
     });
     this.store.select(getUser).subscribe(value => {
       this.user = value;
+    });
+
+    this.store.dispatch(new productActions.LoadSuccess(EntityType.Orders, []));
+    this.data.orders$.subscribe(orders => {
+      this.order = orders[orders.length - 1];
     });
   }
 
@@ -136,6 +140,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
         sub.unsubscribe();
       }
     });
+
   }
 
 
@@ -172,9 +177,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
       }
       return;
     }
-
     scrollToTop();
-
   }
 
   addDelivery($event): void {
@@ -185,8 +188,14 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
   }
 
   addCoupon(): void {
-    this.coupons.push({
+    const coupon = {
       code: this.couponModel
-    });
+    };
+    this.removeCoupon(coupon);
+    this.coupons.push(coupon);
+  }
+
+  removeCoupon(c: any): void {
+    this.coupons = this.coupons.filter(value => value.code !== c.code);
   }
 }

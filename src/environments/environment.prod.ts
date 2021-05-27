@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  origin: 'http://shelys.store/wordpress',
+  origin: 'https://shelys.store/wordpress',
   wcEndpoint: 'wp-json/wc/v3',
   woocommerce: {
     consumer_key: 'ck_20b4aca3e4b9619ad55f836f65e63ebec9d1c850',

@@ -10,6 +10,8 @@ import {of} from 'rxjs/internal/observable/of';
 import {empty} from 'rxjs/internal/observable/empty';
 import {WooApi} from '../rest/woo';
 import {fromPromise} from 'rxjs/internal-compatibility';
+import * as productActions from './actions';
+import {EntityType} from './actions';
 
 
 @Injectable()
@@ -50,17 +52,16 @@ export class ProductEffect {
   @Effect()
   addProduct$: Observable<any> = this.action$.pipe(
     ofType(actions.ActionTypes.Add),
-    mergeMap(({payload, cmd}) => {
+    switchMap(({payload, cmd}) => {
       return fromPromise(
-        this.service.addEntity(cmd, payload)
-          .then(value => {
+        this.service.addEntity(cmd, payload))
+        .pipe(
+          map(value => {
             if (value?.message) {
               return new actions.LoadFail(cmd, value?.message);
             }
-            return value;
-          }))
-        .pipe(
-          map(value => new actions.Added(cmd, payload)),
+            return new actions.Added(cmd, value);
+          }),
           catchError(err => of(new actions.LoadFail(cmd, err)))
         );
     })

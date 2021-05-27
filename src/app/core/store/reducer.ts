@@ -130,21 +130,20 @@ export function ProductReducer(state = initialState, action: ProductActions): En
         error: state.error.set(action.cmd, '')
       };
     }
+    case ActionTypes.Added: {
+      return {
+        ...state,
+        entities: state.entities.set(action.cmd, [...state.entities.get(action.cmd), action.payload]),
+        loaded: state.loaded.set(action.cmd, false),
+        error: state.error.set(action.cmd, '')
+      };
+    }
     case ActionTypes.Add: {
       console.log(state.entities);
       return {
         ...state,
         entities: state.entities,
         loaded: state.loaded.set(action.cmd, true),
-        error: state.error.set(action.cmd, '')
-      };
-    }
-    case ActionTypes.Added: {
-      console.log(state.entities);
-      return {
-        ...state,
-        entities: state.entities.set(action.cmd, [...state.entities.get(action.cmd), action.payload]),
-        loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, '')
       };
     }

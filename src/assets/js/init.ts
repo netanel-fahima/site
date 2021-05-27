@@ -93,14 +93,14 @@ export class Init {
     });
 
     // Custom Scrollbar For Select2 Result
-    $('.select2-basic, .select2-noSearch').on('select2:open', function() {
+    /*$('.select2-basic, .select2-noSearch').on('select2:open', function() {
       $('.select2-results__options').each(function() {
         // @ts-ignore
-        var ps = new PerfectScrollbar($(this)[0], {
-          suppressScrollX: true
+        const ps = new PerfectScrollbar($(this)[0], {
+          suppressScrollX: false,
         });
       });
-    });
+    });*/
   }
 
   static slider() {

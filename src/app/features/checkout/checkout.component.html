@@ -25,7 +25,9 @@
       <div *ngIf="coupons.length" class="mb-5">
         <p>קופונים שנוספו</p>
         <ul class="list-group-item-info p-2 mb-1" dir="rtl" style="list-style: none">
-          <li *ngFor="let c of coupons"><p>{{c.code}}</p></li>
+          <li *ngFor="let c of coupons" class="d-flex "><i class="pointer-event ml-1" title="להסרת קופון"
+                                                           (click)="removeCoupon(c)">x</i>
+            <p>{{c.code}}</p></li>
         </ul>
       </div>
     </div>
@@ -115,14 +117,15 @@
           </div>
           <div class="col-12 learts-mb-20 form-group">
             <label for="note"></label>
-            <textarea id="note" placeholder=".הערות לגבי המוצר והמשלוח" name="note" formControlName="note"></textarea>
+            <textarea id="note" dir="rtl" placeholder=".הערות לגבי המוצר והמשלוח" name="note"
+                      formControlName="note"></textarea>
           </div>
         </div>
         <div class="m-3 bg-danger text-white" *ngIf="(autError$ | async).r">
-          <p>{{(autError$|async).r }}</p>
+          <div [innerHTML]="(autError$|async).r"></div>
         </div>
         <div class="m-3 bg-danger text-white" *ngIf="(orderError$ | async)">
-          <p>{{(orderError$|async) }}</p>
+          <div [innerHTML]="(orderError$|async)"></div>
         </div>
         <div class="m-3 bg-danger text-white" *ngIf="submitted && !payMethod">
           <p>{{ 'בחרי אמצאי תשלום' }}</p>
@@ -136,7 +139,7 @@
                     (ngModelChange)="addDelivery($event)"
                     name="deliveryMethod" id="deliveryMethod" class="form-control"
                     [ngClass]="{ 'is-invalid': submitted && f.deliveryMethod.errors }">
-
+              <option></option>
               <option *ngFor="let shippingMethod of shippingMethods$|async "
                       [value]="shippingMethod.id">{{shippingMethod.title}}</option>
             </select>
@@ -183,10 +186,21 @@
                 <td><span>{{data.totalCart() |async| currency}}</span></td>
                 <th>מחיר</th>
               </tr>
+              <tr class="subtotal" *ngIf="order && coupons.length">
+                <td>
+                  <strong>
+                    <span>{{((data.totalCart(true) |async) - order.total)|currency}}</span>
+                  </strong>
+                </td>
+                <th><span *ngIf="order && coupons.length">הנחה</span></th>
+              </tr>
               <tr class="total">
-
-                <td><strong><span>{{data.totalCart(true) |async | currency}}</span></strong></td>
-                <th>סה"כ</th>
+                <td>
+                  <strong>
+                    <span>{{order ? (order.total | currency) : data.totalCart(true) |async | currency}}</span>
+                  </strong>
+                </td>
+                <th> סה"כ <span *ngIf="order && coupons.length">לאחר קופון</span></th>
               </tr>
               </tfoot>
             </table>

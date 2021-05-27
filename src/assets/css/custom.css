@@ -3,7 +3,7 @@ a {
 }
 
 .site-menu-section {
-  background-color: rgb(255 185 229);
+  background-image: linear-gradient(to right bottom, rgba(254,224,243, 1) 50% , rgba(254,224,243, 0.5));
 }
 
 .form-check-input {
@@ -39,7 +39,7 @@ input {
     right: -10px;
   }
 
-  .c-revert{
+  .c-revert {
     flex-direction: column-reverse;
   }
 
