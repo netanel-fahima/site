@@ -51,19 +51,22 @@ export class ApiService {
       );
   }
 
+  public put(cmd: string, body: object): Promise<object> {
+    return this.post(cmd, body, 'PUT');
+  }
 
-  public async post(cmd: string, body: object): Promise<object> {
+  public async post(cmd: string, body: object, method = 'POST'): Promise<object> {
     const auth = this.basicAuth(env.woocommerce.consumer_key, env.woocommerce.consumer_secret);
     const requestData = {
       url: `${env.origin}/${env.wcEndpoint}/${cmd}`,
-      method: 'POST'
+      method
     };
 
     return new Promise((resolve, reject) => {
       let response = null;
       try {
         response = fetch(requestData.url + '?' + $.param(auth.authorize(requestData)), {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          method, // *GET, POST, PUT, DELETE, etc.
           headers: {
             'Content-Type': 'application/json'
             // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -114,5 +117,6 @@ export class ApiService {
     console.error(err);
     return throwError(errorMessage);
   }
+
 
 }

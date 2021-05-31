@@ -1,0 +1,26 @@
+<div class="">
+  <h1>הזמנתך התקבלה</h1>
+  <h3> מספר הזמנה {{order.id}} </h3>
+  <p>המשיכי לתשלום אשראי מאובטח</p>
+
+  <form ngNoForm name='upayform' action='https://app.upay.co.il/API6/clientsecure/redirectpage.php' method='post'>
+    <input type='hidden' value='sales@shelys.store' name='email'>
+    <INPUT TYPE='hidden' value='{{order.total}}' NAME='amount'>
+    <INPUT TYPE='hidden' value='{{location()}}' NAME='returnurl'>
+    <INPUT TYPE='hidden' value='' NAME='ipnurl'>
+    <INPUT TYPE='hidden' value='הזמנה מאתר שליס' NAME='paymentdetails'>
+    <INPUT TYPE='hidden' value='2' NAME='maxpayments'>
+    <INPUT TYPE='hidden' value='1' NAME='livesystem'>
+    <INPUT TYPE='hidden' value='' NAME='commissionreduction'>
+    <INPUT TYPE='hidden' value='' NAME='createinvoiceandreceipt'>
+    <INPUT TYPE='hidden' value='' NAME='createinvoice'>
+    <INPUT TYPE='hidden' value='1' NAME='createreceipt'>
+    <INPUT TYPE='hidden' value='UPAY' NAME='refername'>
+    <INPUT TYPE='hidden' value='HE' NAME='lang'>
+    <INPUT TYPE='hidden' value='NIS' NAME='currency'>
+    <input type='image'
+           src='https://app.upay.co.il/BANKRESOURCES/UPAY/images/buttons/payment-button2HE.png'
+           name='submit' alt='Make payments with upay'>
+  </form>
+
+</div>

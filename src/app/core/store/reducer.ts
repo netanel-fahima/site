@@ -111,6 +111,12 @@ const initialState: EntityState = {
   error: new Map<string, any>()
 };
 
+function updateEntity(entities: any[], payload: any): any[] {
+  entities = entities.filter(entity => entity.id !== payload.id);
+  entities.push(payload);
+  return entities;
+}
+
 export function ProductReducer(state = initialState, action: ProductActions): EntityState {
   switch (action.type) {
     case ActionTypes.LoadSuccess:
@@ -134,6 +140,14 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       return {
         ...state,
         entities: state.entities.set(action.cmd, [...state.entities.get(action.cmd), action.payload]),
+        loaded: state.loaded.set(action.cmd, false),
+        error: state.error.set(action.cmd, '')
+      };
+    }
+    case ActionTypes.Update: {
+      return {
+        ...state,
+        entities: state.entities.set(action.cmd, updateEntity(state.entities.get(action.cmd), action.payload)),
         loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, '')
       };

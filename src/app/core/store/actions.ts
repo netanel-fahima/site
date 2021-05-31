@@ -9,6 +9,7 @@ export enum ActionTypes {
   Read = '[Product] Read',
   Added = '[Product] Added',
   Remove = '[Product] Remove',
+  Updating = '[Product] Updating',
   Update = '[Product] Update',
 
   AddVisualCart = '[Cart] Add Visual',
@@ -26,6 +27,7 @@ export enum EntityType {
   Orders = 'orders',
   Products = 'products',
   ProductsVariations = 'products/<id>/variations',
+  UpdateOrder = 'orders/<id>',
   Carts = 'carts',
   WishList = 'wishList',
   Customers = 'customers',
@@ -75,6 +77,14 @@ export class RemoveVisualCart extends EntityAction {
   }
 }
 
+
+export class Updating extends EntityAction {
+  readonly type = ActionTypes.Updating;
+
+  constructor(public cmd: string, public payload: object) {
+    super(cmd);
+  }
+}
 
 export class Update extends EntityAction {
   readonly type = ActionTypes.Update;
@@ -185,6 +195,7 @@ export type ProductActions = Load
   | RemoveVisualWishList
   | UpdateVisualWishList
   | Read
+  | Updating
   ;
 
 

@@ -19,6 +19,10 @@ export class WooApi {
     return this.api.post(cmd, p);
   }
 
+  public updateEntity(cmd: EntityType, p: any): Promise<any> {
+    return this.api.put(cmd, p);
+  }
+
 
   public deleteEntity(id: any, cmd: EntityType): Promise<any> {
     return this.api.delete(`${cmd}/${id}`);

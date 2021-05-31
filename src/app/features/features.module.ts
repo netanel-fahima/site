@@ -14,13 +14,26 @@ import {CloudinaryModule} from '@cloudinary/angular-5.x';
 import {FormsModule} from '@angular/forms';
 import {HighLightDirective} from './product/product-details/high-light.directive';
 import {EntityService} from '../core/store/entity.service';
+import {BankTransformComponent} from './checkout/bank-transform/bank-transform.component';
+import {BitTransformComponent} from './checkout/bit-transform/bit-transform.component';
+import {CreditTransformComponent} from './checkout/credit-transform/credit-transform.component';
+import {CheckoutSubmitComponent} from './checkout/checkout-submit/checkout-submit.component';
 
 
 @NgModule({
-  declarations: [ProductDialogComponent, ProductDetailsComponent, HighLightDirective],
+  declarations: [ProductDialogComponent,
+                 ProductDetailsComponent,
+                 HighLightDirective,
+                 BankTransformComponent,
+                 BitTransformComponent,
+                 CreditTransformComponent,
+                 CheckoutSubmitComponent,
+  ],
   exports: [
-    ProductDialogComponent
-
+    ProductDialogComponent,
+    BankTransformComponent,
+    BitTransformComponent,
+    CreditTransformComponent
   ],
   imports: [
     CommonModule,
@@ -30,6 +43,7 @@ import {EntityService} from '../core/store/entity.service';
       {path: 'lost-password', pathMatch: 'full', component: LostPasswordComponent},
       {path: 'shopping-cart', pathMatch: 'full', component: CartComponent},
       {path: 'checkout', pathMatch: 'full', component: CheckoutComponent},
+      {path: 'checkout-submit', pathMatch: 'full', component: CheckoutSubmitComponent},
       {
         path: 'product', component: ProductComponent, pathMatch: 'full',
         data: {breadcrumbs: ['Application Intel', 'Introduction']}
@@ -43,7 +57,7 @@ import {EntityService} from '../core/store/entity.service';
     ]),
     LayoutModule,
     CloudinaryModule,
-    FormsModule
+    FormsModule,
   ]
 })
 export class FeaturesModule {

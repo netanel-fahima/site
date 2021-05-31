@@ -96,6 +96,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
       this.store.dispatch(new productActions.Add(EntityType.Orders, {
         customer_id: this.user?.id || 0,
         customer_note: this.f.note.value,
+        payment_method_title: this.payMethod,
         billing: {
           first_name: this.f.firstName.value,
           last_name: this.f.lastName.value,
@@ -126,7 +127,14 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
           total: delivery?.settings?.cost?.value
         }]
       }));
-      subOrder.unsubscribe();
+
+      try {
+        subOrder.unsubscribe();
+      }
+      catch (e) {
+
+      }
+
     });
 
 
@@ -198,4 +206,12 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
   removeCoupon(c: any): void {
     this.coupons = this.coupons.filter(value => value.code !== c.code);
   }
+
+  completeOrder(): void {
+    this.store.dispatch(new productActions.Updating(EntityType.UpdateOrder, {
+      id: this.order.id,
+      status: 'processing',
+    }));
+  }
+
 }

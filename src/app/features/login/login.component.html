@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-12 learts-mb-50 text-danger d-flex flex-column justify-content-center "
                      *ngIf="(error$|async).r">
-                  <div>{{(error$|async).r}}</div>
+                  <div [innerHTML]="(error$|async).r"></div>
                 </div>
                 <div class="col-12 learts-mb-50">
                   <p>הנתונים האישיים שלך ישמשו לתמיכה בחוויה שלך ברחבי אתר זה, לניהול הגישה לחשבונך ולמטרות אחרות המתוארות במדיניות הפרטיות שלנו.</p>
@@ -53,7 +53,7 @@
 
                 <div class="col-12 learts-mb-50 text-danger d-flex flex-column justify-content-center "
                      *ngIf="!!(error$|async).l">
-                  <div>{{(error$|async).l}}</div>
+                  <div [innerHTML]="(error$|async).l"></div>
                 </div>
                 <!--     <div class="col-12 learts-mb-50">
                        <input type="password" placeholder="סיסמה"></div>-->
