@@ -36,17 +36,17 @@
             <div class="product-variations">
               <table>
                 <tbody>
-                <tr *ngFor="let attribute of (product.product |async).attributes">
+                <tr *ngFor="let attribute of (product.mainProduct |async).attributes">
                   <td class="label"><span>{{attribute.name}}</span></td>
                   <td class="value">
                     <div class="product-sizes " appHighLight
                          defaultColor="lightpink">
                       <a *ngFor="let option of attribute.options"
-                         (click)="product.setOption(attribute.name,option)"> {{option}} </a>
+                         (click)="product.setOption(attribute,option)"> {{option}} </a>
                     </div>
                   </td>
                 </tr>
-                <tr>
+                <tr *ngIf="product.withQuntity((product.product|async))">
                   <td class="label"><span>כמות</span></td>
                   <td class="value">
                     <div class="product-quantity">
