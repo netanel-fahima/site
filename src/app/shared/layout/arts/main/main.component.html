@@ -7,7 +7,7 @@
       <app-page-header-mobile></app-page-header-mobile>
       <app-page-header-sticky-mobile></app-page-header-sticky-mobile>
       <app-offcanvas-search></app-offcanvas-search>
-      <app-offcanvas-cart #app_offcanvas_cart ></app-offcanvas-cart>
+      <app-offcanvas-cart #app_offcanvas_cart></app-offcanvas-cart>
       <app-offcanvas-wishlist></app-offcanvas-wishlist>
       <app-offcanvas-mobile-menu></app-offcanvas-mobile-menu>
 
@@ -24,3 +24,8 @@
     <!-- this overlay is activated only when mobile menu is triggered -->
   </div>
 </div>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="rgba(252,166,226,0.5)" type="cube-transition"
+             [fullScreen]="true">
+  <p style="color: #ffffff"> ...טוען </p>
+</ngx-spinner>

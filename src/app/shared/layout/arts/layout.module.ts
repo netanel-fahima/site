@@ -20,6 +20,7 @@ import {ProductPipe} from '../../../core/pipe/product.pipe';
 import {FormsModule} from '@angular/forms';
 import { HeaderNavComponent } from './header-nav/header-nav.component';
 import {CloudinaryModule} from '@cloudinary/angular-5.x';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 @NgModule({
   declarations:
@@ -44,7 +45,8 @@ import {CloudinaryModule} from '@cloudinary/angular-5.x';
     CommonModule,
     RouterModule,
     FormsModule,
-    CloudinaryModule
+    CloudinaryModule,
+    NgxSpinnerModule
   ],
   exports: [MainComponent, SectionPaddingComponent, PageFooterComponent, PageTitleSectionComponent, ProductPipe],
   entryComponents: []
