@@ -132,9 +132,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
         subOrder.unsubscribe();
       }
       catch (e) {
-
       }
-
     });
 
 
@@ -144,7 +142,6 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
         return !(loaded || err);
       })).subscribe(orderDone => {
       if (orderDone) {
-        alert('עובר לתשלום');
         sub.unsubscribe();
       }
     });

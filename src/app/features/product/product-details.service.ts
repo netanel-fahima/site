@@ -5,7 +5,7 @@ import {EventEmitter, Injectable, OnDestroy, Output} from '@angular/core';
 import {EntityService} from '../../core/store/entity.service';
 import {Store} from '@ngrx/store';
 import {Cloudinary} from '@cloudinary/angular-5.x';
-import {switchMap, withLatestFrom} from 'rxjs/operators';
+import {first, switchMap, withLatestFrom} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
 import {Init} from '../../../assets/js/init';
 import {Subscriber, Subscription} from 'rxjs';
@@ -85,7 +85,9 @@ export class ProductDetails implements OnDestroy {
   addToCart($event: MouseEvent): void {
     $event.preventDefault();
     this.sub = this.product
-      .pipe(withLatestFrom(this.mainProduct))
+      .pipe(
+        withLatestFrom(this.mainProduct),
+        first())
       .subscribe(([product, mainProduct]) => {
 
         const attributes = [...mainProduct.attributes];
