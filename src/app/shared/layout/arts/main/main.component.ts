@@ -52,4 +52,7 @@ export class MainComponent implements OnInit, AfterContentInit {
   ngAfterContentInit(): void {
   }
 
+  onActivate($event: any, outlet: HTMLElement): void {
+    outlet.scrollTop = 0;
+  }
 }

@@ -143,6 +143,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
       })).subscribe(orderDone => {
       if (orderDone) {
         sub.unsubscribe();
+        window.scrollTo({top: 0});
       }
     });
 
