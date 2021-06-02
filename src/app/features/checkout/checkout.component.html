@@ -31,9 +31,12 @@
       </div>
     </div>
     <section class="d-flex flex-row-reverse flex-wrap learts-mb-30">
-
       <form action="#" *ngIf="!order" class="anyflexbox" [formGroup]="form" (ngSubmit)="onSubmit($event)">
         <div class="text-right text-info mb-4 w-100"><p>פרטי משלוח ותשלום</p></div>
+        <div class="animate__animated animate__bounceInUp text-right text-danger mb-4 w-100" *ngIf="submitted && form.invalid">
+          שגיאות בטופס!
+          אנא תקני
+        </div>
         <div class="row form-group">
           <div class="col-md-6 col-12 learts-mb-20 form-group">
             <label for="firstName">שם פרטי <abbr class="required">*</abbr></label>
@@ -90,6 +93,7 @@
                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
             <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
               <div *ngIf="f.email.errors.required">שדה נדרש</div>
+              <div *ngIf="f.email.errors.email">אמייל לא תקין</div>
             </div>
           </div>
           <div class="col-md-6 col-12 learts-mb-30 form-group">
@@ -145,10 +149,24 @@
           </div>
         </div>
         <div class="d-flex justify-content-sm-around flex-wrap btn-group-lg">
-          <button class="btn btn-info btn-outline-hover-dark" value="bit">תשלום בביט</button>
-          <button class="btn bg-primary3 btn-outline-hover-dark btn-hover-light" value="bank">העברה בנקאית
+          <button class="btn btn-link btn-outline-info" value="bit">
+            <span>
+              <img src="assets/images/icons/bit.png" width="40">
+            </span>
+            תשלום בביט
           </button>
-          <button class="btn btn-secondary btn-outline-hover-dark" value="credit">תשלום באשראי</button>
+          <button class="btn btn-link btn-outline-info" value="bank">
+             <span>
+              <img src="assets/images/icons/bank.png" width="30">
+            </span>
+            העברה בנקאית
+          </button>
+          <button class="btn btn-link btn-outline-info" value="credit">
+            <span>
+              <img src="assets/images/icons/credit.png" width="45">
+            </span>
+            תשלום באשראי
+          </button>
         </div>
         <div class="pay-icons"></div>
         <div class="m-3 bg-info text-white text-center" *ngIf="(orderLoad$ | async)">
@@ -173,7 +191,7 @@
               <thead>
               <tr>
                 <th class="name"></th>
-                <th class="total">סיכום ההזמנה</th>
+                <th class="total"> סיכום ההזמנה {{order && order.id}}</th>
               </tr>
               </thead>
               <tbody>

@@ -17,14 +17,14 @@ export class ImageServiceService {
   }
 
   public getImage(product: any, options: object, index: number = 0): string {
-    return this.getImageSrc(product.images?.[index]?.src, options);
+    return this.getImageSrc(product.images?.[index]?.name, options);
   }
 
   public getImageSrc(src, options): string {
     if (!src) {
       return 'assets/images/product/cart-product-1.jpg';
     }
-    const img = this.cloudinary.url(getImageName(src), options);
+    const img = this.cloudinary.url(src, options);
 
     console.log(img);
     return img;

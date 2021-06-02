@@ -72,7 +72,7 @@ export class UpdateVisualCart extends EntityAction {
 export class RemoveVisualCart extends EntityAction {
   readonly type = ActionTypes.RemoveVisualCart;
 
-  constructor(public cmd: string, public payload: number) {
+  constructor(public cmd: string, public payload: any) {
     super(cmd);
   }
 }

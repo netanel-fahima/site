@@ -16,7 +16,9 @@
           <td class="thumbnail"><a href="product-details.html">
             <img src="{{getImage(c.product.images) }}"></a>
           </td>
-          <td class="name"><a href="product-details.html">{{c.product.name}}</a></td>
+          <td class="name"><a href="product-details.html">{{c.product.name}}</a>
+            <span class="mr-2" *ngFor="let o of c?.options || []">{{o.value}}</span>
+          </td>
           <td class="price"><span>{{c.product.price | currency}}</span></td>
           <td class="quantity">
             <div class="product-quantity">

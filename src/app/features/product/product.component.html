@@ -75,14 +75,8 @@
                <span class="hot">אזל</span>
                </span>
               <a (click)="router.navigateByUrl('product-details?id='+p.id).then()" class="image">
-                <cl-image public-id="{{getImage(p)}}" alt="{{p.name}}" class="d-flex">
-                  <cl-transformation height="437" width="328" crop="fill">
-                  </cl-transformation>
-                </cl-image>
-                <cl-image class="image-hover " public-id="{{getImage(p)}}" alt="{{p.name}}">
-                  <cl-transformation height="437" width="328" crop="fill">
-                  </cl-transformation>
-                </cl-image>
+                <img src="{{getImage(p,{height: 437, width: 328, crop: 'fill'})}}" alt="{{p.name}}" class="d-flex"/>
+                <img class="image-hover " src="{{getImage(p,{height: 470, width: 350, crop: 'fill'})}}">
               </a>
               <a (click)="addToWithList(p)" href="wishlist" class="add-to-wishlist hintT-left"
                  data-hint="הוסיפי למועדפים"><i class="far fa-heart"></i></a>
@@ -90,8 +84,9 @@
             <div class="product-info">
               <h6 class="title"><a routerLink="product-details?id={{p.id}}">{{p.name}}</a></h6>
               <span class="price">
-                <span >{{p.price | currency}}</span>
-                <s class="regular-price" *ngIf="p.sale_price && p.regular_price !== p.sale_price" >{{p.regular_price | currency}}</s>
+                <span>{{p.price | currency}}</span>
+                <s class="regular-price"
+                   *ngIf="p.sale_price && p.regular_price !== p.sale_price">{{p.regular_price | currency}}</s>
               </span>
               <div class="product-buttons">
                 <a href="#quickViewModal" (click)="openDialog(p)" data-toggle="modal" class="product-button hintT-top"

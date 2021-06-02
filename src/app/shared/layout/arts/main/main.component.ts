@@ -53,6 +53,6 @@ export class MainComponent implements OnInit, AfterContentInit {
   }
 
   onActivate($event: any, outlet: HTMLElement): void {
-    outlet.scrollTop = 0;
+    outlet.scrollTo({top: 0});
   }
 }

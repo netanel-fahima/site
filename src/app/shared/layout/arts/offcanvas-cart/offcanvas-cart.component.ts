@@ -27,13 +27,13 @@ export class OffcanvasCartComponent implements OnInit, AfterViewInit {
   }
 
   removeCart(cart): void {
-    this.store.dispatch(new productActions.RemoveVisualCart(EntityType.Carts, cart.product.id));
+    this.store.dispatch(new productActions.RemoveVisualCart(EntityType.Carts, {id: cart.product.id, options: cart.options}));
   }
 
 
   getImages(product: any): string {
     try {
-      const src = product.images?.[0].src ? this.cloudinary.url(getImageName(product.images?.[0].src),
+      const src = product.images?.[0].src ? this.cloudinary.url(product.images?.[0].name,
         {height: 100, width: 75, crop: 'fill'}) : 'assets/images/product/cart-product-1.jpg';
       console.log(src);
       return src;

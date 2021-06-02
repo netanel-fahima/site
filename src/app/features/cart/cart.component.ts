@@ -48,7 +48,7 @@ export class CartComponent implements OnInit, AfterViewChecked {
 
   getImage(imgs: any): string {
     try {
-      const src = imgs?.[0] ? this.cloudinary.url(getImageName(imgs[0].src),
+      const src = imgs?.[0] ? this.cloudinary.url(imgs[0].name,
         {height: 100, width: 75, crop: 'fill'}) : 'assets/images/product/cart-product-1.jpg';
       console.log(src);
       return src;

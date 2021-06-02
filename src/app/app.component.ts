@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   }
 
   onActivate(e, outlet): void {
-    outlet.scrollTop = 0;
+    outlet.scrollTo({top: 0});
   }
 
 }

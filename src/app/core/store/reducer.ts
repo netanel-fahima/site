@@ -5,8 +5,8 @@ export const removeLocalUser = () => {
   localStorage.removeItem('vizual_user');
 };
 
-const removeFromLocalCart = (localCart, productId) => {
-  return removeProductFromLocal(localCart, productId);
+const removeFromLocalCart = (localCart, productId, options) => {
+  return removeProductFromLocal(localCart, productId, options);
 };
 
 const removeProductFromWishList = (localCart, productId) => {
@@ -17,9 +17,13 @@ const removeProductFromWishList = (localCart, productId) => {
   return newCart;
 };
 
-const removeProductFromLocal = (localCart, productId) => {
+const removeProductFromLocal = (localCart, productId, options) => {
   const newCart = localCart.filter((cart) => {
-    return cart.product.id !== productId;
+    return !(
+      (!options.length || options.some(a1 => {
+        return cart.options.map(a => a.value)
+          .includes(a1.value);
+      })) && cart.product.id === productId);
   });
   localStorage.setItem('vizual_localCart', JSON.stringify(newCart));
   return newCart;
@@ -33,7 +37,7 @@ const updateFromLocalWishList = (localCart, {product, quantity}) => {
 };
 
 const updateFromLocalCart = (localCart, {product, quantity, options}) => {
-  const newCart = [...removeFromLocalCart(localCart, product.id), {product, quantity, options}];
+  const newCart = [...removeFromLocalCart(localCart, product.id, options), {product, quantity, options}];
   localStorage.setItem('vizual_localCart', JSON.stringify(newCart));
   return newCart;
 };
@@ -72,7 +76,13 @@ const addToCart = (localCart, {product, quantity, options}): any[] => {
 
 const addProductToLocal = (type, localCart, {product, quantity, options = []}): any[] => {
   const newCart = {product, quantity, options};
-  const checkId = obj => obj.product.id === product.parentId;
+  const checkId = obj => {
+    return obj.product.id === product.parentId
+      && (!options.length || options.some(a1 => {
+        return obj.options.map(a => a.value)
+          .includes(a1.value);
+      }));
+  };
   if (localCart.some(checkId)) {
     console.log('The item you are trying to add is already in your cart!');
     return updateFromLocalCart(localCart, newCart);
@@ -174,7 +184,7 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       console.log(state.entities);
       return {
         ...state,
-        entities: state.entities.set(action.cmd, removeFromLocalCart(getLocalCart(), action.payload)),
+        entities: state.entities.set(action.cmd, removeFromLocalCart(getLocalCart(), action.payload.id, action.payload.options)),
         loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, '')
       };

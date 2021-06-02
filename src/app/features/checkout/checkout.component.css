@@ -86,8 +86,19 @@ label.col-form-label-sm {
   position: relative !important;
 }
 
+.btn-group-lg{
+  display: flex;
+}
 
-@media (max-width: 575px) {
+.btn-group-lg > .btn, .btn-lg {
+  padding: .3rem 1rem;
+  font-size: 1.0rem;
+  line-height: 1.0;
+  border-radius: .3rem
+}
+
+
+@media (max-width: 700px) {
   .btn-group-lg {
     display: flex;
     flex-direction: column;
