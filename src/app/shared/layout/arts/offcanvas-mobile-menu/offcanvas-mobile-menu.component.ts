@@ -23,4 +23,7 @@ export class OffcanvasMobileMenuComponent implements OnInit, AfterViewChecked {
 
   }
 
+  close() {
+    Init.offcanvasClose();
+  }
 }

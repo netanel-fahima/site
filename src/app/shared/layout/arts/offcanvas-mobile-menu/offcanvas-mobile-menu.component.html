@@ -1,16 +1,18 @@
 <div id="offcanvas-mobile-menu" class="offcanvas offcanvas-mobile-menu">
   <div class="inner customScroll">
     <div class="offcanvas-menu-search-form">
-      <form action="#">
-        <input type="text" placeholder="חיפוש...">
-        <button><i class="fal fa-search"></i></button>
-      </form>
+      <!--
+            <form action="#">
+              <input type="text" placeholder="חיפוש...">
+              <button><i class="fal fa-search"></i></button>
+            </form>
+      -->
     </div>
     <div class="offcanvas-menu">
       <ul>
         <li *ngFor="let c of service.categoriesParent$ | async"
             class="{{service.hadChildren((service.categoriesChilds$|async),c.id) && 'has-children'}}">
-          <a [href]="service.navigateToProducts(c)">
+          <a  [href]="service.navigateToProducts(c)">
             <span class="menu-text">{{c.name}}</span>
           </a>
           <ng-container *ngFor="let cc of service.categoriesChilds$ | async">
@@ -24,13 +26,10 @@
     <div class="offcanvas-buttons">
       <div class="header-tools">
         <div class="header-login">
-          <a href="#login"><i class="fal fa-user"></i></a>
-        </div>
-        <div class="header-wishlist">
-          <a href="wishlist.html"><span>3</span><i class="fal fa-heart"></i></a>
+          <a href="#login" (click)="close()"><i class="fal fa-user"></i></a>
         </div>
         <div class="header-cart">
-          <a href="#shopping-cart"><span class="cart-count">{{(data.cart$|async)?.length }}</span><i
+          <a href="#shopping-cart" (click)="close()"><span class="cart-count">{{(data.cart$|async)?.length }}</span><i
             class="fal fa-shopping-cart"></i></a>
         </div>
       </div>

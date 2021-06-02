@@ -12,6 +12,13 @@
         </tr>
         </thead>
         <tbody>
+        <tr *ngIf="!cart.length">
+          <td>
+            <p>
+              העגלה ריקה , פנקי את עצמך!
+            </p>
+          </td>
+        </tr>
         <tr *ngFor="let c of cart  ">
           <td class="thumbnail"><a href="product-details.html">
             <img src="{{getImage(c.product.images) }}"></a>
@@ -38,15 +45,15 @@
       </table>
       <div class="row justify-content-between mb-n3 c-revert">
         <div class="col-auto mb-3 c-revert">
-          <div class="cart-coupon">
-            <button class="btn"><i class="fal fa-gift"></i></button>
-            <input type="text" placeholder="הכניסי קופון">
-          </div>
+          <!--  <div class="cart-coupon">
+              <button class="btn"><i class="fal fa-gift"></i></button>
+              <input type="text" placeholder="הכניסי קופון">
+            </div>-->
         </div>
         <div class="col-auto">
           <div class="col-auto d-flex">
             <button class="btn btn-dark btn-outline-hover-dark mb-3" (click)="updateCart()">עדכן</button>
-            <a class="btn btn-light btn-hover-dark mr-3 mb-3" href="product">המשך קניה</a>
+            <a class="btn btn-light btn-hover-dark mr-3 mb-3" href="#product">המשך קניה</a>
           </div>
         </div>
       </div>

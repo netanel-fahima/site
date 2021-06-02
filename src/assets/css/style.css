@@ -87,6 +87,7 @@
   font-family: varela;
   src: url('../fonts/varela/VarelaRound-Regular.ttf');
 }
+
 @font-face {
   font-family: dana;
   src: url('../fonts/varela/DanaYadAlefAlefAlef-Normal.otf');
@@ -226,7 +227,6 @@ hr {
   float: left;
   width: 100%;
 }
-
 
 
 @media only screen and (min-width: 1500px) {
@@ -3273,10 +3273,12 @@ body.offside-header-left {
   padding-top: 7px;
   padding-bottom: 7px;
 }
-.logo-animation{
+
+.logo-animation {
   animation: flip;
   animation-duration: 2s;
 }
+
 .header-logo a {
   display: -webkit-box;
   display: -webkit-flex;
@@ -4512,13 +4514,18 @@ body.offcanvas-open .sticky-header {
 
 /* OffCanvas Menu */
 .offcanvas-menu > ul {
-  margin: 0;
+  font-size: 1.3rem;
+  margin: 0 auto;
   padding: 0;
   list-style: none;
 }
 
 .offcanvas-menu > ul > li {
+  font-size: inherit;
   position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  width: auto;
+  margin: 0 auto;
 }
 
 .offcanvas-menu > ul > li > a {
@@ -16961,7 +16968,7 @@ body.offcanvas-open .sticky-header {
 .offcanvas-toggle {
   transition: all 0.2s ease-out 0s;
   transform: scale(1);
-  animation: zoomInUp ;
+  animation: zoomInUp;
   animation-duration: 2s;
 }
 
