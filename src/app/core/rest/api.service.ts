@@ -40,9 +40,14 @@ export class ApiService {
       url: `${env.origin}/${env.wcEndpoint}/${cmd}`,
       method: 'GET'
     };
+
+    const params = env.production ? {per_page: '100'} : {};
     console.log(requestData.url);
-    return this.http.get<any>(requestData.url + `?consumer_key=${env.woocommerce.consumer_key}&consumer_secret=${env.woocommerce.consumer_secret}`,
-      {params: {per_page: '100'}}
+    return this.http.get<any>(
+      requestData.url +
+      (env.production ? `?consumer_key=${env.woocommerce.consumer_key}&consumer_secret=${env.woocommerce.consumer_secret}`
+        : '?' + $.param(auth.authorize(requestData))),
+      {params}
     )
       .pipe(
         map((data) => {
