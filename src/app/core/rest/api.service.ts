@@ -41,7 +41,9 @@ export class ApiService {
       method: 'GET'
     };
     console.log(requestData.url);
-    return this.http.get<any>(requestData.url + '?' + $.param(auth.authorize(requestData)))
+    return this.http.get<any>(requestData.url + `?consumer_key=${env.woocommerce.consumer_key}&consumer_secret=${env.woocommerce.consumer_secret}`,
+      {params: {per_page: '100'}}
+    )
       .pipe(
         map((data) => {
           return data;
