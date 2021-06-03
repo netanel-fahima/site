@@ -22,7 +22,7 @@ export class LoginEffect {
     switchMap(({payload: {username}}) => {
       console.log('LOADING DATA', EntityType.Customers);
       removeLocalUser();
-      return this.service.getEntity(EntityType.Customers).pipe(
+      return this.service.getEntity(EntityType.Customers, {}).pipe(
         map((users) => {
           users.forEach(user => {
             if (user.username === username) {

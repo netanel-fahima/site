@@ -52,7 +52,8 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
         return this.data.products$.pipe(
           filter(value => value && !!value.length));
       })).subscribe(value => {
-      this.products$ = value;
+        Init.offcanvasClose();
+        this.products$ = value;
     });
 
   }

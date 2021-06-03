@@ -40,7 +40,7 @@ export class ProductEffect {
     ofType(actions.ActionTypes.Read),
     mergeMap(({cmd, payload}) => {
       // @ts-ignore
-      return this.service.getEntity(cmd.replace('<id>', payload.id)).pipe(
+      return this.service.getEntity(cmd.replace('<id>', payload.id), payload).pipe(
         map((products) => {
           return new actions.LoadSuccess(cmd, [].concat(products));
         }),
