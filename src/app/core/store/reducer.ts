@@ -111,13 +111,15 @@ const initialState: EntityState = {
     .set(EntityType.Customers, [])
     .set(EntityType.Orders, [])
     .set(EntityType.Delivery, null)
-    .set(EntityType.ProductsVariations, null),
+    .set(EntityType.ProductsVariations, null)
+    .set(EntityType.Product, null),
   loaded: new Map<string, boolean>()
     .set(EntityType.Carts, false)
     .set(EntityType.WishList, false)
     .set(EntityType.Customers, false)
     .set(EntityType.Orders, false)
-    .set(EntityType.ProductsVariations, false),
+    .set(EntityType.ProductsVariations, false)
+    .set(EntityType.Product, false),
   error: new Map<string, any>()
 };
 
@@ -138,6 +140,15 @@ export function ProductReducer(state = initialState, action: ProductActions): En
         error: state.error.set(action.cmd, '')
       };
     case ActionTypes.Load: {
+      console.log('Loading Data');
+      return {
+        ...state,
+        entities: state.entities,
+        loaded: state.loaded.set(action.cmd, true),
+        error: state.error.set(action.cmd, '')
+      };
+    }
+    case ActionTypes.Read: {
       console.log('Loading Data');
       return {
         ...state,

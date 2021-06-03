@@ -1,5 +1,5 @@
 <!-- Single Products Section Start -->
-<ng-container *ngIf="product.product|async">
+<ng-container *ngIf="(product.product|async) && !(loaded$|async)">
   <div class="section section-padding border-bottom">
     <div class="container">
       <div class="row learts-mb-n40 product-details">

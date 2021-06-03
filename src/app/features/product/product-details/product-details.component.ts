@@ -4,6 +4,13 @@ import {ActivatedRoute} from '@angular/router';
 import {filter, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
 import {ProductDetails} from '../product-details.service';
+import * as productActions from '../../../core/store/actions';
+import {EntityType} from '../../../core/store/actions';
+import {select, Store} from '@ngrx/store';
+import {Observable} from 'rxjs/internal/Observable';
+import {Subscription} from 'rxjs';
+import {AutoUnsub} from '../../../core/utils/auto-unsub';
+import * as fromProduct from '../../../core/store';
 
 @Component({
   selector: 'app-product-details',
@@ -11,34 +18,41 @@ import {ProductDetails} from '../product-details.service';
   styleUrls: ['./product-details.component.css']
 })
 
+@AutoUnsub()
 export class ProductDetailsComponent implements OnInit, OnDestroy {
 
-  constructor(private route: ActivatedRoute, public product: ProductDetails) {
+  public loaded$: Observable<boolean>;
+  private sub: Subscription;
+  private product$: Observable<any>;
+
+  constructor(private store: Store, private route: ActivatedRoute, public product: ProductDetails) {
+    this.product$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Product}));
   }
 
   ngOnInit(): void {
-    this.product.mainProduct = this.product.product =
-      this.route.queryParams.pipe(
-        switchMap(params => {
-          const p = {
-            id: params.id || ''
-          };
-          const local = localStorage.getItem('product');
-          if (p.id !== local) {
-            localStorage.setItem('product', p.id);
-            if (local) {
-              window.location.reload();
-              return of(null);
-            }
-          }
-          return this.product.data.products$.pipe(
-            filter(value => !!value),
-            switchMap((products) =>
-              of(products.find((product) => product.id === +p.id)))
-          );
-        }));
+    this.sub = this.route.queryParams.pipe(
+      switchMap(params => {
+        const p = {
+          id: params.id || '',
+          per_page: '1'
+        };
+        this.store.dispatch(new productActions.Read(EntityType.Product, p));
+        this.loaded$ = this.store.pipe(select(fromProduct.getLoaded, {cmd: EntityType.Product}));
+        return this.loaded$;
+      }),
+      filter(value => !value),
+      switchMap(params => {
+        return this.product$.pipe(
+          filter(value => value && !!value.length),
+          switchMap((products) =>
+            of(products?.[0])
+          ));
+      })).subscribe(value => {
+      this.product.mainProduct = this.product.product = of(value);
+      this.product.clear();
+      this.product.setVariations();
+    });
 
-    this.product.setVariations();
   }
 
   loads(product): void {
@@ -62,7 +76,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
   }
-
 
 
 }

@@ -28,7 +28,7 @@ export class EntityService {
     this.store.dispatch(new productActions.Load(EntityType.Categories));
     this.store.dispatch(new productActions.Load(EntityType.Customers));
 
-    this.store.dispatch(new productActions.Load(EntityType.Products));
+
 
     this.categories$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Categories}));
     this.products$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Products}));

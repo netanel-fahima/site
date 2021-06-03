@@ -33,7 +33,7 @@ export class ApiService {
     return oauth;
   }
 
-  public get(cmd: string): Observable<any> {
+  public get(cmd: string, args: object): Observable<any> {
 
     const auth = this.basicAuth(env.woocommerce.consumer_key, env.woocommerce.consumer_secret);
     const requestData = {
@@ -41,7 +41,7 @@ export class ApiService {
       method: 'GET'
     };
 
-    const params = env.production ? {per_page: '100'} : {};
+    const params = env.production ? {...{per_page: '100'}, ...args} : {};
     console.log(requestData.url);
     return this.http.get<any>(
       requestData.url +

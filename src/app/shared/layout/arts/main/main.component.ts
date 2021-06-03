@@ -16,25 +16,34 @@ export class MainComponent implements OnInit, AfterContentInit {
 
   @ViewChild('app_offcanvas_cart', {static: true}) cartComponent: OffcanvasCartComponent;
 
-  public loadingProducts$: Observable<any[]>;
-  public loadingOrder$: Observable<any[]>;
+  public loadingProducts$: Observable<boolean>;
+  public loadingOrder$: Observable<boolean>;
+  private loadingProduct$: Observable<boolean>;
 
   constructor(private spinner: NgxSpinnerService, private store: Store) {
 
     this.loadingProducts$ = this.store.pipe(select(fromProduct.getLoaded, {cmd: EntityType.Products}));
     this.loadingOrder$ = this.store.pipe(select(fromProduct.getLoaded, {cmd: EntityType.Orders}));
+    this.loadingProduct$ = this.store.pipe(select(fromProduct.getLoaded, {cmd: EntityType.Product}));
+
+
+    this.loadingProduct$
+      .subscribe(value => {
+        this.spinnerToggle(value);
+      });
 
     this.loadingProducts$
       .subscribe(value => {
         this.spinnerToggle(value);
       });
+
     this.loadingOrder$
       .subscribe(value => {
         this.spinnerToggle(value);
       });
   }
 
-  private spinnerToggle(value: any[]): void {
+  private spinnerToggle(value: boolean): void {
     if (value) {
       this.spinner.show();
     }

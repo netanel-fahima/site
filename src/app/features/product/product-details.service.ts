@@ -10,10 +10,12 @@ import {of} from 'rxjs/internal/observable/of';
 import {Init} from '../../../assets/js/init';
 import {Subscriber, Subscription} from 'rxjs';
 import {ImageServiceService} from '../../core/utils/image-service.service';
+import {AutoUnsub} from '../../core/utils/auto-unsub';
 
 @Injectable({
   providedIn: 'root'
 })
+@AutoUnsub()
 export class ProductDetails implements OnDestroy {
 
   @Output() emitter = new EventEmitter();
@@ -148,4 +150,8 @@ export class ProductDetails implements OnDestroy {
 
   }
 
+  clear(): void {
+    this.options = [];
+    this.quantity = 1;
+  }
 }

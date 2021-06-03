@@ -11,8 +11,8 @@ export class WooApi {
   constructor(private api: ApiService) {
   }
 
-  public getEntity(cmd: EntityType): Observable<any> {
-    return this.api.get(cmd);
+  public getEntity(cmd: EntityType, params: object): Observable<any> {
+    return this.api.get(cmd, params);
   }
 
   public addEntity(cmd: EntityType, p: any): Promise<any> {

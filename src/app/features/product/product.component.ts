@@ -1,63 +1,59 @@
 import {AfterViewChecked, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {Init} from '../../../assets/js/init';
 import {ProductDialogComponent} from './product-dialog/product-dialog.component';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, ParamMap, Router} from '@angular/router';
 import {EntityService} from '../../core/store/entity.service';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import * as productActions from '../../core/store/actions';
 import {EntityType} from '../../core/store/actions';
-import {delay, filter, map, switchMap, tap} from 'rxjs/operators';
+import {delay, filter, first, map, switchMap, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs/internal/Observable';
 import {getImageName} from './utils/productUtil';
 import {of} from 'rxjs/internal/observable/of';
 import {ProductDetails} from './product-details.service';
+import * as fromProduct from '../../core/store';
+import {AutoUnsub} from '../../core/utils/auto-unsub';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
+@AutoUnsub()
 export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   @ViewChild('dialog', {static: true}) dialog: ProductDialogComponent;
 
-
-  public products$: Observable<any>;
+  public products$: any;
   category = null;
+  public loaded$: Observable<boolean>;
+  private sub: Subscription;
 
   constructor(private store: Store, public data: EntityService, public route: ActivatedRoute, public router: Router,
               private detail: ProductDetails) {
-    this.products$ = this.route.queryParams.pipe(
-      switchMap(params => {
-        const filters = {
-          categoryId: params.category || '',
-        };
 
-        const local = localStorage.getItem('category');
-        if (filters.categoryId !== local) {
-          localStorage.setItem('category', filters.categoryId);
-          if (local) {
-            window.location.reload();
-            return of([]);
-          }
+    this.sub = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      switchMap(() => {
+        const category = route.snapshot.queryParamMap.get('category');
+        let payload = {
+          per_page: '100'
+        };
+        if (category) {
+          payload = {...payload, ...{category}};
         }
+        this.store.dispatch(new productActions.Load(EntityType.Products, payload));
+        this.loaded$ = this.store.pipe(select(fromProduct.getLoaded, {cmd: EntityType.Products}));
+        return this.loaded$;
+      }),
+      filter(value => !value),
+      switchMap(params => {
         return this.data.products$.pipe(
-          filter(value => !!value),
-          map((products) => {
-            if (filters.categoryId) {
-              const pp = products.filter(product => {
-                return product.categories.find(c => {
-                  return c.id === +filters.categoryId;
-                });
-              });
-              console.log('categoryId', filters.categoryId);
-              return pp;
-            }
-            else {
-              return products;
-            }
-          }));
-      }));
+          filter(value => value && !!value.length));
+      })).subscribe(value => {
+      this.products$ = value;
+    });
 
   }
 
@@ -68,17 +64,6 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ngAfterViewChecked(): void {
     Init.first();
-
-    this.products$
-      .pipe(delay(100))
-      .subscribe(() => {
-        Init.filterToggle();
-        Init.isotopeFilter();
-        Init.isotopeGrid();
-        Init.columnToggle();
-        Init.addWishList();
-        /*Init.quickViewModal(this.detail.emitter);*/
-      });
   }
 
   getImage(product: any, options: object): string {
@@ -109,5 +94,13 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
   addToWithList(product: any): void {
     this.store.dispatch(new productActions.AddVisualWishList(EntityType.WishList, {product, quantity: 1}));
     Init.offcanvasOpenWishlist();
+  }
+
+  done(): void {
+    Init.filterToggle();
+    Init.isotopeFilter();
+    Init.isotopeGrid();
+    Init.columnToggle();
+    Init.addWishList();
   }
 }

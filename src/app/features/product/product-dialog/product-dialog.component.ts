@@ -21,6 +21,7 @@ export class ProductDialogComponent {
   public open(product: Observable<object>): void {
 
     this.product?.sub?.unsubscribe();
+    this.product.clear();
     this.product.product =
       this.product.mainProduct = product;
 

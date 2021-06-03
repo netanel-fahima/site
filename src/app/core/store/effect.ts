@@ -25,8 +25,8 @@ export class ProductEffect {
   @Effect()
   loadProduct$: Observable<Action> = this.action$.pipe(
     ofType(actions.ActionTypes.Load),
-    mergeMap(({cmd}) => {
-      return this.service.getEntity(cmd).pipe(
+    mergeMap(({cmd, payload}) => {
+      return this.service.getEntity(cmd, payload).pipe(
         map((products) => {
           return new actions.LoadSuccess(cmd, products);
         }),
@@ -42,7 +42,7 @@ export class ProductEffect {
       // @ts-ignore
       return this.service.getEntity(cmd.replace('<id>', payload.id)).pipe(
         map((products) => {
-          return new actions.LoadSuccess(cmd, products);
+          return new actions.LoadSuccess(cmd, [].concat(products));
         }),
         catchError(err => of(new actions.LoadFail(cmd, err)))
       );

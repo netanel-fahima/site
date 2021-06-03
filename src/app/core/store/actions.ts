@@ -26,6 +26,7 @@ export enum EntityType {
   OrdersNote = 'orders',
   Orders = 'orders',
   Products = 'products',
+  Product = 'products/<id>',
   ProductsVariations = 'products/<id>/variations',
   UpdateOrder = 'orders/<id>',
   Carts = 'carts',
@@ -148,7 +149,7 @@ export class AddVisual extends EntityAction {
 export class Load extends EntityAction {
   readonly type = ActionTypes.Load;
 
-  constructor(public cmd: string) {
+  constructor(public cmd: string, public payload = {}) {
     super(cmd);
   }
 }
