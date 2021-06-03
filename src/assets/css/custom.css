@@ -28,6 +28,7 @@ input {
 @media only screen and (max-width: 480px) {
   .product-thumb .add-to-wishlist {
     top: 0;
+    right: 3rem;
   }
 
   .product-badges {

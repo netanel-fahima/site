@@ -53,6 +53,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       this.product.setVariations();
     });
 
+
   }
 
   loads(product): void {

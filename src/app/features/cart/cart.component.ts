@@ -37,10 +37,13 @@ export class CartComponent implements OnInit, AfterViewChecked {
 
   updateCart() {
     this.cart.forEach(item => {
+      if (item.product.stock_quantity && item.product.stock_quantity < item.quantity) {
+        alert(` אין מספיק כמות מהמוצר "${item.product.name}" נשארו ${item.product.stock_quantity}`);
+        return;
+      }
       this.store.dispatch(new productActions.UpdateVisualCart(EntityType.Carts, item));
     });
   }
-
 
   removeCart(cart: any) {
     this.store.dispatch(new productActions.RemoveVisualCart(EntityType.Carts, {id: cart.product.id, options: cart.options}));

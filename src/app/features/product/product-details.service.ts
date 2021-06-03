@@ -101,7 +101,6 @@ export class ProductDetails implements OnDestroy {
           alert(`אזל מהמלאי`);
           return;
         }
-
         const mainVariation = product.attributes;
         const selectedVariation =
           this.options.filter(o => o.variation)
@@ -118,6 +117,20 @@ export class ProductDetails implements OnDestroy {
           alert(`אזל מהמלאי`);
           return;
         }
+
+        if (product.stock_quantity && product.stock_quantity < this.quantity) {
+          if (selectedVariation.length > 0) {
+            alert(
+              ` אין מספיק כמות מהמוצר עם תכונה הנוכחית ${selectedVariation.map(a => a.value).join(' ו ')} נשארו${product.stock_quantity}`);
+          }
+          else {
+            alert(
+              ` אין מספיק כמות מהמוצר נשארו ${product.stock_quantity}`);
+
+          }
+          return;
+        }
+
         this.store.dispatch(new productActions.AddVisual(EntityType.Carts, {
           product: {...product, parentId: mainProduct.id},
           quantity: this.quantity,

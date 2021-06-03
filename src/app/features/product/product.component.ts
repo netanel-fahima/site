@@ -52,8 +52,8 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
         return this.data.products$.pipe(
           filter(value => value && !!value.length));
       })).subscribe(value => {
-        Init.offcanvasClose();
-        this.products$ = value;
+      Init.offcanvasClose();
+      this.products$ = value;
     });
 
   }
@@ -92,7 +92,8 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  addToWithList(product: any): void {
+  addToWithList(product: any, $event: MouseEvent): void {
+    $event.preventDefault();
     this.store.dispatch(new productActions.AddVisualWishList(EntityType.WishList, {product, quantity: 1}));
     Init.offcanvasOpenWishlist();
   }

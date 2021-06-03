@@ -77,7 +77,7 @@ const addToCart = (localCart, {product, quantity, options}): any[] => {
 const addProductToLocal = (type, localCart, {product, quantity, options = []}): any[] => {
   const newCart = {product, quantity, options};
   const checkId = obj => {
-    return obj.product.id === product.parentId
+    return obj.product.id === product.id
       && (!options.length || options.some(a1 => {
         return obj.options.map(a => a.value)
           .includes(a1.value);
