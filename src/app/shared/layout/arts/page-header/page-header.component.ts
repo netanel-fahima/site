@@ -15,7 +15,7 @@ import {HeaderService} from '../header.service';
 
 export class PageHeaderComponent {
 
-  constructor(public data: EntityService, private router: Router, public service: HeaderService) {
+  constructor(public data: EntityService, public router: Router, public service: HeaderService) {
   }
 }
 

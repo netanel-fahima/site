@@ -17,13 +17,12 @@ const initialState: UserState = {
 export function LoginReducer(state = initialState, action: LoginActions): UserState {
   switch (action.type) {
     case UserAction.Load: {
-      console.log('load user ' + action.payload);
       return {
         user: action.payload, error, loaded: false
       };
     }
     case UserAction.Err: {
-      console.log('Err ' + action.payload);
+      console.error('Err ' + action.payload);
       return {
         user: null,
         error: action.payload,

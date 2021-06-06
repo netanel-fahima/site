@@ -20,13 +20,12 @@ export class ImageServiceService {
     return this.getImageSrc(product.images?.[index]?.name, options);
   }
 
-  public getImageSrc(src, options): string {
+  public getImageSrc(src, options, defImg = 'assets/images/product/cart-product-1.jpg'): string {
     if (!src) {
-      return 'assets/images/product/cart-product-1.jpg';
+      return defImg;
     }
     const img = this.cloudinary.url(src, options);
 
-    console.log(img);
     return img;
   }
 

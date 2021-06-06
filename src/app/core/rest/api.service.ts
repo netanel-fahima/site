@@ -42,7 +42,6 @@ export class ApiService {
     };
 
     const params = env.production ? {...{per_page: '100'}, ...args} : {};
-    console.log(requestData.url);
     return this.http.get<any>(
       requestData.url +
       (env.production ? `?consumer_key=${env.woocommerce.consumer_key}&consumer_secret=${env.woocommerce.consumer_secret}`

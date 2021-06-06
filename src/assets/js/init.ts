@@ -22,9 +22,6 @@ export class Init {
   }
 
   static first() {
-
-    console.log('first');
-
     $.Scrollax();
     $.scrollUp({
       scrollText: '<i class="fal fa-long-arrow-up"></i>',
@@ -105,7 +102,6 @@ export class Init {
 
   static slider() {
 
-    console.log('slider');
     // Home 1 Slider
     // @ts-ignore
     const $home1Slider = new Swiper('.home1-slider', {
@@ -122,7 +118,6 @@ export class Init {
   }
 
   static moblieMenu() {
-    console.log('moblieMenu');
 
     var $offCanvasNav = $('.offcanvas-menu, .overlay-menu'),
       $offCanvasNavSubMenu = $offCanvasNav.find('.sub-menu');
@@ -155,8 +150,6 @@ export class Init {
 
   static offcanvasToggle() {
 
-    console.log('offcanvasToggle');
-
     var $offCanvasToggle = $('.offcanvas-toggle'),
       $offCanvas = $('.offcanvas'),
       $offCanvasOverlay = $('.offcanvas-overlay'),
@@ -180,31 +173,28 @@ export class Init {
       $offCanvas.removeClass('offcanvas-open');
       $offCanvasOverlay.fadeOut();
       $mobileMenuToggle.find('a').removeClass('close');
+      $('#search-input').val('');
     });
   }
 
   static offcanvasOpen() {
-    console.log('offcanvasOpen');
     var $offCanvasToggle = $('.offcanvas-toggle[href=#offcanvas-cart]');
     $offCanvasToggle.click();
   }
 
   static offcanvasClose() {
-    console.log('offcanvasOpen');
     var $offCanvasToggle = $('.offcanvas-close, .offcanvas-overlay');
     $offCanvasToggle.click();
   }
 
 
   static offcanvasOpenWishlist() {
-    console.log('offcanvasOpen');
     var $offCanvasToggle = $('.offcanvas-toggle[href=#offcanvas-wishlist]');
     $offCanvasToggle.click();
   }
 
 
   static banner() {
-    console.log('banner');
     $('.category-banner1-carousel').not('.slick-initialized').slick({
       infinite: true,
       slidesToShow: 3,
@@ -242,7 +232,6 @@ export class Init {
   }
 
   static isotopeFilter() {
-    console.log('isotopeFilter');
     /*--
         Isotpe
     -----------------------------------*/
@@ -259,7 +248,6 @@ export class Init {
   }
 
   static filterToggle() {
-    console.log('filterToggle');
     // Filter Toggle
     $('.product-filter-toggle').off().on('click', function(e) {
       e.preventDefault();
@@ -273,7 +261,6 @@ export class Init {
 
 
   static columnToggle() {
-    console.log('columnToggle');
     // Column Toggle
     $('.product-column-toggle').off().on('click', '.toggle', function(e) {
       e.preventDefault();
@@ -288,7 +275,6 @@ export class Init {
   }
 
   static addWishList() {
-    console.log('addWishList');
     /*--
       Add To Wishlist
   -----------------------------------*/
@@ -336,8 +322,6 @@ export class Init {
 
 
   static qtyBtn() {
-
-    console.log('qtyBtn');
     /*--
       Product Quantity
   -----------------------------------*/
@@ -402,7 +386,6 @@ export class Init {
 
   // tslint:disable-next-line:typedef
   static galleryPopup(imgs) {
-    console.log('galleryPopup');
     var $productPopupGalleryBtn = $('.product-gallery-popup'),
       $productPopupGallery = imgs,
       $openPhotoSwipe = function() {

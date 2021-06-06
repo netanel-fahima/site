@@ -28,8 +28,6 @@ export class EntityService {
     this.store.dispatch(new productActions.Load(EntityType.Categories));
     this.store.dispatch(new productActions.Load(EntityType.Customers));
 
-
-
     this.categories$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Categories}));
     this.products$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Products}));
     this.productsVariations$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.ProductsVariations}));
@@ -49,7 +47,6 @@ export class EntityService {
         const total = cart.reduce((previousValue, currentValue) => {
           return previousValue += Number(currentValue.product.price) * currentValue.quantity;
         }, 0);
-        console.log('total', total);
         if (withDelivery) {
           // @ts-ignore
           return of(total + (+delivery?.settings?.cost?.value || 0));

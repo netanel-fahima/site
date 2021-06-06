@@ -15,7 +15,6 @@ export class PageTitleSectionComponent implements OnInit {
   vm$ = this.store.select(getRouterState);
 
   constructor(private store: Store<any>) {
-    console.log(store);
   }
 
   @Input() siteMap: any;

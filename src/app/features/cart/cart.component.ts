@@ -53,7 +53,6 @@ export class CartComponent implements OnInit, AfterViewChecked {
     try {
       const src = imgs?.[0] ? this.cloudinary.url(imgs[0].name,
         {height: 100, width: 75, crop: 'fill'}) : 'assets/images/product/cart-product-1.jpg';
-      console.log(src);
       return src;
     }
     catch (e) {

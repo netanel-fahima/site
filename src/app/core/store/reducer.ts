@@ -132,7 +132,6 @@ function updateEntity(entities: any[], payload: any): any[] {
 export function ProductReducer(state = initialState, action: ProductActions): EntityState {
   switch (action.type) {
     case ActionTypes.LoadSuccess:
-      console.log(state.entities);
       return {
         ...state,
         entities: state.entities.set(action.cmd, [...action.payload]),
@@ -140,7 +139,6 @@ export function ProductReducer(state = initialState, action: ProductActions): En
         error: state.error.set(action.cmd, '')
       };
     case ActionTypes.Load: {
-      console.log('Loading Data');
       return {
         ...state,
         entities: state.entities,
@@ -149,7 +147,6 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       };
     }
     case ActionTypes.Read: {
-      console.log('Loading Data');
       return {
         ...state,
         entities: state.entities,
@@ -174,7 +171,6 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       };
     }
     case ActionTypes.Add: {
-      console.log(state.entities);
       return {
         ...state,
         entities: state.entities,
@@ -183,7 +179,6 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       };
     }
     case ActionTypes.AddVisualCart: {
-      console.log(state.entities);
       return {
         ...state,
         entities: state.entities.set(action.cmd, addToCart(getLocalCart(), action.payload)),
@@ -192,7 +187,6 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       };
     }
     case ActionTypes.RemoveVisualCart: {
-      console.log(state.entities);
       return {
         ...state,
         entities: state.entities.set(action.cmd, removeFromLocalCart(getLocalCart(), action.payload.id, action.payload.options)),
@@ -201,7 +195,6 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       };
     }
     case ActionTypes.UpdateVisualCart: {
-      console.log(state.entities);
       return {
         ...state,
         entities: state.entities.set(action.cmd, updateFromLocalCart(getLocalCart(), action.payload)),
@@ -210,7 +203,6 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       };
     }
     case ActionTypes.AddVisualWishList: {
-      console.log(state.entities);
       return {
         ...state,
         entities: state.entities.set(action.cmd, addToWishList(getLocalWishList(), action.payload)),
@@ -227,7 +219,6 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       };
     }
     case ActionTypes.RemoveVisualWishList: {
-      console.log(state.entities);
       return {
         ...state,
         entities: state.entities.set(action.cmd, removeProductFromWishList(getLocalWishList(), action.payload)),
@@ -236,7 +227,6 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       };
     }
     case ActionTypes.UpdateVisualWishList: {
-      console.log(state.entities);
       return {
         ...state,
         entities: state.entities.set(action.cmd, updateFromLocalWishList(getLocalWishList(), action.payload)),

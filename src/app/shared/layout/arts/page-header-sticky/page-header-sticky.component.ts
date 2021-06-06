@@ -19,7 +19,6 @@ export class PageHeaderStickyComponent implements OnInit {
 
 
   ngAfterViewChecked(): void {
-    console.log('load slider');
     Init.slider();
 
   }

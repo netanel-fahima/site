@@ -126,3 +126,7 @@ div[class^="img-bg-"] > img:first-child {
 .img-bg-18 {
   background-image: url("src/assets/images/product-bg/b18.jpg");
 }
+
+input[type="text"]{
+  direction: rtl!important
+}

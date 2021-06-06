@@ -51,6 +51,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       this.product.mainProduct = this.product.product = of(value);
       this.product.clear();
       this.product.setVariations();
+      Init.offcanvasClose();
     });
 
 

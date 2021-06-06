@@ -1,14 +1,13 @@
-import {AfterViewChecked, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Init} from '../../../assets/js/init';
 import {ProductDialogComponent} from './product-dialog/product-dialog.component';
-import {ActivatedRoute, NavigationEnd, ParamMap, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {EntityService} from '../../core/store/entity.service';
 import {select, Store} from '@ngrx/store';
 import * as productActions from '../../core/store/actions';
 import {EntityType} from '../../core/store/actions';
-import {delay, filter, first, map, switchMap, tap} from 'rxjs/operators';
+import {filter, map, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs/internal/Observable';
-import {getImageName} from './utils/productUtil';
 import {of} from 'rxjs/internal/observable/of';
 import {ProductDetails} from './product-details.service';
 import * as fromProduct from '../../core/store';
@@ -36,12 +35,12 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.sub = this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       switchMap(() => {
-        const category = route.snapshot.queryParamMap.get('category');
+        this.category = route.snapshot.queryParamMap.get('category');
         let payload = {
           per_page: '100'
         };
-        if (category) {
-          payload = {...payload, ...{category}};
+        if (this.category) {
+          payload = {...payload, ...{category: this.category}};
         }
         this.store.dispatch(new productActions.Load(EntityType.Products, payload));
         this.loaded$ = this.store.pipe(select(fromProduct.getLoaded, {cmd: EntityType.Products}));
@@ -50,7 +49,22 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
       filter(value => !value),
       switchMap(params => {
         return this.data.products$.pipe(
-          filter(value => value && !!value.length));
+          filter(value => value && !!value.length)
+          /*, map((products) => {
+            if (this.category) {
+              const pp = products.filter(product => {
+                return product.categories.find(c => {
+                  return c.id === +this.category;
+                });
+              });
+              console.log('categoryId', this.category);
+              return pp;
+            }
+            else {
+              return products;
+            }
+          })*/
+        );
       })).subscribe(value => {
       Init.offcanvasClose();
       this.products$ = value;
@@ -69,7 +83,6 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   getImage(product: any, options: object): string {
     const src = product.images?.[0]?.name ? this.detail.getImage(product.images?.[0].name, options) : 'sample';
-    console.log(src);
     return src;
   }
 

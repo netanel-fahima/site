@@ -34,7 +34,6 @@ export class ProductDetails implements OnDestroy {
   getImage(img: any, conf: object = {height: 900, width: 600, crop: 'fill'}): string {
     try {
       const src = this.cloudinary.url(img, conf);
-      console.log(src);
       return src;
     }
     catch (e) {

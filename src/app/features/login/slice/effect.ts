@@ -20,7 +20,6 @@ export class LoginEffect {
   loginUser$: Observable<Action> = this.action$.pipe(
     ofType(actions.UserAction.Login),
     switchMap(({payload: {username}}) => {
-      console.log('LOADING DATA', EntityType.Customers);
       removeLocalUser();
       return this.service.getEntity(EntityType.Customers, {}).pipe(
         map((users) => {

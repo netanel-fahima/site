@@ -35,7 +35,6 @@ export class OffcanvasCartComponent implements OnInit, AfterViewInit {
     try {
       const src = product.images?.[0].src ? this.cloudinary.url(product.images?.[0].name,
         {height: 100, width: 75, crop: 'fill'}) : 'assets/images/product/cart-product-1.jpg';
-      console.log(src);
       return src;
     }
     catch (e) {

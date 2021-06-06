@@ -11,6 +11,7 @@ import {getImageName} from '../../../../features/product/utils/productUtil';
   styleUrls: ['./offcanvas-search.component.css']
 })
 export class OffcanvasSearchComponent implements OnInit, AfterViewChecked {
+
   name: any;
 
   ngAfterViewChecked(): void {
@@ -25,8 +26,8 @@ export class OffcanvasSearchComponent implements OnInit, AfterViewChecked {
   }
 
   getImage(product: any): string {
-    const src = product.images?.[0]?.src ? getImageName(product.images?.[0].src) : 'sample';
-    console.log(src);
+    const src = product.images?.[0]?.src ? this.imgService.getImageSrc(product.images?.[0].src,
+      {height: 437, width: 328, crop: 'fill'}) : 'sample';
     return src;
   }
 }
