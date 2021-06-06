@@ -18,7 +18,7 @@ export class ProductPipe implements PipeTransform {
       this.store.dispatch(new productActions.Load(EntityType.Products, {}));
       this.loaded = true;
     }
-    if (searchString.length === 0) {
+    if (!searchString?.length) {
       this.loaded = false;
     }
     if (products != null) {

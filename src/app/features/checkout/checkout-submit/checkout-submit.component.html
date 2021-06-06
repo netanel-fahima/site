@@ -1,19 +1,22 @@
-<div class="d-flex flex-column align-items-center  h-100 w-100">
+<div class="d-flex flex-column align-items-center  h-100 w-100 m-lg-3">
 
   <div class="d-flex flex-column align-items-center w-25" *ngIf="!err">
-    <h1>ההזמנה בוצעה בהצלחה</h1>
-    <p>
-      הזמנה מספר
-      {{(order|async)?.id}}
-    </p>
+    <h1>ההזמנה בוצעה</h1>
+    <h2>בהצלחה</h2>
+    <h4>
+      הזמנה מספר{{(order|async)?.id}}
+    </h4>
     <h3>תודה!</h3>
     <p>
-      קיבלנו את ההזמנה שלך,
-      הנציגים שלנו כבר מטפלים בכל הפרטים
+       קבלה נשלחה למייל שסופק בתשלום
     </p>
-    <p>ליצירת קשר
-      054-539-4262
+    <p>
+      קיבלנו את ההזמנה שלך
     </p>
+    <p> הנציגים שלנו כבר מטפלים בהזמנה</p>
+    <p> בכל בעיה או שאלה ניתן ליצור קשר איתנו</p>
+    <b>ליצירת קשר</b>
+    <p>054-539-4262</p>
   </div>
 
   <div class="d-flex flex-column align-items-center w-25" *ngIf="err">

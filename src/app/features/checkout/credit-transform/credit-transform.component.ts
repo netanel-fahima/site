@@ -17,6 +17,6 @@ export class CreditTransformComponent implements OnInit {
   }
 
   location(): string {
-    return `${window.location.href.split('#')[0]} #/checkout-submit?orderId=${this.order.id}`;
+    return `${window.location.href.split('#')[0]}#/checkout-submit?orderId=${this.order.id}`;
   }
 }
