@@ -1,6 +1,7 @@
 <!-- Category Banner Section Start -->
 <div class="section section-fluid section-padding pt-0">
   <div class="container">
+    <div class="d-flex justify-content-center mb-4" style="font-size: 1.5rem">קטגוריות</div>
     <div class="category-banner1-carousel">
       <div class="col" *ngFor="let c of  data.categories$ |async">
         <div class="category-banner1">
@@ -8,8 +9,8 @@
             <a (click)="router.navigateByUrl('product?category='+c.id).then()" class="image">
               <img
               [src]="imageService.getImageSrc(
-              c?.image?.src,
-              {height: 260, width: 410, crop: 'fill'},
+              c?.image?.name,
+              {height: 280, width: 410, crop: 'fill'},
               'assets/images/banner/category/banner-s1-1.jpg')" alt="{{c.name}}"></a>
             <div class="content">
               <h3 class="title">
