@@ -358,6 +358,16 @@ export class Init {
       settings: 'unslick' // destroys slick
     });
 
+    $('.product-gallery-slider-quickview').not('.slick-initialized').slick({
+      dots: true,
+      infinite: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      prevArrow: '<button class="slick-prev"><i class="ti-angle-left"></i></button>',
+      nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>',
+      settings: 'unslick' // destroys slick
+    });
+
     $('.product-thumb-slider').not('.slick-initialized').slick({
       infinite: true,
       slidesToShow: 4,

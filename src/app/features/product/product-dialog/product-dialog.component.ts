@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
 import {Init} from '../../../../assets/js/init';
-import {Store} from '@ngrx/store';
-import {Cloudinary} from '@cloudinary/angular-5.x';
 import {Observable} from 'rxjs/internal/Observable';
 import {delay} from 'rxjs/operators';
 import {ProductDetails} from '../product-details.service';
+import {Subject} from 'rxjs';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 @Component({
@@ -13,37 +13,45 @@ import {ProductDetails} from '../product-details.service';
   styleUrls: ['./product-dialog.component.css']
 })
 export class ProductDialogComponent {
+  public loaded: Subject<boolean>;
 
-
-  constructor(private store: Store, private cloudinary: Cloudinary, public product: ProductDetails) {
+  constructor(private spinner: NgxSpinnerService, public product: ProductDetails) {
+    this.loaded = new Subject<boolean>();
+    this.loaded.next(false);
   }
 
-  public open(product: Observable<object>): void {
 
+  public open(product: Observable<object>): void {
+    this.loaded.next(false);
+    this.spinner.show();
     this.product?.sub?.unsubscribe();
     this.product.clear();
     this.product.product =
       this.product.mainProduct = product;
 
     this.product.product
-      .pipe(delay(100))
+      .pipe(delay(1000))
       .subscribe(p => {
-        Init.first();
-        Init.qtyBtn();
-        Init.productZoom(p.images.map(
-          (img, index) => {
-            if (!index) {
-              return {src: this.product.getImage(img.name, {height: 1100, width: 700, crop: 'fill'})};
-            }
-            return null;
-          }));
-        // Init.silckDialog();
+        this.loaded.next(true);
         this.product.setVariations();
+        this.spinner.hide();
       });
   }
 
+  setImges(images): void {
+    const imgs = images.map(img => {
+      return {src: this.product.getImage(img.name, {height: 1100, width: 700, crop: 'fill'}), h: 1100, w: 700};
+    });
+    Init.galleryPopup(imgs);
+  }
 
-  randomImg() {
-
+  load(product): void {
+    Init.first();
+    Init.qtyBtn();
+    Init.productZoom(product.images.map(
+      (img, index) => {
+        return {src: this.product.getImage(img.name, {height: 1100, width: 700, crop: 'fill'})};
+      }));
+    Init.productGallerySlider();
   }
 }

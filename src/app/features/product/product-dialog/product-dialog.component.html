@@ -1,22 +1,30 @@
 <div class="quickViewModal modal fade" id="quickViewModal">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" *ngIf="product.product|async">
+    {{(loaded|async)}}
+    <div class="modal-content" *ngIf="(loaded|async) && !!(product.product|async)">
       <button class="close" data-dismiss="modal">&times;</button>
       <div class="row learts-mb-n30">
 
         <!-- Product Images Start -->
         <div class="col-lg-6 col-12 learts-mb-30">
           <div class="product-images">
-            <div class="{{'product-gallery-slider-quickview'}}">
-              <div class="product-zoom" *ngIf="(product.product|async)?.images.length"
-                   [className]="product.imgService.randomImg()">
-                <img
-                  src="{{product.getImage((product.product|async)?.images[0].name,{height: 760, width: 570, crop: 'fill'})}}"
-                  alt="{{(product.product|async)?.images[0].name}}">
+            <div class="product-gallery-slider-quickview">
+              <div *ngFor="let image of product.getImages((product.product |async));let i = index"
+                   [className]="product.imgService.randomImg()" class="product-zoom">
+                <img src="{{product.getImage(image.name,{height: 622, width: 460, crop: 'fill'})}}"
+                     alt="{{image.name}}">
               </div>
             </div>
+            <!--<div class="product-thumb-slider">
+              <div class="item" *ngFor="let image of product.getImagesLength((product.product |async))">
+                <img src="{{product.getImage(image.name,{height: 150, width: 120, crop: 'fill'})}}"
+                     alt="{{image.name}}">
+              </div>
+            </div>-->
           </div>
         </div>
+
+
         <!-- Product Images End -->
 
         <!-- Product Summery Start -->
@@ -116,6 +124,7 @@
               </table>
             </div>
           </div>
+          {{load(product.product|async)}}
         </div>
         <!-- Product Summery End -->
 
