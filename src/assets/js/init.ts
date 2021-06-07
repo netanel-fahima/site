@@ -22,6 +22,13 @@ export class Init {
   }
 
   static first() {
+
+    $('#helpModal').on('shown.bs.modal', e => {
+      // this.silckDialog();
+    }).on('hidden.bs.modal', e => {
+
+    });
+
     $.Scrollax();
     $.scrollUp({
       scrollText: '<i class="fal fa-long-arrow-up"></i>',

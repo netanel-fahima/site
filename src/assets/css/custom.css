@@ -136,6 +136,41 @@ input[type="text"] {
   padding-right: 0;
 }
 
-.header-logo-mobile{
+.header-logo-mobile {
   padding-right: 0;
+}
+
+.help-link {
+  position: absolute;
+  right: 1.5rem;
+  top: 5px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  color: #f1b0b7;
+  font-size: 1rem;
+}
+
+.help-link--mobile {
+  top: unset;
+  bottom: 30%;
+  text-decoration: underline;
+}
+
+.help-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+
+.help-modal h3 {
+  color: hotpink;
+}
+
+.help-modal i {
+  color: #f1b0b7;
+  margin-left: 5px;
 }
