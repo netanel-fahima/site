@@ -153,7 +153,7 @@ input[type="text"] {
 
 .help-link--mobile {
   top: unset;
-  bottom: 30%;
+  bottom: 20%;
   text-decoration: underline;
 }
 
