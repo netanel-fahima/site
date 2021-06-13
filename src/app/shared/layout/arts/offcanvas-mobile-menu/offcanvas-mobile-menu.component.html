@@ -10,7 +10,7 @@
     </div>
     <div class="offcanvas-menu">
       <ul>
-        <li *ngFor="let c of service.categoriesParent$ | async"
+        <li *ngFor="let c of service.categoriesParent$ | async | byOrder : ['menu_order']"
             class="{{service.hadChildren((service.categoriesChilds$|async),c.id) && 'has-children'}}">
           <a  [href]="service.navigateToProducts(c)">
             <span class="menu-text">{{c.name}}</span>
