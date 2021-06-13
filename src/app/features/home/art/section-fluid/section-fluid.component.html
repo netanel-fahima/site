@@ -3,12 +3,12 @@
   <div class="container">
     <div class="d-flex justify-content-center mb-4" style="font-size: 1.5rem">קטגוריות</div>
     <div class="category-banner1-carousel">
-      <div class="col" *ngFor="let c of  data.categories$ |async">
+      <div class="col" *ngFor="let c of  data.categories$ |async | byOrder : ['menu_order'] ">
         <div class="category-banner1">
           <div class="inner">
             <a (click)="router.navigateByUrl('product?category='+c.id).then()" class="image">
               <img
-              [src]="imageService.getImageSrc(
+                [src]="imageService.getImageSrc(
               c?.image?.name,
               {height: 260, width: 410, crop: 'fill'},
               'assets/images/banner/category/banner-s1-1.jpg')" alt="{{c.name}}"></a>
