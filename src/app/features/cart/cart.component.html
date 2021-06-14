@@ -21,7 +21,7 @@
         </tr>
         <tr *ngFor="let c of cart  ">
           <td class="thumbnail"><a href="product-details.html">
-            <img src="{{getImage(c.product.images) }}"></a>
+            <img src="{{getImage(c.product) }}"></a>
           </td>
           <td class="name"><a href="product-details.html">{{c.product.name}}</a>
             <span class="mr-2" *ngFor="let o of c?.options || []">{{o.value}}</span>

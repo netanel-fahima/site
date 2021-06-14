@@ -45,13 +45,14 @@ export class CartComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  removeCart(cart: any) {
+  removeCart(cart: any): void {
     this.store.dispatch(new productActions.RemoveVisualCart(EntityType.Carts, {id: cart.product.id, options: cart.options}));
   }
 
-  getImage(imgs: any): string {
+  getImage(product: any): string {
+    const image = product?.image ? product?.image : product?.images?.length ? product.images[0] : null;
     try {
-      const src = imgs?.[0] ? this.cloudinary.url(imgs[0].name,
+      const src = image ? this.cloudinary.url(image.name,
         {height: 100, width: 75, crop: 'fill'}) : 'assets/images/product/cart-product-1.jpg';
       return src;
     }

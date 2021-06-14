@@ -46,7 +46,9 @@ export class ProductDetails implements OnDestroy {
   }
 
   getImages(product): any[] {
-    const images = (product.image ? [product.image] : product.images);
+    const images = (product?.images?.length ?
+      ((product?.images?.length === 1 && product?.image) ? [product?.image] : product.images) :
+      (product?.image ? [product?.image] : []));
     return images;
   }
 

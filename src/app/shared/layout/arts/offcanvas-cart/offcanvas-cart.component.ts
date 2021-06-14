@@ -32,8 +32,9 @@ export class OffcanvasCartComponent implements OnInit, AfterViewInit {
 
 
   getImages(product: any): string {
+    const image = product?.image ? product?.image : product?.images?.length ? product.images[0] : null;
     try {
-      const src = product.images?.[0].src ? this.cloudinary.url(product.images?.[0].name,
+      const src = image ? this.cloudinary.url(image.name,
         {height: 100, width: 75, crop: 'fill'}) : 'assets/images/product/cart-product-1.jpg';
       return src;
     }
