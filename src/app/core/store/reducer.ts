@@ -110,6 +110,7 @@ const initialState: EntityState = {
     .set(EntityType.WishList, getLocalWishList())
     .set(EntityType.Customers, [])
     .set(EntityType.Orders, [])
+    .set(EntityType.Products, [])
     .set(EntityType.Delivery, null)
     .set(EntityType.ProductsVariations, null)
     .set(EntityType.Product, null),
@@ -146,6 +147,14 @@ export function ProductReducer(state = initialState, action: ProductActions): En
         error: state.error.set(action.cmd, '')
       };
     }
+    case ActionTypes.NextPage: {
+      return {
+        ...state,
+        entities: state.entities,
+        loaded: state.loaded.set(action.cmd, true),
+        error: state.error.set(action.cmd, '')
+      };
+    }
     case ActionTypes.Read: {
       return {
         ...state,
@@ -157,7 +166,7 @@ export function ProductReducer(state = initialState, action: ProductActions): En
     case ActionTypes.Added: {
       return {
         ...state,
-        entities: state.entities.set(action.cmd, [...state.entities.get(action.cmd), action.payload]),
+        entities: state.entities.set(action.cmd, state.entities.get(action.cmd).concat(action.payload)),
         loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, '')
       };

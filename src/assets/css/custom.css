@@ -174,3 +174,14 @@ input[type="text"] {
   color: #f1b0b7;
   margin-left: 5px;
 }
+
+@media (max-width: 700px) {
+
+  .pagination-scope {
+    flex-direction: column;
+  }
+
+  .pagination-scope > *:not(:first-child) {
+    margin-top: 1rem;
+  }
+}

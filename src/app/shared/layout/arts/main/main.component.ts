@@ -19,15 +19,21 @@ export class MainComponent implements OnInit, AfterContentInit {
   public loadingProducts$: Observable<boolean>;
   public loadingOrder$: Observable<boolean>;
   private loadingProduct$: Observable<boolean>;
+  private loadingCategories$: Observable<boolean>;
 
   constructor(private spinner: NgxSpinnerService, private store: Store) {
-
+    this.loadingCategories$ = this.store.pipe(select(fromProduct.getLoaded, {cmd: EntityType.Categories}));
     this.loadingProducts$ = this.store.pipe(select(fromProduct.getLoaded, {cmd: EntityType.Products}));
     this.loadingOrder$ = this.store.pipe(select(fromProduct.getLoaded, {cmd: EntityType.Orders}));
     this.loadingProduct$ = this.store.pipe(select(fromProduct.getLoaded, {cmd: EntityType.Product}));
 
 
     this.loadingProduct$
+      .subscribe(value => {
+        this.spinnerToggle(value);
+      });
+
+    this.loadingCategories$
       .subscribe(value => {
         this.spinnerToggle(value);
       });

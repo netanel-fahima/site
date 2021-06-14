@@ -11,6 +11,7 @@ export enum ActionTypes {
   Remove = '[Product] Remove',
   Updating = '[Product] Updating',
   Update = '[Product] Update',
+  NextPage = '[Product] NextPage',
 
   AddVisualCart = '[Cart] Add Visual',
   RemoveVisualCart = '[Cart] Remove Visual',
@@ -146,6 +147,15 @@ export class AddVisual extends EntityAction {
   }
 }
 
+
+export class NextPage extends EntityAction {
+  readonly type = ActionTypes.NextPage;
+
+  constructor(public cmd: string, public payload = {}) {
+    super(cmd);
+  }
+}
+
 export class Load extends EntityAction {
   readonly type = ActionTypes.Load;
 
@@ -197,6 +207,7 @@ export type ProductActions = Load
   | UpdateVisualWishList
   | Read
   | Updating
+  | NextPage
   ;
 
 

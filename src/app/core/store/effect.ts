@@ -36,6 +36,19 @@ export class ProductEffect {
   );
 
   @Effect()
+  loadNextProducts$: Observable<Action> = this.action$.pipe(
+    ofType(actions.ActionTypes.NextPage),
+    mergeMap(({cmd, payload}) => {
+      return this.service.getEntity(cmd, payload).pipe(
+        map((products) => {
+          return new actions.Added(cmd, products);
+        }),
+        catchError(err => of(new actions.LoadFail(cmd, err)))
+      );
+    })
+  );
+
+  @Effect()
   readProduct$: Observable<Action> = this.action$.pipe(
     ofType(actions.ActionTypes.Read),
     mergeMap(({cmd, payload}) => {

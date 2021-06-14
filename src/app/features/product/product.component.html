@@ -58,7 +58,6 @@
   <!-- Product Filter Start -->
 
   <!-- Product Filter End -->
-
   <div class="section learts-mt-70">
     <div class="container" *ngIf="!(loaded$|async)">
       <!-- Products Start -->
@@ -68,7 +67,7 @@
 
         <div class="grid-sizer col-1"></div>
 
-        <div class="grid-item col featured" *ngFor="let p of products$ ">
+        <div class="grid-item col featured" *ngFor="let p of products$ | byOrder: ['stock_status',false] ">
           <div class="product">
             <div class="product-thumb">
               <span class="product-badges" *ngIf="p.stock_status === 'outofstock' ">
@@ -109,8 +108,19 @@
 
       </div>
       <!-- Products End -->
-      <div class="text-center learts-mt-70">
-        <a href="" class="btn btn-dark btn-outline-hover-dark"><i class="ti-plus"></i> עוד</a>
+      <div class="pagination-scope d-flex justify-content-center">
+        <div class="text-center learts-mt-70 mr-3" *ngIf="hasPrev()">
+          <a href="#" class="btn btn-dark btn-outline-hover-dark" (click)="pevPage($event)">
+            דף קודם
+            <i class="fa fa-arrow-alt-left"></i>
+          </a>
+        </div>
+        <div class="text-center learts-mt-70" *ngIf="hasNext()">
+          <a href="#" class="btn btn-dark btn-outline-hover-dark" (click)="nextPage($event)">
+            דף הבא
+            <i class="fa fa-arrow-alt-right"></i>
+          </a>
+        </div>
       </div>
     </div>
   </div>

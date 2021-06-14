@@ -28,6 +28,8 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
   category = null;
   public loaded$: Observable<boolean>;
   private sub: Subscription;
+  private page = 1;
+  private lastScroll = 0;
 
   constructor(private store: Store, public data: EntityService, public route: ActivatedRoute, public router: Router,
               private detail: ProductDetails) {
@@ -35,14 +37,18 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.sub = this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       switchMap(() => {
-        this.category = route.snapshot.queryParamMap.get('category');
+        const category = route.snapshot.queryParamMap.get('category');
+        const pageS = route.snapshot.queryParamMap.get('page');
+        const page = pageS ? Number(pageS) : 1;
         let payload = {
-          per_page: '100'
+          per_page: '20',
+          page
         };
-        if (this.category) {
-          payload = {...payload, ...{category: this.category}};
+        if (category) {
+          payload = {...payload, ...{category}};
         }
         this.store.dispatch(new productActions.Load(EntityType.Products, payload));
+        this.category = category;
         this.loaded$ = this.store.pipe(select(fromProduct.getLoaded, {cmd: EntityType.Products}));
         return this.loaded$;
       }),
@@ -50,20 +56,6 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
       switchMap(params => {
         return this.data.products$.pipe(
           filter(value => value && !!value.length)
-          /*, map((products) => {
-            if (this.category) {
-              const pp = products.filter(product => {
-                return product.categories.find(c => {
-                  return c.id === +this.category;
-                });
-              });
-              console.log('categoryId', this.category);
-              return pp;
-            }
-            else {
-              return products;
-            }
-          })*/
         );
       })).subscribe(value => {
       Init.offcanvasClose();
@@ -118,4 +110,36 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
     Init.columnToggle();
     Init.addWishList();
   }
+
+
+  nextPage($event: MouseEvent): void {
+    $event.preventDefault();
+    const div = document.querySelector('.learts-mt-70');
+    window.scrollTo({top: 0});
+    const pageS = this.route.snapshot.queryParamMap.get('page');
+    const page = pageS ? Number(pageS) : 1;
+    const category = this.route.snapshot.queryParamMap.get('category');
+    this.router.navigateByUrl(`product?page=${page + 1}${this.category ? '&category=' + category : ''}`);
+  }
+
+  pevPage($event: MouseEvent): void {
+    $event.preventDefault();
+    const div = document.querySelector('.learts-mt-70');
+    window.scrollTo({top: 0});
+    const pageS = this.route.snapshot.queryParamMap.get('page');
+    const page = pageS ? Number(pageS) : 2;
+    const category = this.route.snapshot.queryParamMap.get('category');
+    this.router.navigateByUrl(`product?page=${page - 1}${category ? '&category=' + category : ''}`);
+  }
+
+  hasNext(): boolean {
+    return this.products$.length === 20;
+  }
+
+  hasPrev(): boolean {
+    const pageS = this.route.snapshot.queryParamMap.get('page');
+    return !!pageS && Number(pageS) > 1;
+  }
 }
+
+
