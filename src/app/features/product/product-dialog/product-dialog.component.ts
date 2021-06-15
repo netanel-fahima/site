@@ -5,6 +5,7 @@ import {delay} from 'rxjs/operators';
 import {ProductDetails} from '../product-details.service';
 import {Subject} from 'rxjs';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {Meta} from '@angular/platform-browser';
 
 
 @Component({
@@ -15,7 +16,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 export class ProductDialogComponent {
   public loaded: Subject<boolean>;
 
-  constructor(private spinner: NgxSpinnerService, public product: ProductDetails) {
+  constructor(private spinner: NgxSpinnerService, public product: ProductDetails, private meta: Meta) {
     this.loaded = new Subject<boolean>();
     this.loaded.next(false);
   }
@@ -29,12 +30,18 @@ export class ProductDialogComponent {
     this.product.product =
       this.product.mainProduct = product;
 
+
+
     this.product.product
       .pipe(delay(1000))
       .subscribe(p => {
         this.loaded.next(true);
         this.product.setVariations();
         this.spinner.hide();
+        this.meta.addTag({
+          name: 'Description',
+          content: `Product: ${p.name},Price ₪${p.price},Tags: ${p.tags.join(' ,')},`
+        });
       });
   }
 

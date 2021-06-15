@@ -11,6 +11,7 @@ import {Observable} from 'rxjs/internal/Observable';
 import {Subscription} from 'rxjs';
 import {AutoUnsub} from '../../../core/utils/auto-unsub';
 import * as fromProduct from '../../../core/store';
+import {Meta} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-details',
@@ -25,7 +26,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   private product$: Observable<any>;
 
-  constructor(private store: Store, private route: ActivatedRoute, public product: ProductDetails) {
+  constructor(private store: Store, private route: ActivatedRoute, public product: ProductDetails, private meta: Meta) {
     this.product$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Product}));
   }
 
@@ -47,8 +48,14 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
           switchMap((products) =>
             of(products?.[0])
           ));
-      })).subscribe(value => {
-      this.product.mainProduct = this.product.product = of(value);
+      })).subscribe(product => {
+
+      this.meta.addTag({
+        name: 'Description',
+        content: `Product: ${product.name},Price ₪${product.price},Tags: ${product.tags.join(' ,')},`
+      });
+
+      this.product.mainProduct = this.product.product = of(product);
       this.product.clear();
       this.product.setVariations();
       Init.offcanvasClose();

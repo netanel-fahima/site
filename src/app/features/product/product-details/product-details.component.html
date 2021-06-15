@@ -40,11 +40,11 @@
             <h3 class="product-title">{{(product.product |async).name}}</h3>
             <div class="product-price">{{(product.product |async).price | currency}}</div>
             <div class="product-description">
-              <p [innerHTML]="(product.product|async).short_description"></p>
-
+              <p [innerHTML]="(product.mainProduct |async).description"></p>
               <div *ngIf="!!(product.product |async).image">
-                <img src="{{product.getImage((product.product |async).image.name,{height: 200, width: 170, crop: 'fill'})}}"
-                     alt="{{(product.product |async).image.name}}">
+                <img
+                  src="{{product.getImage((product.product |async).image.name,{height: 200, width: 170, crop: 'fill'})}}"
+                  alt="{{(product.product |async).image.name}}">
               </div>
 
             </div>

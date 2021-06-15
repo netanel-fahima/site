@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, HostListener, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Init} from '../../../assets/js/init';
 import {ProductDialogComponent} from './product-dialog/product-dialog.component';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
@@ -13,6 +13,7 @@ import {ProductDetails} from './product-details.service';
 import * as fromProduct from '../../core/store';
 import {AutoUnsub} from '../../core/utils/auto-unsub';
 import {Subscription} from 'rxjs';
+import {Meta} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product',
@@ -23,16 +24,16 @@ import {Subscription} from 'rxjs';
 export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   @ViewChild('dialog', {static: true}) dialog: ProductDialogComponent;
+  private ones = 0;
+
 
   public products$: any;
   category = null;
   public loaded$: Observable<boolean>;
   private sub: Subscription;
-  private page = 1;
-  private lastScroll = 0;
 
   constructor(private store: Store, public data: EntityService, public route: ActivatedRoute, public router: Router,
-              private detail: ProductDetails) {
+              private detail: ProductDetails, private meta: Meta) {
 
     this.sub = this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
@@ -60,6 +61,14 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
       })).subscribe(value => {
       Init.offcanvasClose();
       this.products$ = value;
+      this.products$.forEach(p => {
+        this.meta.addTag({
+          name: 'Description',
+          content: `Product: ${p.name},Price ₪${p.price},Tags: ${p.tags.join(' ,')},`
+        });
+      });
+
+      Init.first();
     });
 
   }
@@ -68,9 +77,8 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   }
 
-
   ngAfterViewChecked(): void {
-    Init.first();
+    this.done();
   }
 
   getImage(product: any, options: object): string {
@@ -94,6 +102,7 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.dialog.open(of(product));
   }
 
+  @HostListener('unloaded')
   ngOnDestroy(): void {
   }
 
@@ -104,6 +113,7 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   done(): void {
+    console.log('done');
     Init.filterToggle();
     Init.isotopeFilter();
     Init.isotopeGrid();
@@ -140,6 +150,7 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
     const pageS = this.route.snapshot.queryParamMap.get('page');
     return !!pageS && Number(pageS) > 1;
   }
+
 }
 
 

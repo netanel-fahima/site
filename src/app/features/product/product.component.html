@@ -67,7 +67,8 @@
 
         <div class="grid-sizer col-1"></div>
 
-        <div class="grid-item col featured" *ngFor="let p of products$ | byOrder: ['stock_status',false] ">
+        <div class="grid-item col featured"
+             *ngFor="let p of products$ | byOrder: ['stock_status',false]">
           <div class="product">
             <div class="product-thumb">
               <span class="product-badges" *ngIf="p.stock_status === 'outofstock' ">
@@ -104,7 +105,9 @@
             </div>
           </div>
         </div>
-        {{done()}}
+        <!--
+            {{done()}}
+    -->
 
       </div>
       <!-- Products End -->
