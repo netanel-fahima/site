@@ -15,6 +15,8 @@ import {AutoUnsub} from '../../core/utils/auto-unsub';
 import {Subscription} from 'rxjs';
 import {Meta} from '@angular/platform-browser';
 
+declare var $: any;
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -23,14 +25,9 @@ import {Meta} from '@angular/platform-browser';
 @AutoUnsub()
 export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
 
-  @ViewChild('dialog', {static: true}) dialog: ProductDialogComponent;
-  private ones = 0;
-
-
-  public products$: any;
-  category = null;
-  public loaded$: Observable<boolean>;
-  private sub: Subscription;
+  private page = 1;
+  private perPage = 20;
+  public loadingProductNext$: Observable<boolean>;
 
   constructor(private store: Store, public data: EntityService, public route: ActivatedRoute, public router: Router,
               private detail: ProductDetails, private meta: Meta) {
@@ -39,15 +36,15 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
       filter(event => event instanceof NavigationEnd),
       switchMap(() => {
         const category = route.snapshot.queryParamMap.get('category');
-        const pageS = route.snapshot.queryParamMap.get('page');
-        const page = pageS ? Number(pageS) : 1;
+        this.page = 1;
         let payload = {
-          per_page: '20',
-          page
+          per_page: this.perPage,
+          page: this.page
         };
         if (category) {
           payload = {...payload, ...{category}};
         }
+
         this.store.dispatch(new productActions.Load(EntityType.Products, payload));
         this.category = category;
         this.loaded$ = this.store.pipe(select(fromProduct.getLoaded, {cmd: EntityType.Products}));
@@ -71,15 +68,24 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
       Init.first();
     });
 
+    this.loadingProductNext$ = this.store.pipe(select(fromProduct.getLoaded, {cmd: 'nextProducts'}));
   }
+
+  @ViewChild('dialog', {static: true}) dialog: ProductDialogComponent;
+  private ones = 1;
+
+
+  public products$: any;
+  category = null;
+  public loaded$: Observable<boolean>;
+  private sub: Subscription;
+
+  scrolled = 0;
 
   ngOnInit(): void {
 
   }
 
-  ngAfterViewChecked(): void {
-    this.done();
-  }
 
   getImage(product: any, options: object): string {
     const src = product.images?.[0]?.name ? this.detail.getImage(product.images?.[0].name, options) : 'sample';
@@ -112,30 +118,43 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
     Init.offcanvasOpenWishlist();
   }
 
+
+  ngAfterViewChecked(): void {
+    this.done();
+  }
+
   done(): void {
-    console.log('done');
-    Init.filterToggle();
-    Init.isotopeFilter();
-    Init.isotopeGrid();
-    Init.columnToggle();
-    Init.addWishList();
+    if (this.ones < 10) {
+      console.log('done');
+      Init.filterToggle();
+      Init.isotopeFilter();
+      /*
+            Init.isotopeGrid();
+      */
+      Init.columnToggle();
+      Init.addWishList();
+      this.ones++;
+    }
   }
 
 
   nextPage($event: MouseEvent): void {
     $event.preventDefault();
-    const div = document.querySelector('.learts-mt-70');
-    window.scrollTo({top: 0});
-    const pageS = this.route.snapshot.queryParamMap.get('page');
-    const page = pageS ? Number(pageS) : 1;
     const category = this.route.snapshot.queryParamMap.get('category');
-    this.router.navigateByUrl(`product?page=${page + 1}${this.category ? '&category=' + category : ''}`);
+    let payload = {
+      per_page: this.perPage,
+      page: ++this.page
+    };
+    if (category) {
+      payload = {...payload, ...{category}};
+    }
+    this.store.dispatch(new productActions.NextPage(EntityType.Products, payload));
   }
 
   pevPage($event: MouseEvent): void {
     $event.preventDefault();
     const div = document.querySelector('.learts-mt-70');
-    window.scrollTo({top: 0});
+    // window.scrollTo({top: 0});
     const pageS = this.route.snapshot.queryParamMap.get('page');
     const page = pageS ? Number(pageS) : 2;
     const category = this.route.snapshot.queryParamMap.get('category');
@@ -143,12 +162,23 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   hasNext(): boolean {
-    return this.products$.length === 20;
+    return this.products$.length % 20 === 0;
   }
 
   hasPrev(): boolean {
     const pageS = this.route.snapshot.queryParamMap.get('page');
     return !!pageS && Number(pageS) > 1;
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll($event): void {
+    const divY = $('.btn--next-page')?.get(0)?.getBoundingClientRect().top;
+    if (divY && divY <= window.innerHeight - 120) {
+      this.scrolled = 1;
+    }
+    else {
+      this.scrolled = 0;
+    }
   }
 
 }

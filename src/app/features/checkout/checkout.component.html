@@ -1,39 +1,47 @@
 <div class="section section-padding checkout">
   <div class="container wrap">
 
-    <div *ngIf="!order" class="checkout-coupon">
-      <p class="coupon-toggle">
-        <a href="#checkout-coupon-form" data-toggle="collapse" class="collapsed"
-           aria-expanded="false">
-          <span *ngIf="!coupons.length">לחצי כאן להזנת קופון</span>
-          <span *ngIf="coupons.length">לחצי כאן להזנת קופון נוסף</span>
-        </a>
-      </p>
-      <div id="checkout-coupon-form" class="collapse" style="">
-        <div class="coupon-form">
-          <p>.אם יש לך קופון אנא הזיני אותו פה</p>
-          <form action="#" class="learts-mb-n10">
-            <button (click)="addCoupon()" class="btn btn-dark btn-outline-hover-dark learts-mb-10"
-                    style="margin-right: 5px">אשרי קופון
-            </button>
-            <input class="learts-mb-10" type="text" [(ngModel)]="couponModel" placeholder="קוד קופון"
-                   [ngModelOptions]="{standalone: true}">
-          </form>
+    <div class="checkout--header">
+      <div class="checkout-whatsapp">
+        <a href="https://wa.me/972545394262"> לעזרה בתשלום בווצאפ</a>
+        <a href="https://wa.me/972545394262" class="mr-1 fa-whatsapp-icon" title="ווצאפ עזרה ועדכונים"></a>
+      </div>
+      <div *ngIf="!order" class="checkout-coupon">
+        <p class="coupon-toggle">
+          <a href="#checkout-coupon-form" data-toggle="collapse" class="collapsed"
+             aria-expanded="false">
+            <span *ngIf="!coupons.length">לחצי כאן להזנת קופון</span>
+            <span *ngIf="coupons.length">לחצי כאן להזנת קופון נוסף</span>
+          </a>
+        </p>
+        <div id="checkout-coupon-form" class="collapse" style="">
+          <div class="coupon-form">
+            <p>.אם יש לך קופון אנא הזיני אותו פה</p>
+            <form action="#" class="learts-mb-n10">
+              <button (click)="addCoupon()" class="btn btn-dark btn-outline-hover-dark learts-mb-10"
+                      style="margin-right: 5px">אשרי קופון
+              </button>
+              <input class="learts-mb-10" type="text" [(ngModel)]="couponModel" placeholder="קוד קופון"
+                     [ngModelOptions]="{standalone: true}">
+            </form>
+          </div>
+        </div>
+        <div *ngIf="coupons.length" class="mb-5">
+          <p>קופונים שנוספו</p>
+          <ul class="list-group-item-info p-2 mb-1" dir="rtl" style="list-style: none">
+            <li *ngFor="let c of coupons" class="d-flex "><i class="pointer-event ml-1" title="להסרת קופון"
+                                                             (click)="removeCoupon(c)">x</i>
+              <p>{{c.code}}</p></li>
+          </ul>
         </div>
       </div>
-      <div *ngIf="coupons.length" class="mb-5">
-        <p>קופונים שנוספו</p>
-        <ul class="list-group-item-info p-2 mb-1" dir="rtl" style="list-style: none">
-          <li *ngFor="let c of coupons" class="d-flex "><i class="pointer-event ml-1" title="להסרת קופון"
-                                                           (click)="removeCoupon(c)">x</i>
-            <p>{{c.code}}</p></li>
-        </ul>
-      </div>
     </div>
+
     <section class="d-flex flex-row-reverse flex-wrap learts-mb-30">
       <form action="#" *ngIf="!order" class="anyflexbox" [formGroup]="form" (ngSubmit)="onSubmit($event)">
         <div class="text-right text-info mb-4 w-100"><p>פרטי משלוח ותשלום</p></div>
-        <div class="animate__animated animate__bounceInUp text-right text-danger mb-4 w-100" *ngIf="submitted && form.invalid">
+        <div class="animate__animated animate__bounceInUp text-right text-danger mb-4 w-100"
+             *ngIf="submitted && form.invalid">
           שגיאות בטופס!
           אנא תקני
         </div>

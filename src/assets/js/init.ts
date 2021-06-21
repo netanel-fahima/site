@@ -29,6 +29,12 @@ export class Init {
 
     });
 
+    $('#couponModal').on('shown.bs.modal', e => {
+      // this.silckDialog();
+    }).on('hidden.bs.modal', e => {
+
+    });
+
     $.Scrollax();
     $.scrollUp({
       scrollText: '<i class="fal fa-long-arrow-up"></i>',
@@ -277,7 +283,7 @@ export class Init {
       $this.toggleClass('active').siblings().removeClass('active');
       $('.products').removeClass('row-cols-xl-' + $prevColumn).addClass('row-cols-xl-' + $column);
       $.fn.matchHeight._update();
-      $('.isotope-grid').isotope('layout');
+     /* $('.isotope-grid').isotope('layout');*/
     });
   }
 

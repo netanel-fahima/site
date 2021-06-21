@@ -151,7 +151,7 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       return {
         ...state,
         entities: state.entities,
-        loaded: state.loaded.set(action.cmd, true),
+        loaded: state.loaded.set('nextProducts', true),
         error: state.error.set(action.cmd, '')
       };
     }
@@ -167,7 +167,7 @@ export function ProductReducer(state = initialState, action: ProductActions): En
       return {
         ...state,
         entities: state.entities.set(action.cmd, state.entities.get(action.cmd).concat(action.payload)),
-        loaded: state.loaded.set(action.cmd, false),
+        loaded: state.loaded.set(action.cmd, false).set('nextProducts', false),
         error: state.error.set(action.cmd, '')
       };
     }

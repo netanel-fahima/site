@@ -5320,7 +5320,7 @@ body.offcanvas-open .sticky-header {
   }
 
   .home1-slide1-content .link a {
-    font-size: 8px;
+    font-size: 12px;
   }
 }
 
@@ -5471,7 +5471,7 @@ body.offcanvas-open .sticky-header {
   }
 
   .home1-slide2-content .link a {
-    font-size: 12px;
+    font-size: 15px;
   }
 }
 
@@ -5510,7 +5510,7 @@ body.offcanvas-open .sticky-header {
   }
 
   .home1-slide2-content .link a {
-    font-size: 10px;
+    font-size: 13px;
   }
 }
 
@@ -9367,7 +9367,7 @@ body.offcanvas-open .sticky-header {
 
 .sale-banner1 .inner .title {
   font-family: "Modesty";
-  font-size: 80px;
+  font-size: 67px;
   font-weight: 300;
   line-height: 1;
   margin-bottom: 3px;

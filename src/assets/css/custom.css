@@ -140,6 +140,17 @@ input[type="text"] {
   padding-right: 0;
 }
 
+.whatsapp-link {
+  position: absolute;
+  left: 1.5rem;
+  top: 5px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  color: #f1b0b7;
+  font-size: 1rem;
+}
+
 .help-link {
   position: absolute;
   right: 1.5rem;
@@ -152,8 +163,9 @@ input[type="text"] {
 }
 
 .help-link--mobile {
-  top: unset;
-  bottom: 20%;
+  position: relative;
+  top: 2rem;
+  right: 1rem;
   text-decoration: underline;
 }
 
@@ -163,6 +175,7 @@ input[type="text"] {
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
+  text-align-last: center;
 }
 
 
@@ -173,6 +186,7 @@ input[type="text"] {
 .help-modal i {
   color: #f1b0b7;
   margin-left: 5px;
+  font-size: 1.7rem;
 }
 
 @media (max-width: 700px) {
@@ -184,4 +198,83 @@ input[type="text"] {
   .pagination-scope > *:not(:first-child) {
     margin-top: 1rem;
   }
+}
+
+.logo-text {
+  animation: rotate 1s ease running;
+  transition: all 2s;
+  backface-visibility: hidden;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(-15deg) scale(0.2);
+  }
+  50% {
+    transform: rotate(15deg) scale(0.5);
+  }
+  100% {
+    transform: rotate(0) scale(1);
+  }
+
+}
+
+
+.hintT-top-mobile {
+  display: none;
+}
+
+
+@media only screen and (max-width: 479px) {
+  .hintT-top {
+    display: none;
+  }
+
+  .product-info .product-buttons .product-button {
+    width: 50px;
+    height: 50px;
+    margin: 0 5px;
+    text-align: center;
+    color: pink;
+    border-radius: 11px;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  .product-info .product-buttons .product-button i {
+    font-size: 18px;
+    line-height: 51px;
+  }
+
+  .hintT-top-mobile {
+    display: block;
+    position: absolute;
+    top: -160px;
+  }
+
+  .hintT-top-mobile:hover::before {
+    bottom: calc(100% + 30px);
+  }
+
+}
+
+
+.fa-whatsapp-icon {
+  background-image: url(../images/icons/whatsapp.png);
+  width: 2rem;
+  height: 2.5rem;
+  background-position: 50% 52%;
+  background-size: 221%;
+  margin: 0;
+}
+
+.checkout--header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.checkout-whatsapp {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row-reverse;
 }

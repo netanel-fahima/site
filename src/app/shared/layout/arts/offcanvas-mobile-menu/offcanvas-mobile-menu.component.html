@@ -1,18 +1,15 @@
 <div id="offcanvas-mobile-menu" class="offcanvas offcanvas-mobile-menu">
   <div class="inner customScroll">
-    <div class="offcanvas-menu-search-form">
-      <!--
-            <form action="#">
-              <input type="text" placeholder="חיפוש...">
-              <button><i class="fal fa-search"></i></button>
-            </form>
-      -->
+    <div class="head pb-2 mb-4" style="flex-direction: row-reverse;align-items: center">
+      <button class="offcanvas-close">×</button>
+      <a href="https://wa.me/972545394262" class="mr-1 fa-whatsapp-icon" title="ווצאפ עזרה ועדכונים"></a>
     </div>
+
     <div class="offcanvas-menu">
       <ul>
         <li *ngFor="let c of service.categoriesParent$ | async | byOrder : ['menu_order']"
             class="{{service.hadChildren((service.categoriesChilds$|async),c.id) && 'has-children'}}">
-          <a  [href]="service.navigateToProducts(c)">
+          <a [href]="service.navigateToProducts(c)">
             <span class="menu-text">{{c.name}}</span>
           </a>
           <ng-container *ngFor="let cc of service.categoriesChilds$ | async">
@@ -34,17 +31,17 @@
         </div>
       </div>
     </div>
-    <div class="help-link help-link--mobile">
-      <a href="#helpModal" data-toggle="modal">
-        <i class="fa fa-question"></i>
-        <span class="ml-1">צריכה עזרה</span>
-      </a>
-    </div>
     <div class="offcanvas-social">
       <a href="#"><i class="fab fa-facebook-f"></i></a>
       <a href="#"><i class="fab fa-twitter"></i></a>
       <a href="#"><i class="fab fa-instagram"></i></a>
       <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+    <div class="help-link help-link--mobile">
+      <a href="#helpModal" data-toggle="modal">
+        <i class="fa fa-question"></i>
+        <span class="ml-1">צריכה עזרה</span>
+      </a>
     </div>
   </div>
 </div>
