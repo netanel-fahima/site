@@ -1,0 +1,9 @@
+<div class="about-content section section-padding">
+  <div *ngIf="header|async">
+    <h1 class="header-text" [innerHTML]="header|async"></h1>
+    <div class="row-cols-1" [innerHTML]="text|async"></div>
+  </div>
+  <div *ngIf="!(header|async)" class="text-center">
+    <h4 class="fa fa-spinner mt-5">טוען</h4>
+  </div>
+</div>

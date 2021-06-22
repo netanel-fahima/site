@@ -278,3 +278,28 @@ input[type="text"] {
   display: flex;
   flex-direction: row-reverse;
 }
+
+.about-content {
+  direction: rtl;
+  padding: 1rem 5rem;
+  min-height: 80vh;
+}
+
+.header-text {
+  margin-top: 2rem;
+}
+
+.about-content .row-cols-1 {
+  padding: 1% 19%;
+  line-height: 2;
+  word-spacing: 9px
+}
+
+.tso-sec {
+  margin: .5rem;
+  text-decoration: underline !important;
+}
+
+.tso-sec a {
+  text-decoration: inherit;
+}

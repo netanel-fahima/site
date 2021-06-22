@@ -18,6 +18,8 @@ import {BankTransformComponent} from './checkout/bank-transform/bank-transform.c
 import {BitTransformComponent} from './checkout/bit-transform/bit-transform.component';
 import {CreditTransformComponent} from './checkout/credit-transform/credit-transform.component';
 import {CheckoutSubmitComponent} from './checkout/checkout-submit/checkout-submit.component';
+import {AboutComponent} from './about/about.component';
+import {TsoComponent} from './tso/tso.component';
 
 
 @NgModule({
@@ -28,6 +30,8 @@ import {CheckoutSubmitComponent} from './checkout/checkout-submit/checkout-submi
                  BitTransformComponent,
                  CreditTransformComponent,
                  CheckoutSubmitComponent,
+                 AboutComponent,
+                 TsoComponent,
   ],
   exports: [
     ProductDialogComponent,
@@ -39,6 +43,8 @@ import {CheckoutSubmitComponent} from './checkout/checkout-submit/checkout-submi
     CommonModule,
     RouterModule.forChild([
       {path: 'login', pathMatch: 'full', component: LoginComponent},
+      {path: 'about', pathMatch: 'full', component: AboutComponent},
+      {path: 'tso', pathMatch: 'full', component: TsoComponent},
       {path: 'account', pathMatch: 'full', component: AccountComponent},
       {path: 'lost-password', pathMatch: 'full', component: LostPasswordComponent},
       {path: 'shopping-cart', pathMatch: 'full', component: CartComponent},
