@@ -28,6 +28,7 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
   private page = 1;
   private perPage = 20;
   public loadingProductNext$: Observable<boolean>;
+  public categoryName;
 
   constructor(private store: Store, public data: EntityService, public route: ActivatedRoute, public router: Router,
               private detail: ProductDetails, private meta: Meta) {
@@ -42,6 +43,7 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
           page: this.page
         };
         if (category) {
+          this.categoryName = this.data.getCategoryName(category);
           payload = {...payload, ...{category}};
         }
 
@@ -88,7 +90,7 @@ export class ProductComponent implements OnInit, AfterViewChecked, OnDestroy {
 
 
   getImage(product: any, options: object): string {
-    const src = product.images?.[0]?.name ? this.detail.getImage(product.images?.[0].name, options) : 'sample';
+    const src = product.images?.[0]?.name ? product.images?.[0].name : 'sample';
     return src;
   }
 

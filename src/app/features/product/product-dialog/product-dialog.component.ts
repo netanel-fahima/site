@@ -40,7 +40,7 @@ export class ProductDialogComponent {
         this.spinner.hide();
         this.meta.addTag({
           name: 'Description',
-          content: `Product: ${p.name},Price ₪${p.price},Tags: ${p.tags.join(' ,')},`
+          content: `Product: ${p.name},Price ₪${p.price},SKU: ${p?.sku},Tags: ${p.tags.join(' ,')}, `
         });
       });
   }

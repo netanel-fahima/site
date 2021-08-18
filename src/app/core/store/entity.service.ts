@@ -55,5 +55,15 @@ export class EntityService {
       }));
   }
 
+  public getCategoryName = async (id) => {
+    return new Promise(resolve => {
+      let categories;
+      this.categories$.subscribe(value => {
+        categories = value;
+        resolve(categories?.find(c => c.id === +id));
+      });
+    });
+  }
+
 }
 

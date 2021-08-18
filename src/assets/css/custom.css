@@ -28,7 +28,7 @@ input {
 @media only screen and (max-width: 480px) {
   .product-thumb .add-to-wishlist {
     top: 0;
-    right: 3rem;
+    right: 0;
   }
 
   .product-badges {
@@ -230,29 +230,37 @@ input[type="text"] {
     display: none;
   }
 
+  .product-info .product-buttons {
+    position: absolute;
+  }
+
   .product-info .product-buttons .product-button {
-    width: 50px;
-    height: 50px;
+    width: 46px;
+    height: 46px;
     margin: 0 5px;
     text-align: center;
-    color: pink;
+    color: #eca3b0;
     border-radius: 11px;
     background-color: rgba(255, 255, 255, 0.9);
   }
 
   .product-info .product-buttons .product-button i {
     font-size: 18px;
-    line-height: 51px;
+    line-height: 48px;
   }
 
   .hintT-top-mobile {
     display: block;
     position: absolute;
-    top: -160px;
+    bottom: 52px;
   }
 
   .hintT-top-mobile:hover::before {
     bottom: calc(100% + 30px);
+  }
+
+  .products .product {
+    margin-bottom: 40px;
   }
 
 }
@@ -302,4 +310,127 @@ input[type="text"] {
 
 .tso-sec a {
   text-decoration: inherit;
+}
+
+
+@media only screen and (max-width: 576px) {
+
+  .products-container {
+    margin: 0 2px;
+    padding-right: 19px;
+    max-width: 100%;
+  }
+
+  .products-container .products > * {
+    -ms-flex: 0 0 50% !important;
+    flex: 0 0 50% !important;;
+    max-width: 50% !important;
+    padding: 0 2px !important;
+  }
+
+}
+
+.joinchat__button__open {
+  width: 60px;
+  height: 60px;
+  background: transparent url(../svg/download.svg) 50% no-repeat;
+  background-size: 60%;
+}
+[dir=rtl] .joinchat--left .joinchat__button {
+  flex-direction: row;
+}
+
+.joinchat--left .joinchat__button {
+  right: auto;
+  left: 8px;
+  flex-direction: row-reverse;
+}
+[dir=rtl] .joinchat__button {
+  flex-direction: row-reverse;
+}
+.joinchat__button {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  z-index: 2;
+  bottom: 8px;
+  left: 8px;
+  height: var(--btn);
+  min-width: var(--btn);
+  max-width: 95vw;
+  background: #25d366;
+  color: inherit;
+  box-shadow: 1px 6px 24px 0 rgb(7 94 84 / 24%);
+  cursor: pointer;
+  transition: background .2s linear;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  will-change: background-color,width;
+  border-radius: 55%;
+}
+.joinchat {
+  --red: 37;
+  --green: 211;
+  --blue: 102;
+}
+
+
+[dir=rtl] .joinchat--left .joinchat__button {
+  flex-direction: row;
+}
+
+.joinchat--left .joinchat__button {
+  right: auto;
+  left: 8px;
+  flex-direction: row-reverse;
+}
+
+.joinchat__button__sendtext {
+  padding: 0;
+  max-width: 0;
+  font-weight: 600;
+  line-height: 60px;
+  white-space: nowrap;
+  opacity: 0;
+  overflow: hidden;
+  transition: none;
+}
+
+.joinchat__button__send {
+  display: none;
+  width: 60px;
+  height: 60px;
+  max-width: 60px;
+  padding: 12px 11px 12px 13px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.joinchat__badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  background: #e82c0c;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: center;
+  box-shadow: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.joinchat__button__send .joinchat_svg__chat {
+  stroke-dasharray: 1020;
+  stroke-dashoffset: 1020;
+  animation: joinchat_chat 6s 3.2s ease-in-out infinite;
+}
+
+.joinchat__button__send path {
+  fill: none!important;
+  stroke: rgba(var(--bw),var(--bw),var(--bw),clamp(0.7,var(--bw),1))!important;
 }

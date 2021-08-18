@@ -6,13 +6,12 @@
         <!-- Product Images Start -->
         <div class="col-lg-6 col-12 learts-mb-40 f-base">
           <div class="product-images">
-            <button class="product-gallery-popup hintT-left" data-hint="לחץ להגדלה"
-                    data-images="">
-              <i class="far fa-expand"></i></button>
+            <button class="product-gallery-popup hintT-left" data-hint="לחץ להגדלה" data-images="">
+              <i class="fal fa-search"></i></button>
             <div class="product-gallery-slider">
               <div *ngFor="let image of product.getImages((product.product |async));let i = index"
                    [className]="product.imgService.randomImg()" class="product-zoom">
-                <img src="{{product.getImage(image.name,{height: 540, width: 400, crop: 'fill'})}}"
+                <img src="{{product.getImage(image.name,{height: 570, width: 400, crop: 'fill'})}}"
                      alt="{{image.name}}">
               </div>
             </div>
@@ -95,7 +94,7 @@
                   <td class="value">
                     <ul class="product-category">
                       <li *ngFor="let category of (product.product |async).categories"><a
-                        href="#">{{category.name}}</a></li>
+                        [href]="'#product?category=' + category.id">{{category.name}}</a></li>
                     </ul>
                   </td>
                 </tr>

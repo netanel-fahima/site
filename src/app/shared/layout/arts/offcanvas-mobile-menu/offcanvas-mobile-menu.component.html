@@ -7,6 +7,11 @@
 
     <div class="offcanvas-menu">
       <ul>
+        <li>
+          <a href="#home">
+            <span class="menu-text">דף הבית</span>
+          </a>
+        </li>
         <li *ngFor="let c of service.categoriesParent$ | async | byOrder : ['menu_order']"
             class="{{service.hadChildren((service.categoriesChilds$|async),c.id) && 'has-children'}}">
           <a [href]="service.navigateToProducts(c)">
@@ -17,6 +22,12 @@
               <li><a [href]="service.navigateToProducts(cc)"><span class="menu-text">{{cc.name}}</span></a></li>
             </ul>
           </ng-container>
+        </li>
+
+        <li>
+          <a href="#contact">
+            <span class="menu-text">צור קשר</span>
+          </a>
         </li>
       </ul>
     </div>

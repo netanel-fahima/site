@@ -33,10 +33,10 @@ export class MainComponent implements OnInit, AfterContentInit {
         this.spinnerToggle(value);
       });
 
-    this.loadingCategories$
+/*    this.loadingCategories$
       .subscribe(value => {
         this.spinnerToggle(value);
-      });
+      });*/
 
     this.loadingProducts$
       .subscribe(value => {
