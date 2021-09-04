@@ -1,6 +1,6 @@
 <div class="section section-padding" dir="rtl">
-  <div class="container">
-    <form class="cart-form" action="#">
+  <div class="mr-5 ml-5 row flex-wrap justify-content-center align-items-center">
+    <form class="cart-form col-lg-9 col-md-9 col-sm-12 " action="#">
       <table class="cart-wishlist-table table">
         <thead>
         <tr>
@@ -12,7 +12,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngIf="!cart.length">
+        <tr *ngIf="!cart?.length">
           <td>
             <p>
               העגלה ריקה , פנקי את עצמך!
@@ -21,23 +21,21 @@
         </tr>
         <tr *ngFor="let c of cart  ">
           <td class="thumbnail"><a href="product-details.html">
-            <img src="{{getImage(c.product) }}"></a>
+            <img src="{{getImage(c.featured_image) }}"></a>
           </td>
-          <td class="name"><a href="product-details.html">{{c.product.name}}</a>
-            <span class="mr-2" *ngFor="let o of c?.options || []">{{o.value}}</span>
-          </td>
-          <td class="price"><span>{{c.product.price | currency}}</span></td>
+          <td class="price"><span>{{c.price | currency}}</span></td>
           <td class="quantity">
             <div class="product-quantity">
-              <span class="qty-btn plus" (click)="c.quantity = c.quantity  +1"><i class="ti-plus"></i></span>
+              <span class="qty-btn plus" (click)="c.quantity = c.quantity.value  +1"><i class="ti-plus"></i></span>
               <input type="number" class="input-qty"
-                     [(ngModel)]="c.quantity" value="{{c.quantity}}" (ngModelChange)="alert(c.quantity)"
+                     [(ngModel)]="c.quantity.value" value="{{c.quantity.value}}"
+                     (ngModelChange)="alert(c.quantity.value)"
                      [ngModelOptions]="{standalone: true}">
-              <span class="qty-btn minus" (click)="c.quantity = c.quantity > 0 ? c.quantity  - 1 : 0 "><i
+              <span class="qty-btn minus" (click)="c.quantity = c.quantity.value > 0 ? c.quantity.value  - 1 : 0 "><i
                 class="ti-minus"></i></span>
             </div>
           </td>
-          <td class="subtotal"><span>{{c.product.price * c.quantity| currency}}</span></td>
+          <td class="subtotal"><span>{{c.price * c.quantity.value| currency}}</span></td>
           <td class="remove"><a (click)="removeCart(c)" class="btn">×</a></td>
         </tr>
 
@@ -58,9 +56,7 @@
         </div>
       </div>
     </form>
-
-
-    <div class="cart-totals mt-5">
+    <div class="cart-totals  col-lg-3 col-md-3 col-sm-10 mt-sm-5">
       <h2 class="title">מחיר עגלה</h2>
       <table>
         <tbody>

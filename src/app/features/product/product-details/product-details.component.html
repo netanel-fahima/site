@@ -60,6 +60,7 @@
                     </div>
                   </td>
                 </tr>
+                {{product.err}}
                 <tr *ngIf="product.withQuntity((product.product|async))">
                   <td class="label"><span>כמות</span></td>
                   <td class="value">

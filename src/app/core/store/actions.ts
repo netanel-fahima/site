@@ -3,7 +3,9 @@ import {Action} from '@ngrx/store';
 
 export enum ActionTypes {
   Load = '[Product] Load',
+  LoadCart = '[Cart] Load',
   LoadSuccess = '[Product] Load Success',
+  LoadCartSuccess = '[Cart] Load Success',
   LoadFail = '[Product] Load Fail',
   Add = '[Product] Add',
   Read = '[Product] Read',
@@ -13,8 +15,13 @@ export enum ActionTypes {
   Update = '[Product] Update',
   NextPage = '[Product] NextPage',
 
+  AddingVisualCart = '[Cart] Adding Visual',
   AddVisualCart = '[Cart] Add Visual',
+  AddingCoupon = '[Coupon] Adding Visual',
+  AddCoupon = '[Coupon] Add Visual',
+
   RemoveVisualCart = '[Cart] Remove Visual',
+  RemovedVisualCart = '[Cart] Removed Visual',
   UpdateVisualCart = '[Cart] Update Visual',
   AddVisualWishList = '[WishList] Add Visual',
   RemoveVisualWishList = '[WishList] Remove Visual',
@@ -30,7 +37,8 @@ export enum EntityType {
   Product = 'products/<id>',
   ProductsVariations = 'products/<id>/variations',
   UpdateOrder = 'orders/<id>',
-  Carts = 'carts',
+  Carts = 'cart',
+  Coupon = 'coupon',
   WishList = 'wishList',
   Customers = 'customers',
   Categories = 'products/categories',
@@ -139,6 +147,30 @@ export class AddDeliveryVisual extends EntityAction {
 }
 
 
+export class AddCoupon extends EntityAction {
+  readonly type = ActionTypes.AddCoupon;
+
+  constructor(public cmd: string, public payload: any) {
+    super(cmd);
+  }
+}
+
+export class AddingCoupon extends EntityAction {
+  readonly type = ActionTypes.AddingCoupon;
+
+  constructor(public cmd: string, public payload: any) {
+    super(cmd);
+  }
+}
+
+export class AddingVisualCart extends EntityAction {
+  readonly type = ActionTypes.AddingVisualCart;
+
+  constructor(public cmd: string, public payload: any) {
+    super(cmd);
+  }
+}
+
 export class AddVisual extends EntityAction {
   readonly type = ActionTypes.AddVisualCart;
 
@@ -156,6 +188,13 @@ export class NextPage extends EntityAction {
   }
 }
 
+export class LoadCart {
+  readonly type = ActionTypes.LoadCart;
+
+  constructor(public payload = {}) {
+  }
+}
+
 export class Load extends EntityAction {
   readonly type = ActionTypes.Load;
 
@@ -170,6 +209,13 @@ export class Read extends EntityAction {
 
   constructor(public cmd: string, public payload: object) {
     super(cmd);
+  }
+}
+
+export class LoadCartSuccess {
+  readonly type = ActionTypes.LoadCartSuccess;
+
+  constructor(public payload: any) {
   }
 }
 
@@ -194,6 +240,7 @@ export class LoadFail extends EntityAction {
 export type ProductActions = Load
   | LoadSuccess
   | LoadFail
+  | LoadCart
   | Add
   | Added
   | Remove
@@ -208,6 +255,8 @@ export type ProductActions = Load
   | Read
   | Updating
   | NextPage
+  | LoadCartSuccess
+  |AddCoupon
   ;
 
 

@@ -16,6 +16,7 @@ import {Observable} from 'rxjs/internal/Observable';
 export class ApiService {
 
   constructor(private http: HttpClient) {
+
   }
 
   private basicAuth(key, secret): OAuth {
@@ -33,18 +34,18 @@ export class ApiService {
     return oauth;
   }
 
-  public get(cmd: string, args: object): Observable<any> {
+  public get(cmd: string, args: object, wcEndpoint = env.wcEndpoint): Observable<any> {
 
     const auth = this.basicAuth(env.woocommerce.consumer_key, env.woocommerce.consumer_secret);
     const requestData = {
-      url: `${env.origin}/${env.wcEndpoint}/${cmd}`,
+      url: `${env.origin}/${wcEndpoint}/${cmd}`,
       method: 'GET'
     };
 
-    const params = env.production ? {...{per_page: '100'}, ...args} : {};
+    const params = env.production && wcEndpoint === env.wcEndpoint ? {...{per_page: '100'}, ...args} : {};
     return this.http.get<any>(
       requestData.url +
-      (env.production ? `?consumer_key=${env.woocommerce.consumer_key}&consumer_secret=${env.woocommerce.consumer_secret}`
+      (env.production && wcEndpoint === env.wcEndpoint ? `?consumer_key=${env.woocommerce.consumer_key}&consumer_secret=${env.woocommerce.consumer_secret}`
         : '?' + $.param(auth.authorize(requestData))),
       {params}
     )
@@ -57,14 +58,14 @@ export class ApiService {
       );
   }
 
-  public put(cmd: string, body: object): Promise<object> {
-    return this.post(cmd, body, 'PUT');
+  public put(cmd: string, body: object, wcEndpoint = env.wcEndpoint): Promise<object> {
+    return this.post(cmd, body, 'PUT', wcEndpoint);
   }
 
-  public async post(cmd: string, body: object, method = 'POST'): Promise<object> {
+  public async post(cmd: string, body: object, method = 'POST', wcEndpoint = env.wcEndpoint): Promise<object> {
     const auth = this.basicAuth(env.woocommerce.consumer_key, env.woocommerce.consumer_secret);
     const requestData = {
-      url: `${env.origin}/${env.wcEndpoint}/${cmd}`,
+      url: `${env.origin}/${wcEndpoint}/${cmd}`,
       method
     };
 
@@ -92,14 +93,15 @@ export class ApiService {
   }
 
 
-  public async delete(cmd: string): Promise<object> {
+  public async delete(cmd: string, wcEndpoint = env.wcEndpoint): Promise<object> {
+
     const auth = this.basicAuth(env.woocommerce.consumer_key, env.woocommerce.consumer_secret);
     const requestData = {
-      url: `${env.origin}/${env.wcEndpoint}/${cmd}`,
+      url: `${env.origin}/${wcEndpoint}${cmd}`,
       method: 'DELETE'
     };
 
-    const response = await fetch(requestData.url + '?' + $.param(auth.authorize(requestData)), {
+    const response = await fetch(requestData.url + '&' + $.param(auth.authorize(requestData)), {
       method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
       redirect: 'follow', // manual body data type must match "Content-Type" header
     });

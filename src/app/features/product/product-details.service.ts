@@ -8,7 +8,7 @@ import {Cloudinary} from '@cloudinary/angular-5.x';
 import {first, switchMap, withLatestFrom} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
 import {Init} from '../../../assets/js/init';
-import {Subscriber, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {ImageServiceService} from '../../core/utils/image-service.service';
 import {AutoUnsub} from '../../core/utils/auto-unsub';
 
@@ -24,11 +24,15 @@ export class ProductDetails implements OnDestroy {
   public product: Observable<any>;
   public options: any = [];
   public quantity: any = 1;
+  public err: string;
 
   constructor(public data: EntityService, public store: Store, private cloudinary: Cloudinary, public imgService: ImageServiceService) {
+    this.err = '';
     this.emitter.subscribe(_ => {
 
     });
+
+
   }
 
   getImage(img: any, conf: object = {height: 900, width: 600, crop: 'fill'}): string {
@@ -73,7 +77,7 @@ export class ProductDetails implements OnDestroy {
                 .filter(a => !!vars.attributes.find(o => o.name === a.key));
 
               return selected.filter(o => {
-                return vars.attributes.find(v => v.option === o.value);
+                return vars.attributes.find(v => v.option.toUpperCase() === o.value.toUpperCase());
               }).length === selected.length;
             }
           );
@@ -96,10 +100,12 @@ export class ProductDetails implements OnDestroy {
         const attributes = [...mainProduct.attributes];
         if (attributes.length !== this.options?.length) {
           alert(` נא לבחור  ${attributes.map(a => a.name).join(' ,')}`);
+          this.err = ` נא לבחור  ${attributes.map(a => a.name).join(' ,')}`;
           return;
         }
         if (product.stock_status === 'outofstock') {
           alert(`אזל מהמלאי`);
+          this.err = `אזל מהמלאי`;
           return;
         }
         const mainVariation = product.attributes;
@@ -111,35 +117,42 @@ export class ProductDetails implements OnDestroy {
           mainVariation
             .filter(o => !o?.options)
             .filter(a => {
-              return selectedVariation.find(o => o.value === a.option);
+              return selectedVariation.find(o => o.value.toUpperCase() === a.option.toUpperCase());
             });
 
         if (matchVariation.length !== selectedVariation.length) {
           alert(`אזל מהמלאי`);
+          this.err = `אזל מהמלאי`;
           return;
         }
 
         if (product.stock_quantity && product.stock_quantity < this.quantity) {
           if (selectedVariation.length > 0) {
-            alert(
+            this.err = (
               ` אין מספיק כמות מהמוצר עם תכונה הנוכחית ${selectedVariation.map(a => a.value).join(' ו ')} נשארו${product.stock_quantity}`);
+            alert(this.err);
           }
           else {
-            alert(
+            this.err = (
               ` אין מספיק כמות מהמוצר נשארו ${product.stock_quantity}`);
+            alert(this.err);
 
           }
           return;
         }
 
-        this.store.dispatch(new productActions.AddVisual(EntityType.Carts, {
-          product: {...product, parentId: mainProduct.id},
-          quantity: this.quantity,
-          options: this.options
+
+        this.data.cart$.subscribe(value => {
+          Init.offcanvasOpen();
+        });
+
+        this.store.dispatch(new productActions.AddingVisualCart(EntityType.Carts, {
+          id: String(product.id),
+          quantity: String(this.quantity),
         }));
-        Init.offcanvasOpen();
       });
   }
+
 
   addToWithList(): void {
     this.product.subscribe(product => {

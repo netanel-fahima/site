@@ -15,8 +15,12 @@ import {Init} from '../../../../../assets/js/init';
 
 export class OffcanvasCartComponent implements OnInit, AfterViewInit {
 
+  private products: any;
 
   constructor(public data: EntityService, private store: Store, private cloudinary: Cloudinary) {
+    this.data.products$.subscribe(value => {
+      this.products = value;
+    });
   }
 
   ngOnInit(): void {
@@ -27,11 +31,14 @@ export class OffcanvasCartComponent implements OnInit, AfterViewInit {
   }
 
   removeCart(cart): void {
-    this.store.dispatch(new productActions.RemoveVisualCart(EntityType.Carts, {id: cart.product.id, options: cart.options}));
+    this.store.dispatch(new productActions.RemoveVisualCart(EntityType.Carts, {id: cart.item_key, cart_key: cart.cart_key}));
   }
 
 
-  getImages(product: any): string {
+  getImages(id: any): string {
+
+    const product = this.products.find(p => p.id === id);
+
     const image = product?.image ? product?.image : product?.images?.length ? product.images[0] : null;
     try {
       const src = image ? this.cloudinary.url(image.name,

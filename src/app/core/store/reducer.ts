@@ -99,12 +99,16 @@ const addProductToLocal = (type, localCart, {product, quantity, options = []}): 
 export interface EntityState {
   toggleCheckBox: boolean;
   entities: Map<string, any[]>;
+  cart: any;
+  coupon: any;
   loaded: Map<string, boolean>;
   error: Map<string, any>;
 }
 
 const initialState: EntityState = {
   toggleCheckBox: true,
+  cart: undefined,
+  coupon:undefined,
   entities: new Map<string, any[]>()
     .set(EntityType.Carts, getLocalCart())
     .set(EntityType.WishList, getLocalWishList())
@@ -147,6 +151,14 @@ export function ProductReducer(state = initialState, action: ProductActions): En
         error: state.error.set(action.cmd, '')
       };
     }
+    case ActionTypes.LoadCartSuccess: {
+      return {
+        ...state,
+        cart: action.payload,
+        loaded: state.loaded.set(EntityType.Carts, true),
+        error: state.error.set(EntityType.Carts, '')
+      };
+    }
     case ActionTypes.NextPage: {
       return {
         ...state,
@@ -187,18 +199,18 @@ export function ProductReducer(state = initialState, action: ProductActions): En
         error: state.error.set(action.cmd, '')
       };
     }
-    case ActionTypes.AddVisualCart: {
+    case ActionTypes.AddCoupon: {
       return {
         ...state,
-        entities: state.entities.set(action.cmd, addToCart(getLocalCart(), action.payload)),
+        coupon: action.payload,
         loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, '')
       };
     }
-    case ActionTypes.RemoveVisualCart: {
+    case ActionTypes.AddVisualCart: {
       return {
         ...state,
-        entities: state.entities.set(action.cmd, removeFromLocalCart(getLocalCart(), action.payload.id, action.payload.options)),
+        cart: action.payload,
         loaded: state.loaded.set(action.cmd, false),
         error: state.error.set(action.cmd, '')
       };

@@ -30,6 +30,21 @@ export const getEntities = createSelector(
   }
 );
 
+export const getCart = createSelector(
+  getProductFeatureState,
+  (state) => {
+    return state.cart?.items;
+  }
+);
+
+
+export const getCartDetails = createSelector(
+  getProductFeatureState,
+  (state) => {
+    return state.cart;
+  }
+);
+
 export const getLoaded = createSelector(
   getProductFeatureState,
   (state, {cmd}) => {

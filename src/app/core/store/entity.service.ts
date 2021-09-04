@@ -23,15 +23,19 @@ export class EntityService {
   public orders$: Observable<any[]>;
   public delivery$: Observable<any[]>;
   productsVariations$: Observable<any>;
+  public cartDetails$: Observable<any>;
 
   constructor(private store: Store) {
     this.store.dispatch(new productActions.Load(EntityType.Categories));
     this.store.dispatch(new productActions.Load(EntityType.Customers));
 
+    this.store.dispatch(new productActions.LoadCart(EntityType.Carts));
+
     this.categories$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Categories}));
     this.products$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Products}));
     this.productsVariations$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.ProductsVariations}));
-    this.cart$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Carts}));
+    this.cart$ = this.store.pipe(select(fromProduct.getCart));
+    this.cartDetails$ = this.store.pipe(select(fromProduct.getCartDetails));
     this.wishlist$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.WishList}));
     this.orders$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.Orders}));
     this.users$ = this.store.select(getUser);
@@ -41,12 +45,11 @@ export class EntityService {
   }
 
   public totalCart(withDelivery: boolean = false): Observable<any> {
-    return this.cart$.pipe(
+    return this.cartDetails$.pipe(
+      filter(value => !!value?.totals),
       withLatestFrom(this.delivery$),
       switchMap(([cart, delivery]) => {
-        const total = cart.reduce((previousValue, currentValue) => {
-          return previousValue += Number(currentValue.product.price) * currentValue.quantity;
-        }, 0);
+        const total = cart.totals.total;
         if (withDelivery) {
           // @ts-ignore
           return of(total + (+delivery?.settings?.cost?.value || 0));

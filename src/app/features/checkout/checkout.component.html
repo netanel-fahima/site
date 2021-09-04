@@ -206,9 +206,10 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let o of data.cart$ |async">
-                <td class="total"><span>{{o.product.price * o.quantity | currency}}</span></td>
-                <td class="name">{{o.product.name}}&nbsp; <strong class="quantity">×&nbsp;{{o.quantity}} </strong></td>
+              <tr *ngFor="let cart of data.cart$ |async">
+                <td class="total"><span>{{cart.price * cart.quantity.value | currency}}</span></td>
+                <td class="name">{{cart.name}}&nbsp; <strong class="quantity">×&nbsp;{{cart.quantity.value}} </strong>
+                </td>
               </tr>
               </tbody>
               <tfoot>
@@ -217,13 +218,13 @@
                 <th>משלוח</th>
               </tr>
               <tr class="subtotal">
-                <td><span>{{data.totalCart(true) |async| currency}}</span></td>
+                <td><span>{{(data.cartDetails$ |async)?.totals.subtotal| currency}}</span></td>
                 <th>סכום ביניים</th>
               </tr>
               <tr class="subtotal" *ngIf="order && coupons.length">
                 <td>
                   <strong>
-                    <span>{{((data.totalCart(true) |async) - order.total)|currency}}</span>
+                    <span>{{(data.cartDetails$ |async)?.totals.discount_total|currency}}</span>
                   </strong>
                 </td>
                 <th><span *ngIf="order && coupons.length">הנחה</span></th>
@@ -231,7 +232,7 @@
               <tr class="total">
                 <td>
                   <strong>
-                    <span>{{order ? (order.total | currency) : data.totalCart(true) |async | currency}}</span>
+                    <span>{{(data.cartDetails$ |async)?.totals.total|currency}}</span>
                   </strong>
                 </td>
                 <th>סך הכל<span *ngIf="order && coupons.length"> לאחר קופון </span></th>

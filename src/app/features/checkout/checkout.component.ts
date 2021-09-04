@@ -23,6 +23,8 @@ import {scrollToTop} from '../../shared/utils/layoytUtils';
 })
 export class CheckoutComponent implements OnInit, AfterViewChecked {
 
+  private cart = [];
+
   constructor(public data: EntityService, public store: Store, private formBuilder: FormBuilder) {
     this.store.dispatch(new actions.Load(getLocalUser()));
     this.autError$ = this.store.select(getErr);
@@ -30,6 +32,7 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
     this.orderLoad$ = this.store.select(getLoaded, {cmd: EntityType.Orders});
     this.store.dispatch(new productActions.Load(EntityType.ShippingMethods));
     this.shippingMethods$ = this.store.pipe(select(fromProduct.getEntities, {cmd: EntityType.ShippingMethods}));
+    this.data.cart$.subscribe(value => this.cart = value);
   }
 
   get f(): { [p: string]: AbstractControl } {
@@ -86,11 +89,10 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
 
     const subOrder = this.data.delivery$.subscribe((delivery: any) => {
 
-      const lineItems = getLocalCart().map(item => {
+      const lineItems = this.cart.map(item => {
         return {
-          product_id: item.product.id,
-          quantity: item.quantity,
-          meta_data: item.options
+          product_id: item.id,
+          quantity: item.quantity.value,
         };
       });
       this.store.dispatch(new productActions.Add(EntityType.Orders, {
@@ -199,6 +201,10 @@ export class CheckoutComponent implements OnInit, AfterViewChecked {
     };
     this.removeCoupon(coupon);
     this.coupons.push(coupon);
+    this.store.dispatch(new productActions.AddingCoupon(EntityType.Coupon, {
+      coupon: this.couponModel,
+      cart_key: 'cd65fc3efac58de0088cebde953a4568'
+    }));
   }
 
   removeCoupon(c: any): void {
